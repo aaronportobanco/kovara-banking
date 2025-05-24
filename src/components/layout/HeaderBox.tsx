@@ -8,9 +8,14 @@ const HeaderBox = ({
 }: HeaderBoxProps) => {
   return (
     <div className={`header-box ${type}`}>
-      <h2 className="header-title">{title}</h2>
-      {subtext && <p className="header-subtext">{subtext}</p>}
-      {user && <p>Logged in as: {user}</p>}
+      <h1 className="header-box-title">
+        {title}
+        {/* Display user name if type is greeting */}
+        {type === "greeting" && (
+          <span className="text-bankGradient"> &nbsp;{user}</span>
+        )}
+      </h1>
+      <p className="header-box-subtext">{subtext}</p>
     </div>
   );
 };
