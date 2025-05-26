@@ -21,6 +21,30 @@ export const sidebarLinks = [
   },
 ];
 
+export const accounts = [
+  {
+    id: "acc1",
+    name: "Banco Lafise",
+    currentBalance: 1200,
+  },
+  {
+    id: "acc2",
+    name: "Banco de América Central",
+    currentBalance: 3400,
+  },
+  {
+    id: "acc3",
+    name: "BAC Credomatic",
+    currentBalance: 2300,
+  },
+  {
+    id: "acc4",
+    name: "Banco ProCredit",
+    currentBalance: 1700,
+  },
+];
+
+
 // good_user / good_password - Bank of America
 export const TEST_USER_ID = "6627ed3d00267aa6fa3e";
 
