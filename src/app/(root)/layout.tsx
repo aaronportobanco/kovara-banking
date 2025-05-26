@@ -15,7 +15,7 @@ export default async function RootLayout({
   return (
     <SidebarProvider defaultOpen={defaultOpen} >
       <AppSidebar />
-      <SidebarInset className="rounded-[10px] shadow-md m-3">
+      <SidebarInset className="rounded-[8px] shadow-md m-3">
         <SiteHeader />
         <main className="flex h-screen px-4">
           {children}
