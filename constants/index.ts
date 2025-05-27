@@ -21,6 +21,44 @@ export const sidebarLinks = [
   },
 ];
 
+
+// Menu items.
+import {
+  Landmark,
+  Home,
+  ScrollText,
+  CreditCard,
+  ArrowLeftRight,
+} from "lucide-react";
+export const items = [
+  {
+    title: "Home",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "My Banks",
+    url: "/banks",
+    icon: Landmark,
+  },
+  {
+    title: "Transactions History",
+    url: "/transactions",
+    icon: ScrollText,
+  },
+  {
+    title: "Payment Transfer",
+    url: "/transfer",
+    icon: ArrowLeftRight,
+  },
+  {
+    title: "Connect Bank Account",
+    url: "/connect",
+    icon: CreditCard,
+  },
+];
+
+
 export const accounts = [
   {
     id: "acc1",
