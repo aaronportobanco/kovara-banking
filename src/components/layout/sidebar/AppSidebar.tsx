@@ -18,6 +18,7 @@ import { usePathname } from "next/navigation";
 import { NavUser } from "./NavUser";
 import { Separator } from "@/components/ui/separator";
 import { ArrowUpCircleIcon } from "lucide-react";
+import { Tooltip } from "@/components/ui/tooltip";
 
 const user = {
   name: "shadcn",
@@ -62,17 +63,21 @@ const AppSidebar = () => {
                   const isActive = pathname === item.url;
                   return (
                     <SidebarMenuItem key={item.title} className="w-full">
-                      <SidebarMenuButton
-                        asChild
-                        isActive={isActive}
-                        className={isActive ? "sidebar-link-active" : undefined}
-                      >
-                        {/* Using `asChild` to allow custom components like Link */}
-                        <Link href={item.url}>
-                          <item.icon />
-                          <span>{item.title}</span>
-                        </Link>
-                      </SidebarMenuButton>
+                      <Tooltip>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={isActive}
+                          className={
+                            isActive ? "sidebar-link-active" : undefined
+                          }
+                        >
+                          {/* Using `asChild` to allow custom components like Link */}
+                          <Link href={item.url}>
+                            <item.icon />
+                            <span>{item.title}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </Tooltip>
                     </SidebarMenuItem>
                   );
                 })}
