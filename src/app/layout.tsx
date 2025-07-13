@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description: "A modern banking app for everyone",
   icons: [
     {
-      url: "/icons/favicon-dark.ico",
+      url: "/logo/favicon-dark.svg",
       media: "(prefers-color-scheme: light)",
     },
     {
-      url: "/icons/favicon-light.ico",
+      url: "/logo/favicon-light.svg",
       media: "(prefers-color-scheme: dark)",
     },
   ],
