@@ -47,10 +47,10 @@ const AppSidebar = () => {
                 asChild
                 className="data-[slot=sidebar-menu-button]:!p-1.5"
               >
-                <a href="#">
+                <Link href="/">
                   <ArrowUpCircleIcon className="h-5 w-5" />
                   <span className="text-base font-semibold">Acme Inc.</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
