@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 declare type SearchParamProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -326,3 +324,13 @@ declare interface getBankProps {
 declare interface getBankByAccountIdProps {
   accountId: string;
 }
+
+import { Control, FieldValues, FieldPath } from "react-hook-form";
+declare interface FormInputFieldProps<T extends FieldValues> {
+  control: Control<T>;
+  name: FieldPath<T>;
+  label: string;
+  placeholder?: string;
+  type?: string;
+  description?: string;
+} 
