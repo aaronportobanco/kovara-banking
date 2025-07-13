@@ -38,22 +38,22 @@ export const items = [
   },
   {
     title: "My Banks",
-    url: "/banks",
+    url: "/my-banks",
     icon: Landmark,
   },
   {
     title: "Transactions History",
-    url: "/transactions",
+    url: "/transactions-history",
     icon: ScrollText,
   },
   {
     title: "Payment Transfer",
-    url: "/transfer",
+    url: "/payment-transfer",
     icon: ArrowLeftRight,
   },
   {
     title: "Connect Bank Account",
-    url: "/connect",
+    url: "/connect-account",
     icon: CreditCard,
   },
 ];
