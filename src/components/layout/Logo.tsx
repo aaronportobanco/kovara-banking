@@ -2,9 +2,9 @@ import Image from "next/image";
 
 const Logo = ({ className = "" }) => {
   return (
-    <div className={`flex items-center gap-3 z-10 cursor-pointer ${className}`}>
+    <div className={`flex items-center gap-1 z-10 px-4 cursor-pointer ${className}`}>
       <Image
-        src="/icons/favicon-dark.ico"
+        src="/logo/favicon-dark.svg"
         alt="Logo de Kovara"
         width={18}
         height={27}
