@@ -4,6 +4,7 @@ export const loginSchema = z.object({
   username: z
     .string()
     .min(3, { message: "Username must be at least 3 characters long" })
+    .max(20, { message: "Username must be at most 20 characters long" })
     .regex(/^[a-zA-Z0-9_]+$/, {
       message: "Username can only contain letters, numbers, and underscores",
     }),
@@ -11,6 +12,7 @@ export const loginSchema = z.object({
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long" })
+    .max(50, { message: "Password must be at most 50 characters long" })
     .regex(/[A-Za-z]/, { message: "Password must contain at least one letter" })
     .regex(/\d/, { message: "Password must contain at least one number" })
     .regex(/^[A-Za-z0-9]*$/, {
