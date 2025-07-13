@@ -28,9 +28,10 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
       <section className="banks">
         <div className="flex w-full justify-between items-center">
           <h2 className="font-semibold text-gray-900 text-base">My Banks</h2>
-          <Button variant="ghost">
+          <Button
+            variant="ghost">
             <Plus />
-            <Link href="/">Add Bank</Link>
+            <Link href="#">Add Bank</Link>
           </Button>
         </div>
         {/* BANK CARDS */}
