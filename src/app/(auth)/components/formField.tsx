@@ -36,9 +36,11 @@ const InputField = <T extends FieldValues>({
                 type={type}
                 {...field}
                 className="input-class"
+                autoComplete={type === "password" ? "off" : "on"}
+                required
               />
             </FormControl>
-            {description && <FormDescription className="mt-1">{description}</FormDescription>}
+            {description && <FormDescription className="mt-1 text-xs">{description}</FormDescription>}
             <FormMessage className="form-message mt-2" />
           </div>
         </FormItem>
