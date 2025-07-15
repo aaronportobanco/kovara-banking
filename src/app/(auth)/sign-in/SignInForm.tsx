@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchemaType } from "@/schemas/loginSchema";
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import InputField from "../components/formField";
+import FormFieldInput from "../components/FormFieldInput";
 import { Button } from "@/components/ui/button";
 import { Github, Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -53,7 +53,7 @@ const SignInForm = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-6"
             >
-              <InputField
+              <FormFieldInput
                 control={form.control}
                 name="email"
                 label="Email"
@@ -62,7 +62,7 @@ const SignInForm = () => {
                 placeholder="Ingresa tu correo electrónico"
                 description="example: user@gmail.com"
               />
-              <InputField
+              <FormFieldInput
                 control={form.control}
                 name="password"
                 label="Password"
