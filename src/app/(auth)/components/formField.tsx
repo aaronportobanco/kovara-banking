@@ -17,6 +17,10 @@ const InputField = <T extends FieldValues>({
   placeholder,
   type,
   description,
+  autoComplete,
+  minLength,
+  maxLength,
+  pattern,
 }: FormInputFieldProps<T>) => {
   return (
     <FormField
@@ -32,12 +36,16 @@ const InputField = <T extends FieldValues>({
           <div className="flex flex-col w-full">
             <FormControl>
               <Input
-                placeholder={placeholder}
+                placeholder={placeholder} 
                 type={type}
                 {...field}
                 className="input-class"
-                autoComplete={type === "password" ? "off" : "on"}
+                autoComplete={autoComplete}
+                min={minLength}
+                max={maxLength}
+                pattern={pattern?.source}
                 required
+                
               />
             </FormControl>
             {description && <FormDescription className="mt-1 text-xs">{description}</FormDescription>}
