@@ -31,10 +31,8 @@ const Home = () => {
         />
       </div>
       <RightSidebar
-      //@ts-expect-error // Assuming RightSidebar expects a user object
         user={loggedIn}
         transactions={[]}
-      //@ts-expect-error // Assuming RightSidebar expects a banks array
         banks={[{ currentBalance: 1000 }, { currentBalance: 2000 }]}
       />
     </section>
