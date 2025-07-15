@@ -326,7 +326,7 @@ declare interface getBankByAccountIdProps {
 }
 
 import { Control, FieldValues, FieldPath } from "react-hook-form";
-declare interface FormInputFieldProps<T extends FieldValues> {
+declare interface FormFieldProps<T extends FieldValues> {
   control: Control<T>;
   name: FieldPath<T>;
   label: string;
@@ -335,6 +335,6 @@ declare interface FormInputFieldProps<T extends FieldValues> {
   description?: string;
   minLength?: number;
   maxLength?: number;
-  autoComplete: string;
+  autoComplete?: string;
   pattern?: RegExp;
 }
