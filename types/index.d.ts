@@ -333,4 +333,8 @@ declare interface FormInputFieldProps<T extends FieldValues> {
   placeholder?: string;
   type?: string;
   description?: string;
-} 
+  minLength: number;
+  maxLength: number;
+  autoComplete: string;
+  pattern?: RegExp;
+}
