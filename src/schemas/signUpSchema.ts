@@ -5,11 +5,17 @@ export const SignUpSchema = z.object({
   firstname: z
     .string({ error: "First name must be a string" })
     .nonempty({ error: "First name is required" })
+    .regex(/^[A-Za-z\s]+$/, {
+      error: "First name can only contain letters and spaces",
+    })
     .min(3, { error: "First name must be at least 3 characters long" })
     .max(50, { error: "First name must be at most 50 characters long" }),
   lastname: z
     .string({ error: "Last name must be a string" })
     .nonempty({ error: "Last name is required" })
+    .regex(/^[A-Za-z\s]+$/, {
+      error: "Last name can only contain letters and spaces",
+    })
     .min(3, { error: "Last name must be at least 3 characters long" })
     .max(50, { error: "Last name must be at most 50 characters long" }),
   address: z
