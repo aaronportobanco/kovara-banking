@@ -197,3 +197,6 @@ export const transactionCategoryStyles = {
     chipBackgroundColor: "bg-inherit",
   },
 };
+
+export const MAX_AGE = 100;
+export const MIN_AGE = 18; 
