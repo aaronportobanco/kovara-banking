@@ -1,11 +1,11 @@
 import React from "react";
-import SignInForm from "../components/singInForm";
+import SignInForm from "./SignInForm";
 
-const SignIn = () => {
+const SignInPage = () => {
   return (
     <section className="flex-center size-full max-sm:px-6">
       <SignInForm/>
     </section>
   );
 };
-export default SignIn;
+export default SignInPage;
