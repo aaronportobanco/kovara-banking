@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema, SignUpSchemaType } from "@/schemas/signUpSchema";
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import InputField from "../components/FormFieldInput";
+import FormFieldInput from "../components/FormFieldInput";
 import FormDatePicker from "../components/FormDatePicker";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -17,9 +17,12 @@ const SignUpForm = () => {
   const form = useForm<SignUpSchemaType>({
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
+      dateofbirth: "",
       firstname: "",
       lastname: "",
       address: "",
+      email: "",
+      password: "",
     },
     mode: "onChange",
   });
@@ -55,7 +58,7 @@ const SignUpForm = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-6"
           >
-            <InputField
+            <FormFieldInput
               control={form.control}
               name="firstname"
               label="First Name"
@@ -65,7 +68,7 @@ const SignUpForm = () => {
               maxLength={15}
               placeholder="Enter your first name"
             />
-            <InputField
+            <FormFieldInput
               control={form.control}
               name="lastname"
               label="Last Name"
@@ -75,7 +78,7 @@ const SignUpForm = () => {
               maxLength={15}
               placeholder="Enter your last name"
             />
-             <InputField
+            <FormFieldInput
               control={form.control}
               name="address"
               label="Address"
@@ -93,6 +96,26 @@ const SignUpForm = () => {
               pattern={/^\d{4}-\d{2}-\d{2}$/}
               minLength={10}
               maxLength={10}
+            />
+            <FormFieldInput
+              control={form.control}
+              name="email"
+              label="Email"
+              type="email"
+              autoComplete="on"
+              placeholder="Ingresa tu correo electrónico"
+              description="example: user@gmail.com"
+            />
+            <FormFieldInput
+              control={form.control}
+              name="password"
+              label="Password"
+              type="password"
+              autoComplete="off"
+              minLength={8}
+              maxLength={50}
+              placeholder="Ingresa tu contraseña"
+              description="Al menos 8 caracteres y debe incluir letras y numeros"
             />
             <Button
               type="submit"
