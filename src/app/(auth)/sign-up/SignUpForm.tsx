@@ -10,6 +10,8 @@ import FormDatePicker from "../components/FormDatePicker";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import { FormCountrySelect } from "../components/FormSelectCountry";
+import { FormRegionSelect } from "../components/FormSelectRegion";
 
 const SignUpForm = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -117,6 +119,20 @@ const SignUpForm = () => {
               maxLength={50}
               placeholder="Ingresa tu contraseña"
               description="Al menos 8 caracteres y debe incluir letras y numeros"
+            />
+            <FormCountrySelect
+              control={form.control}
+              placeholder="Selecciona un país"
+              description="Selecciona tu país de residencia"
+              name="country"
+              label="País"
+            />
+            <FormRegionSelect
+              control={form.control}
+              name="region"
+              placeholder="Selecciona un estado/región"
+              countryField="country"
+              label="Estado / Región"
             />
             <Button
               type="submit"
