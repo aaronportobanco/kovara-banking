@@ -39,6 +39,8 @@ export const SignUpSchema = z.object({
     .regex(/^[A-Za-z0-9]*$/, {
       error: "Password can only contain letters and numbers",
     }),
+  country: z.string().nonempty({ message: "Debes seleccionar un país" }),
+  region: z.string().nonempty({ message: "Debes seleccionar una región" }),
   dateofbirth: z
     .string()
     .nonempty({ error: "Date of birth is required" })
