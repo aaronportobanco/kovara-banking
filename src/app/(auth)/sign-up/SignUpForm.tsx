@@ -130,16 +130,6 @@ const SignUpForm = () => {
               maxLength={10}
               placeholder="Enter your postal code"
             />
-           {/*   <FormFieldInput
-              control={form.control}
-              name="socialsecuritynumber"
-              label="Social Security Number"
-              type="text"
-              autoComplete="on"
-              minLength={1}
-              maxLength={10}
-              placeholder="Enter your social security number"
-            /> */}
             <FormFieldInput
               control={form.control}
               name="email"
