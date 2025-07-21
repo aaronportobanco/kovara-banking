@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -32,7 +31,6 @@ export function FormRegionSelect<T extends FieldValues>({
   label,
   control,
   placeholder,
-  description,
 }: FormRegionSelectProps<T>) {
   const selectedCountry = useWatch({ control, name: countryField });
   const [search, setSearch] = useState("");
@@ -51,38 +49,36 @@ export function FormRegionSelect<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="form-item">
+        <FormItem className="form-item w-full">
           <FormLabel className="form-label">{label}</FormLabel>
-          <FormControl>
-            <Select
-              value={field.value}
-              onValueChange={field.onChange}
-              disabled={!regions.length}
-              required
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectSearchInput
-                  placeholder="Search region..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                {filteredRegions.map((region) => (
-                  <SelectItem key={region[1]} value={region[0]}>
-                    {region[0]}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormControl>
-          {description && (
-            <FormDescription className="mt-1 text-xs">
-              {description}
-            </FormDescription>
-          )}
-          <FormMessage className="form-message mt-2" />
+          <div className="w-full">
+            <FormControl>
+              <Select
+                value={field.value}
+                onValueChange={field.onChange}
+                disabled={!regions.length}
+                required
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectSearchInput
+                    placeholder="Search region..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  {filteredRegions.map((region) => (
+                    <SelectItem key={region[1]} value={region[0]}>
+                      {region[0]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+
+            <FormMessage className="form-message mt-2" />
+          </div>
         </FormItem>
       )}
     />

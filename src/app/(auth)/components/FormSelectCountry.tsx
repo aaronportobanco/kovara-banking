@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/select";
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,7 +24,6 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
   name,
   label,
   placeholder,
-  description,
 }: FormFieldProps<T>) {
   const [search, setSearch] = useState("");
 
@@ -42,39 +40,37 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
       }: {
         field: ControllerRenderProps<T, FieldPath<T>>;
       }) => (
-        <FormItem className="form-item">
+        <FormItem className="form-item w-full">
           <FormLabel className="form-label">{label}</FormLabel>
-          <FormControl>
-            <Select
-              onValueChange={field.onChange}
-              value={field.value as string | undefined}
-              required
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectSearchInput
-                  placeholder="Search country..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                {filteredCountries.map((country) => (
-                  <SelectItem key={country.value} value={country.value}>
-                    <span className="mr-2">{country.flag}</span>
-                    {country.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormControl>
-          {description && (
-            <FormDescription className="mt-1 text-xs">
-              {description}
-            </FormDescription>
-          )}
-          <FormMessage className="form-message mt-2" />
-          <FormMessage />
+          <div className="w-full">
+            <FormControl>
+              <Select
+                onValueChange={field.onChange}
+                value={field.value as string | undefined}
+                required
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectSearchInput
+                    placeholder="Search country..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  {filteredCountries.map((country) => (
+                    <SelectItem key={country.value} value={country.value}>
+                      <span className="mr-2">{country.flag}</span>
+                      {country.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+
+            <FormMessage className="form-message mt-2" />
+            <FormMessage />
+          </div>
         </FormItem>
       )}
     />
