@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
-import { FormFieldProps } from "../../../../types";
+import { FormFieldProps } from "#/types";
 
 const FormFieldInput = <T extends FieldValues>({
   control,
