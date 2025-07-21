@@ -120,6 +120,16 @@ const SignUpForm = () => {
               placeholder="Ingresa tu contraseña"
               description="Al menos 8 caracteres y debe incluir letras y numeros"
             />
+             <FormFieldInput
+              control={form.control}
+              name="postalcode"
+              label="Postal Code"
+              type="text"
+              autoComplete="on"
+              minLength={1}
+              maxLength={10}
+              placeholder="Ingresa tu código postal"
+            />
             <FormCountrySelect
               control={form.control}
               placeholder="Selecciona un país"
