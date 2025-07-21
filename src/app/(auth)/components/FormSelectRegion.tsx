@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { FieldPath, FieldValues, useWatch } from "react-hook-form";
 import { allCountries as CountryRegionData } from "country-region-data";
 import {
@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FormFieldProps } from "../../../../types";
+import { SelectSearchInput } from "./SelectSearchInput";
 
 interface FormRegionSelectProps<T extends FieldValues>
   extends FormFieldProps<T> {
@@ -34,11 +35,16 @@ export function FormRegionSelect<T extends FieldValues>({
   description,
 }: FormRegionSelectProps<T>) {
   const selectedCountry = useWatch({ control, name: countryField });
+  const [search, setSearch] = useState("");
 
   const regions = useMemo(() => {
     const match = CountryRegionData.find((c) => c[1] === selectedCountry);
     return match ? match[2] : [];
   }, [selectedCountry]);
+
+  const filteredRegions = regions.filter((region) =>
+    region[0].toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <FormField
@@ -58,7 +64,12 @@ export function FormRegionSelect<T extends FieldValues>({
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent>
-                {regions.map((region) => (
+                <SelectSearchInput
+                  placeholder="Search region..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                {filteredRegions.map((region) => (
                   <SelectItem key={region[1]} value={region[0]}>
                     {region[0]}
                   </SelectItem>
