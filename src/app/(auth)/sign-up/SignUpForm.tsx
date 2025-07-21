@@ -6,12 +6,12 @@ import { SignUpSchema, SignUpSchemaType } from "@/schemas/signUpSchema";
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import FormFieldInput from "../components/FormFieldInput";
-import FormDatePicker from "../components/FormDatePicker";
+import FormDatePicker from "./components/FormDatePicker";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { FormCountrySelect } from "../components/FormSelectCountry";
-import { FormRegionSelect } from "../components/FormSelectRegion";
+import { FormCountrySelect } from "./components/FormSelectCountry";
+import { FormRegionSelect } from "./components/FormSelectRegion";
 
 const SignUpForm = () => {
   const [isLoading, setIsLoading] = React.useState(false);
