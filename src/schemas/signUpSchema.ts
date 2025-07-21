@@ -46,19 +46,19 @@ export const SignUpSchema = z.object({
     .nonempty({ message: "Postal code is required" })
     .min(1, { error: "Postal code must be at least 1 character long" })
     .max(10, { error: "Postal code must be at most 10 characters long" }),
-  socialsecuritynumber: z
+  /* socialsecuritynumber: z
     .int({
       error: (issue) =>
         issue.input === undefined || issue.input === null
           ? "Social Security Number is required"
-          : "Invalid Social Security Number format",
+          : "Invalid Social Security Number format. It must be a number",
     })
     .min(9, {
       error: "Social Security Number must be at least 9 characters long",
     })
     .max(9, {
       error: "Social Security Number must be at most 9 characters long",
-    }),
+    }), */
 
   dateofbirth: z
     .string()

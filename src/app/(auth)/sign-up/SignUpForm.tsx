@@ -61,26 +61,29 @@ const SignUpForm = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-6"
           >
-            <FormFieldInput
-              control={form.control}
-              name="firstname"
-              label="First Name"
-              type="text"
-              autoComplete="on"
-              minLength={3}
-              maxLength={15}
-              placeholder="Enter your first name"
-            />
-            <FormFieldInput
-              control={form.control}
-              name="lastname"
-              label="Last Name"
-              type="text"
-              autoComplete="on"
-              minLength={3}
-              maxLength={15}
-              placeholder="Enter your last name"
-            />
+            <div className="flex flex-col md:flex-row gap-4">
+              <FormFieldInput
+                control={form.control}
+                name="firstname"
+                label="First Name"
+                type="text"
+                autoComplete="on"
+                minLength={3}
+                maxLength={15}
+                placeholder="Enter your first name"
+              />
+              <FormFieldInput
+                control={form.control}
+                name="lastname"
+                label="Last Name"
+                type="text"
+                autoComplete="on"
+                minLength={3}
+                maxLength={15}
+                placeholder="Enter your last name"
+              />
+            </div>
+
             <FormFieldInput
               control={form.control}
               name="address"
@@ -100,13 +103,50 @@ const SignUpForm = () => {
               minLength={10}
               maxLength={10}
             />
+            <div className="flex flex-col md:flex-row gap-4">
+              <FormCountrySelect
+                control={form.control}
+                placeholder="Select a country"
+                description="Select your country of residence"
+                name="country"
+                label="Country"
+              />
+              <FormRegionSelect
+                control={form.control}
+                name="region"
+                placeholder="Select a state/region"
+                countryField="country"
+                label="State / Region"
+              />
+            </div>
+
+            <FormFieldInput
+              control={form.control}
+              name="postalcode"
+              label="Postal Code"
+              type="text"
+              autoComplete="on"
+              minLength={1}
+              maxLength={10}
+              placeholder="Enter your postal code"
+            />
+           {/*   <FormFieldInput
+              control={form.control}
+              name="socialsecuritynumber"
+              label="Social Security Number"
+              type="text"
+              autoComplete="on"
+              minLength={1}
+              maxLength={10}
+              placeholder="Enter your social security number"
+            /> */}
             <FormFieldInput
               control={form.control}
               name="email"
               label="Email"
               type="email"
               autoComplete="on"
-              placeholder="Ingresa tu correo electrónico"
+              placeholder="Enter your email"
               description="example: user@gmail.com"
             />
             <FormFieldInput
@@ -117,32 +157,8 @@ const SignUpForm = () => {
               autoComplete="off"
               minLength={8}
               maxLength={50}
-              placeholder="Ingresa tu contraseña"
-              description="Al menos 8 caracteres y debe incluir letras y numeros"
-            />
-             <FormFieldInput
-              control={form.control}
-              name="postalcode"
-              label="Postal Code"
-              type="text"
-              autoComplete="on"
-              minLength={1}
-              maxLength={10}
-              placeholder="Ingresa tu código postal"
-            />
-            <FormCountrySelect
-              control={form.control}
-              placeholder="Selecciona un país"
-              description="Selecciona tu país de residencia"
-              name="country"
-              label="País"
-            />
-            <FormRegionSelect
-              control={form.control}
-              name="region"
-              placeholder="Selecciona un estado/región"
-              countryField="country"
-              label="Estado / Región"
+              placeholder="Enter your password"
+              description="At least 8 characters and must include letters and numbers"
             />
             <Button
               type="submit"
