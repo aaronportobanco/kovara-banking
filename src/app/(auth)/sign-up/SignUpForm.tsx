@@ -20,12 +20,16 @@ const SignUpForm = () => {
   const form = useForm<SignUpSchemaType>({
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
+      postalcode: "",
       dateofbirth: "",
       firstname: "",
       lastname: "",
       address: "",
       email: "",
+      country: "",
+      region: "",
       password: "",
+      ssn: "",
     },
     mode: "onChange",
   });
@@ -106,17 +110,17 @@ const SignUpForm = () => {
             <div className="flex flex-col md:flex-row gap-4">
               <FormCountrySelect
                 control={form.control}
-                placeholder="Select a country"
-                description="Select your country of residence"
+                placeholder="Select a state"
+                description="Select your state of residence"
                 name="country"
-                label="Country"
+                label="State"
               />
               <FormRegionSelect
                 control={form.control}
                 name="region"
-                placeholder="Select a state/region"
+                placeholder="Select your city"
                 countryField="country"
-                label="State / Region"
+                label="City"
               />
             </div>
 
@@ -126,9 +130,20 @@ const SignUpForm = () => {
               label="Postal Code"
               type="text"
               autoComplete="on"
-              minLength={1}
+              pattern={/^\d{5}(-\d{4})?$/}
+              minLength={5}
               maxLength={10}
               placeholder="Enter your postal code"
+            />
+            <FormFieldInput
+              control={form.control}
+              name="ssn"
+              label="SSN"
+              type="text"
+              autoComplete="on"
+              pattern={/^\d{3}-\d{2}-\d{4}$/}
+              maxLength={11}
+              placeholder="Enter your social security number (SSN)"
             />
             <FormFieldInput
               control={form.control}
@@ -137,7 +152,7 @@ const SignUpForm = () => {
               type="email"
               autoComplete="on"
               placeholder="Enter your email"
-              description="example: user@gmail.com"
+              description="e.g. user@gmail.com"
             />
             <FormFieldInput
               control={form.control}
