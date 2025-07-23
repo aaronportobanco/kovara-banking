@@ -72,6 +72,7 @@ const SignUpForm = () => {
                 label="First Name"
                 type="text"
                 autoComplete="on"
+                pattern={/^[A-Za-z\s\u00C0-\u017F']+$/}
                 minLength={3}
                 maxLength={15}
                 placeholder="Enter your first name"
@@ -82,6 +83,7 @@ const SignUpForm = () => {
                 label="Last Name"
                 type="text"
                 autoComplete="on"
+                pattern={/^[A-Za-z\s\u00C0-\u017F']+$/}
                 minLength={3}
                 maxLength={15}
                 placeholder="Enter your last name"
