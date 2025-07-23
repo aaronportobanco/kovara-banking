@@ -39,8 +39,8 @@ export const SignUpSchema = z.object({
     .regex(/^[A-Za-z0-9]*$/, {
       error: "Password can only contain letters and numbers",
     }),
-  country: z.string().nonempty({ error: "Country is required" }),
-  region: z.string().nonempty({ error: "Region is required" }),
+  state: z.string().nonempty({ error: "State is required" }),
+  city: z.string().nonempty({ error: "City is required" }),
   postalcode: z
     .string()
     .nonempty({ error: "Postal code is required" })
