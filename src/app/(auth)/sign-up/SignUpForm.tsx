@@ -103,6 +103,7 @@ const SignUpForm = () => {
               name="dateofbirth"
               label="Date of Birth"
               placeholder="Select your date of birth"
+              description="You must be at least 18 years old"
               pattern={/^\d{4}-\d{2}-\d{2}$/}
               minLength={10}
               maxLength={10}
