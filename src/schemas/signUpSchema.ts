@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MAX_AGE } from "../../constants";
+import { MAX_AGE, MIN_AGE } from "../../constants";
 
 export const SignUpSchema = z.object({
   firstname: z
@@ -84,6 +84,21 @@ export const SignUpSchema = z.object({
       },
       {
         error: "La fecha de nacimiento no puede ser en el futuro",
+      }
+    )
+    .refine(
+      (str) => {
+        const birthDate = new Date(str);
+        const today = new Date();
+        const eighteenYearsAgo = new Date(
+          today.getFullYear() - MIN_AGE,
+          today.getMonth(),
+          today.getDate()
+        );
+        return birthDate <= eighteenYearsAgo;
+      },
+      {
+        error: `You must be at least ${MIN_AGE} years old`,
       }
     )
     .refine(
