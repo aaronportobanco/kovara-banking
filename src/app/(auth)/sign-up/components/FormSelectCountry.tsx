@@ -14,10 +14,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { formattedCountries } from "@/lib/countries";
 import { FormFieldProps } from "#/types";
 import { ControllerRenderProps, FieldPath } from "react-hook-form";
 import { SelectSearchInput } from "./SelectSearchInput";
+import statesAndCitiesData from "#/US_States_and_Cities.json";
+
+const usStates = Object.keys(statesAndCitiesData).sort();
 
 export function FormCountrySelect<T extends Record<string, unknown>>({
   control,
@@ -27,8 +29,8 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
 }: FormFieldProps<T>) {
   const [search, setSearch] = useState("");
 
-  const filteredCountries = formattedCountries.filter((country) =>
-    country.label.toLowerCase().includes(search.toLowerCase())
+  const filteredStates = usStates.filter((state) =>
+    state.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -54,14 +56,13 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectSearchInput
-                    placeholder="Search country..."
+                    placeholder="Search state..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
-                  {filteredCountries.map((country) => (
-                    <SelectItem key={country.value} value={country.value}>
-                      <span className="mr-2">{country.flag}</span>
-                      {country.label}
+                  {filteredStates.map((state) => (
+                    <SelectItem key={state} value={state}>
+                      {state}
                     </SelectItem>
                   ))}
                 </SelectContent>
