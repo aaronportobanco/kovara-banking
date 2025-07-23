@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { FieldPath, FieldValues, useWatch } from "react-hook-form";
-import { allCountries as CountryRegionData } from "country-region-data";
 import {
   Select,
   SelectContent,
@@ -19,29 +18,44 @@ import {
 } from "@/components/ui/form";
 import { FormFieldProps } from "#/types";
 import { SelectSearchInput } from "./SelectSearchInput";
+import statesAndCitiesData from "#/US_States_and_Cities.json";
 
-interface FormRegionSelectProps<T extends FieldValues>
-  extends FormFieldProps<T> {
-  countryField: FieldPath<T>;
+interface StatesAndCities {
+  [key: string]: string[];
 }
 
+const data: StatesAndCities = statesAndCitiesData;
+
+const getCitiesByState = (state: string): string[] => {
+  if (state && data[state]) {
+    return data[state].sort();
+  }
+  return [];
+};
+
+interface FormCitySelectProps<T extends FieldValues> extends FormFieldProps<T> {
+  stateField: FieldPath<T>;
+}
 export function FormRegionSelect<T extends FieldValues>({
   name,
-  countryField,
+  stateField,
   label,
   control,
   placeholder,
-}: FormRegionSelectProps<T>) {
-  const selectedCountry = useWatch({ control, name: countryField });
+}: FormCitySelectProps<T>) {
+  const selectedState = useWatch({ control, name: stateField });
   const [search, setSearch] = useState("");
 
-  const regions = useMemo(() => {
-    const match = CountryRegionData.find((c) => c[1] === selectedCountry);
-    return match ? match[2] : [];
-  }, [selectedCountry]);
+  const cities = useMemo(() => {
+    return getCitiesByState(selectedState);
+  }, [selectedState]);
 
-  const filteredRegions = regions.filter((region) =>
-    region[0].toLowerCase().includes(search.toLowerCase())
+  const filteredCities = useMemo(
+    () =>
+      cities.filter((city) =>
+        city.toLowerCase().includes(search.toLowerCase())
+      ),
+    [cities, search]
   );
 
   return (
@@ -56,7 +70,7 @@ export function FormRegionSelect<T extends FieldValues>({
               <Select
                 value={field.value}
                 onValueChange={field.onChange}
-                disabled={!regions.length}
+                disabled={!selectedState || cities.length === 0}
                 required
               >
                 <SelectTrigger>
@@ -64,13 +78,13 @@ export function FormRegionSelect<T extends FieldValues>({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectSearchInput
-                    placeholder="Search region..."
+                    placeholder="Search city..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
-                  {filteredRegions.map((region) => (
-                    <SelectItem key={region[1]} value={region[0]}>
-                      {region[0]}
+                  {filteredCities.map((city) => (
+                    <SelectItem key={city} value={city}>
+                      {city}
                     </SelectItem>
                   ))}
                 </SelectContent>
