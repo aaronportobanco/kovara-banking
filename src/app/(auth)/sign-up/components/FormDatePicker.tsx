@@ -20,7 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { MAX_AGE } from "#/constants";
+import { MAX_AGE, MIN_AGE } from "#/constants";
 import { formatDateTime } from "@/lib/utils";
 
 const FormDatePicker = <T extends FieldValues>({
@@ -96,7 +96,16 @@ const FormDatePicker = <T extends FieldValues>({
                       today.getMonth(),
                       today.getDate()
                     );
-                    return date > today || date < hundredYearsAgo;
+                    const eighteenYearsAgo = new Date(
+                      today.getFullYear() - MIN_AGE,
+                      today.getMonth(),
+                      today.getDate()
+                    );
+                    return (
+                      date > eighteenYearsAgo ||
+                      date < hundredYearsAgo ||
+                      date > today
+                    );
                   }}
                   onSelect={(date) => {
                     if (date) {
