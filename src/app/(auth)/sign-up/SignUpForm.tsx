@@ -10,8 +10,8 @@ import FormDatePicker from "./components/FormDatePicker";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { FormCountrySelect } from "./components/FormSelectCountry";
-import { FormRegionSelect } from "./components/FormSelectRegion";
+import { FormCountrySelect } from "./components/FormSelectState";
+import { FormRegionSelect } from "./components/FormSelectCity";
 
 const SignUpForm = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -26,8 +26,8 @@ const SignUpForm = () => {
       lastname: "",
       address: "",
       email: "",
-      country: "",
-      region: "",
+      state: "",
+      city: "",
       password: "",
       ssn: "",
     },
@@ -112,14 +112,14 @@ const SignUpForm = () => {
                 control={form.control}
                 placeholder="Select a state"
                 description="Select your state of residence"
-                name="country"
+                name="state"
                 label="State"
               />
               <FormRegionSelect
                 control={form.control}
-                name="region"
+                name="city"
                 placeholder="Select your city"
-                stateField="country"
+                stateField="state"
                 label="City"
               />
             </div>
