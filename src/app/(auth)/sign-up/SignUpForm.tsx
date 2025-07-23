@@ -119,7 +119,7 @@ const SignUpForm = () => {
                 control={form.control}
                 name="region"
                 placeholder="Select your city"
-                countryField="country"
+                stateField="country"
                 label="City"
               />
             </div>
