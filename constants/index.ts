@@ -199,4 +199,4 @@ export const transactionCategoryStyles = {
 };
 
 export const MAX_AGE = 100;
-export const MIN_AGE = 18; 
+export const MIN_AGE = 18;
