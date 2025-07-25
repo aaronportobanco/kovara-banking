@@ -6,7 +6,8 @@ export const loginSchema = z.object({
       issue.input === undefined || issue.input === null
         ? "Email is required"
         : "Invalid email format",
-  }),
+  })
+  .trim(),
   password: z
     .string()
     .nonempty({ error: "Password is required" })
@@ -16,7 +17,8 @@ export const loginSchema = z.object({
     .regex(/\d/, { error: "Password must contain at least one number" })
     .regex(/^[A-Za-z0-9]*$/, {
       error: "Password can only contain letters and numbers",
-    }),
+    })
+    .trim(),
 });
 
 // Export the type for use in the form
