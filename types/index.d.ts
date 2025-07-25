@@ -8,18 +8,18 @@ declare type SearchParamProps = {
 declare type SignUpParams = {
   firstName: string;
   lastName: string;
-  address1: string;
+  address: string;
   city: string;
   state: string;
   postalCode: string;
   dateOfBirth: string;
   ssn: string;
-  email: string;
+  email: ZodEmail;
   password: string;
 };
 
 declare type LoginUser = {
-  email: string;
+  email: ZodEmail;
   password: string;
 };
 
@@ -326,6 +326,7 @@ declare interface getBankByAccountIdProps {
 }
 
 import { Control, FieldValues, FieldPath } from "react-hook-form";
+import { ZodEmail } from "zod";
 declare interface FormFieldProps<T extends FieldValues> {
   control: Control<T>;
   name: FieldPath<T>;
