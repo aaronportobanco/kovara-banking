@@ -10,7 +10,8 @@ export const SignUpSchema = z.object({
         "First name can only contain letters, spaces, apostrophes and accents",
     })
     .min(3, { error: "First name must be at least 3 characters long" })
-    .max(50, { error: "First name must be at most 50 characters long" }),
+    .max(50, { error: "First name must be at most 50 characters long" })
+    .trim(),
   lastname: z
     .string({ error: "Last name must be a string" })
     .nonempty({ error: "Last name is required" })
@@ -19,18 +20,21 @@ export const SignUpSchema = z.object({
         "Last name can only contain letters, spaces, apostrophes and accents",
     })
     .min(3, { error: "Last name must be at least 3 characters long" })
-    .max(50, { error: "Last name must be at most 50 characters long" }),
+    .max(50, { error: "Last name must be at most 50 characters long" })
+    .trim(),
   address: z
     .string()
     .nonempty({ error: "Address is required" })
     .min(10, { error: "Address must be at least 10 characters long" })
-    .max(100, { error: "Address must be at most 100 characters long" }),
+    .max(100, { error: "Address must be at most 100 characters long" })
+    .trim(),
   email: z.email({
     error: (issue) =>
       issue.input === undefined || issue.input === null
         ? "Email is required"
         : "Invalid email format",
-  }),
+  })
+  .trim(),
   password: z
     .string()
     .nonempty({ error: "Password is required" })
@@ -40,9 +44,10 @@ export const SignUpSchema = z.object({
     .regex(/\d/, { error: "Password must contain at least one number" })
     .regex(/^[A-Za-z0-9]*$/, {
       error: "Password can only contain letters and numbers",
-    }),
-  state: z.string().nonempty({ error: "State is required" }),
-  city: z.string().nonempty({ error: "City is required" }),
+    })
+    .trim(),
+  state: z.string().nonempty({ error: "State is required" }).trim(),
+  city: z.string().nonempty({ error: "City is required" }).trim(),
   postalcode: z
     .string()
     .nonempty({ error: "Postal code is required" })
@@ -50,16 +55,19 @@ export const SignUpSchema = z.object({
     .max(10, { error: "Postal code must be at most 10 characters long" })
     .regex(/^\d{5}(-\d{4})?$/, {
       error: "It must be a valid postal code (e.g. 12345 or 12345-6789)",
-    }),
+    })
+    .trim(),
   ssn: z
     .string()
     .nonempty({ error: "SSN is required" })
     .max(11, { error: "SSN must be at most 11 characters long" })
     .regex(/^\d{3}-\d{2}-\d{4}$/, {
       error: "It must be a valid SSN (e.g. 123-45-6789)",
-    }),
+    })
+    .trim(),
   dateofbirth: z
     .string()
+    .trim()
     .nonempty({ error: "Date of birth is required" })
     .min(10, { error: "Date of birth must be at least 10 characters long" })
     .max(10, { error: "Date of birth must be at most 10 characters long" })
