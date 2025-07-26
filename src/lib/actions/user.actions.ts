@@ -1,3 +1,5 @@
+"use server";
+
 import { ID } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../server/appwrite";
 import { cookies } from "next/headers";
