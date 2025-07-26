@@ -13,6 +13,7 @@ import Link from "next/link";
 import { FormCountrySelect } from "./components/FormSelectState";
 import { FormRegionSelect } from "./components/FormSelectCity";
 import { signUp } from "@/lib/actions/user.actions";
+import { toast } from "sonner";
 
 const SignUpForm = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -47,9 +48,17 @@ const SignUpForm = () => {
 
     try {
       const newUser = await signUp(data);
-      setUser(newUser); // Assuming you have a function to set the user state
+      console.log("Form submitted successfully", data);
+      setUser(newUser);
+      toast.success("Sign Up successful! Welcome aboard!", {
+        position: "top-center",
+      });
+      form.reset();
     } catch (error) {
       console.error("Error signing up:", error);
+      toast.error("Sign Up failed. Please try again later.", {
+        position: "top-center",
+      });
     } finally {
       setIsLoading(false);
       form.reset();
