@@ -12,9 +12,12 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FormCountrySelect } from "./components/FormSelectState";
 import { FormRegionSelect } from "./components/FormSelectCity";
+import { signUp } from "@/lib/actions/user.actions";
 
 const SignUpForm = () => {
   const [isLoading, setIsLoading] = React.useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [user, setUser] = React.useState(null);
 
   // Use the zodResolver to validate the form data against the schema
   const form = useForm<SignUpSchemaType>({
@@ -40,13 +43,17 @@ const SignUpForm = () => {
 
   // This function will be called when the form is submitted and the data is valid
   const onSubmit = async (data: SignUpSchemaType) => {
-    // Handle form submission logic here
     setIsLoading(true);
-    // Simula una llamada a API (ej. 3 segundos)
-    await new Promise((res) => setTimeout(res, 3000));
-    console.log("Form submitted with data:", data);
-    setIsLoading(false);
-    form.reset();
+
+    try {
+      const newUser = await signUp(data);
+      setUser(newUser); // Assuming you have a function to set the user state
+    } catch (error) {
+      console.error("Error signing up:", error);
+    } finally {
+      setIsLoading(false);
+      form.reset();
+    }
   };
 
   return (
@@ -176,7 +183,7 @@ const SignUpForm = () => {
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Sign Up
+              {isLoading ? "Submitting" : "Create account"}
             </Button>
             <footer className="text-center text-sm">
               Already have an account?{" "}
