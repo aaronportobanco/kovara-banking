@@ -12,7 +12,7 @@ import { parseStringify } from "../utils";
  * in Appwrite, and sets a session cookie for the user.
  * It uses the SignUpSchemaType to ensure the data conforms to the expected structure.
  * It handles errors by logging them and re-throwing for further handling if needed.
-*/
+ */
 export const signUp = async (userData: SignUpSchemaType) => {
   try {
     const { account } = await createAdminClient();
@@ -44,13 +44,15 @@ export const signUp = async (userData: SignUpSchemaType) => {
  * Build a utility function to get the logged in user from Appwrite.
  * This function will be used in our components and routes
  * to check if a user is logged in, and access the user's details.
-*/
+ */
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
-    return await account.get();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const user = await account.get();
+    return parseStringify(user);
   } catch (error) {
+    console.error("Error fetching logged in user:", error);
+    // Handle the error appropriately, e.g., return null or throw an error
     return null;
   }
 }
