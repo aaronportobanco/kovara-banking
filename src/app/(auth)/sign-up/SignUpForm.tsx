@@ -53,7 +53,6 @@ const SignUpForm = () => {
       toast.success("Sign Up successful! Welcome aboard!", {
         position: "top-center",
       });
-      form.reset();
     } catch (error) {
       console.error("Error signing up:", error);
       toast.error("Sign Up failed. Please try again later.", {
