@@ -5,6 +5,8 @@ import React from "react";
 
 const Home = () => {
   // Simulating a logged-in user
+  // TODO: add a redirect to the sign-up page if the user is not logged in
+  // This is just a placeholder for demonstration purposes
   // In a real application, you would fetch this data from an API or use a global state management solution
   const loggedIn = {
     firstName: "Aaron",
