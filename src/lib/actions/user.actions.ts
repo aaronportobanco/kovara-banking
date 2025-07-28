@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { SignUpSchemaType } from "@/schemas/signUpSchema";
 import { parseStringify } from "../utils";
 import { LoginSchemaType } from "@/schemas/loginSchema";
+import { redirect } from "next/navigation";
 
 /*
  * This function is responsible for signing up a new user.
@@ -62,16 +63,45 @@ export async function getLoggedInUser() {
  * This function is responsible for signing in a user.
  * It takes email and password as input, creates a session
  * for the user in Appwrite, and returns the session data.
+ * It sets a cookie with the session secret for authentication.
+ * It uses the createSessionClient to ensure the session is created
+ * in the context of the user.
  * It uses the LoginSchemaType to ensure the data conforms to the expected structure.
+ * It handles errors by logging them and re-throwing for further handling if needed.
  */
 export const signIn = async ({ email, password }: LoginSchemaType) => {
   try {
     const { account } = await createAdminClient();
-    
-    const response = await account.createEmailPasswordSession(email, password);
-    return parseStringify(response);
+
+    const session = await account.createEmailPasswordSession(email, password);
+
+    // Set the session cookie for the user
+    // This cookie will be used for subsequent requests to authenticate the user
+    (await cookies()).set("appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+
+    redirect("/");
   } catch (error) {
     console.error("Error during sign in:", error);
     throw error; // Re-throw the error for further handling if needed
+  }
+};
+
+/*
+ * This function is responsible for signing out the current user.
+ * It deletes the session from Appwrite and removes the session cookie.
+ */
+export const signOut = async () => {
+  try {
+    const { account } = await createSessionClient();
+    (await cookies()).delete("appwrite-session");
+    await account.deleteSession("current");
+  } catch (error) {
+    console.error("Error during sign out:", error);
+    return null;
   }
 };
