@@ -11,6 +11,7 @@ import { Github, Loader2 } from "lucide-react";
 import { signIn } from "@/lib/actions/user.actions";
 import Link from "next/link";
 import { toast } from "sonner";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 const SignInForm = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -35,24 +36,21 @@ const SignInForm = () => {
 
     try {
       await signIn(data);
-      console.log("Form submitted successfully", data);
-      toast.success("Sign In successful! Welcome back!", {
-        position: "top-center",
-      });
+      console.log("Sign In successful", data);
     } catch (error) {
+      // We check if the error is the special redirect error. If it is, we re-throw it
+      // so Next.js can handle the redirection.
+      if (isRedirectError(error)) {
+        throw error;
+      }
+
       console.error("Error signing in:", error);
-      toast.error("Sign In failed. Please try again later.", {
+      toast.error("Sign In failed. Please check your credentials.", {
         position: "top-center",
       });
     } finally {
       setIsLoading(false);
     }
-
-    // Handle form submission logic here
-    // Simula una llamada a API (ej. 3 segundos)
-    console.log("Form submitted with data:", data);
-    setIsLoading(false);
-    form.reset();
   };
 
   return (
