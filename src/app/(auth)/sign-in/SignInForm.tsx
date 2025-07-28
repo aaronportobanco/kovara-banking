@@ -87,7 +87,6 @@ const SignInForm = () => {
               minLength={8}
               maxLength={50}
               placeholder="Ingresa tu contraseña"
-              description="Al menos 8 caracteres y debe incluir letras y numeros"
             />
             <Button
               type="submit"
