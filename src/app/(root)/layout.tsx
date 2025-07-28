@@ -4,13 +4,21 @@ import {
   SidebarProvider,
   SidebarInset,
 } from "@/components/ui/sidebar";
+import { getLoggedInUser } from "@/lib/actions/user.actions";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+
+  const loggedInUser = await getLoggedInUser();
+  if (!loggedInUser) {
+    // If the user is not logged in, redirect to the sign-in page
+    redirect("/sign-in");
+  }
 
   return (
     <SidebarProvider defaultOpen={defaultOpen} >
