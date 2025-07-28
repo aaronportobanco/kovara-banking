@@ -100,6 +100,7 @@ export const signOut = async () => {
     const { account } = await createSessionClient();
     (await cookies()).delete("appwrite-session");
     await account.deleteSession("current");
+    redirect("/sign-in")
   } catch (error) {
     console.error("Error during sign out:", error);
     return null;
