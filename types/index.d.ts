@@ -23,6 +23,14 @@ declare type LoginUser = {
   password: string;
 };
 
+declare type UserAccount = {
+  $id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+}
+
+
 declare type User = {
   $id: string;
   email: string;
@@ -31,6 +39,7 @@ declare type User = {
   dwollaCustomerId: string;
   firstName: string;
   lastName: string;
+  name: string;
   address1: string;
   city: string;
   state: string;
