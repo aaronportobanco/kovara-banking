@@ -20,12 +20,6 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowUpCircleIcon } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
 
-const user = {
-  name: "shadcn",
-  email: "m@example.com",
-  avatar: "/avatars/shadcn.jpg",
-};
-
 const AppSidebar = () => {
   const pathname = usePathname();
   // Suponiendo que Sidebar maneja internamente el estado de colapsado, pero para aplicar la clase necesitamos forzarla.
@@ -87,7 +81,7 @@ const AppSidebar = () => {
         </SidebarContent>
         <Separator />
         <SidebarFooter>
-          <NavUser user={user} />
+          <NavUser />
         </SidebarFooter>
       </Sidebar>
     </section>
