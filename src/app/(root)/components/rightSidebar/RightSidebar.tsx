@@ -3,7 +3,9 @@ import Link from "next/link";
 import CardBanks from "./CardBanks";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { RightSidebarProps } from "#/types";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
   return (
     <aside className="right-sidebar">
@@ -13,12 +15,12 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         <div className="profile">
           <div className="profile-img">
             <span className="text-5xl font-bold text-blue-500">
-              {user.firstName.charAt(0)}
+              {user.name.charAt(0)}
             </span>
           </div>
           <div className="profile-details">
             <h1 className="profile-name">
-              {user.firstName} {user.lastName}
+             {user.name}
             </h1>
             <p className="profile-email">{user.email}</p>
           </div>
