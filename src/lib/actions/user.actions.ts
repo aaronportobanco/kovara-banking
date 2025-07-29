@@ -9,7 +9,6 @@ import { LoginSchemaType } from "@/schemas/loginSchema";
 import { redirect } from "next/navigation";
 import { UserAccount } from "#/types";
 
-
 /*
  * This function is responsible for signing up a new user.
  * It takes user data as input, creates a new user account
@@ -104,7 +103,7 @@ export const signOut = async () => {
     const { account } = await createSessionClient();
     (await cookies()).delete("appwrite-session");
     await account.deleteSession("current");
-    redirect("/sign-in")
+    redirect("/sign-in");
   } catch (error) {
     console.error("Error during sign out:", error);
     return null;
