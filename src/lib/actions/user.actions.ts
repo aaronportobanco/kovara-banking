@@ -7,6 +7,8 @@ import { SignUpSchemaType } from "@/schemas/signUpSchema";
 import { parseStringify } from "../utils";
 import { LoginSchemaType } from "@/schemas/loginSchema";
 import { redirect } from "next/navigation";
+import { UserAccount } from "#/types";
+
 
 /*
  * This function is responsible for signing up a new user.
@@ -47,7 +49,7 @@ export const signUp = async (userData: SignUpSchemaType) => {
  * This function will be used in our components and routes
  * to check if a user is logged in, and access the user's details.
  */
-export async function getLoggedInUser() {
+export async function getLoggedInUser(): Promise<UserAccount | null> {
   try {
     const { account } = await createSessionClient();
     const user = await account.get();
@@ -94,6 +96,8 @@ export const signIn = async ({ email, password }: LoginSchemaType) => {
 /*
  * This function is responsible for signing out the current user.
  * It deletes the session from Appwrite and removes the session cookie.
+ * It uses the createSessionClient to ensure the session is deleted
+ * in the context of the user.
  */
 export const signOut = async () => {
   try {
