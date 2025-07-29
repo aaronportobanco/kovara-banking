@@ -1,19 +1,17 @@
+import { getLoggedInUser } from "@/lib/actions/user.actions";
 import HeaderBox from "./components/HeaderBox";
 import TotalBalanceBox from "./components/TotalBalanceBox";
 import RightSidebar from "./components/rightSidebar/RightSidebar";
 import React from "react";
+import { redirect } from "next/navigation";
 
-const Home = () => {
-  // Simulating a logged-in user
-  // TODO: add a redirect to the sign-up page if the user is not logged in
-  // This is just a placeholder for demonstration purposes
-  // In a real application, you would fetch this data from an API or use a global state management solution
-  const loggedIn = {
-    firstName: "Aaron",
-    lastName: "Portobanco",
-    email: "aaron@example.com",
-  };
-  const user = loggedIn.firstName + " " + loggedIn.lastName;
+const Home = async () => {
+  const loggedIn = await getLoggedInUser();
+
+  // If the user is not logged in, redirect to the sign-in page
+  if (!loggedIn) {
+    redirect("/sign-in");
+  }
 
   return (
     <section className="home">
@@ -23,7 +21,7 @@ const Home = () => {
             type="greeting" // type can be "title" or "greeting"
             title="Welcome back,"
             subtext="Acces and manage your bank account easily and securely."
-            user={user ? user : "Guest"}
+            user={loggedIn?.name || "Guest"} // Fallback to "Guest" if firstName is not available
           />
         </header>
         <TotalBalanceBox
