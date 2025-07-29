@@ -11,13 +11,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { items } from "../../../../constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavUser } from "./NavUser";
 import { Separator } from "@/components/ui/separator";
-import { ArrowUpCircleIcon } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
 
 const AppSidebar = () => {
@@ -42,7 +42,7 @@ const AppSidebar = () => {
                 className="data-[slot=sidebar-menu-button]:!p-1.5"
               >
                 <Link href="/">
-                  <ArrowUpCircleIcon className="h-5 w-5" />
+                  <SidebarTrigger className="h-5 w-5" />
                   <span className="text-base font-semibold">Acme Inc.</span>
                 </Link>
               </SidebarMenuButton>
