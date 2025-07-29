@@ -1,5 +1,4 @@
 import AppSidebar from "@/components/layout/sidebar/AppSidebar";
-import SiteHeader from "@/components/layout/sidebar/SiteHeader";
 import {
   SidebarProvider,
   SidebarInset,
@@ -24,7 +23,6 @@ export default async function RootLayout({
     <SidebarProvider defaultOpen={defaultOpen} >
       <AppSidebar />
       <SidebarInset className="rounded-lg shadow-md m-3">
-        <SiteHeader />
         <main className="flex h-screen pl-4">
           {children}
         </main>
