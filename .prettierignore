@@ -1,0 +1,15 @@
+# Ignorar dependencias
+node_modules
+
+# Ignorar carpetas de compilación y salida
+.next
+out
+dist
+coverage
+
+# Ignorar activos estáticos
+public
+
+# Ignorar archivos de log y entorno
+*.log
+.env*
