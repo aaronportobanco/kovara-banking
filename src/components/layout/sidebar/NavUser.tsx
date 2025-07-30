@@ -29,7 +29,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { getLoggedInUser, signOut } from "@/lib/actions/user.actions"
+import { getLoggedInUser, signOut } from "@/services/actions/user.actions"
 import { Skeleton } from "@/components/ui/skeleton"
 import { UserAccount } from "#/types"
 
