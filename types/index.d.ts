@@ -28,8 +28,7 @@ declare type UserAccount = {
   name: string;
   email: string;
   avatar?: string;
-}
-
+};
 
 declare type User = {
   $id: string;
@@ -98,12 +97,7 @@ declare type Bank = {
   sharableId: string;
 };
 
-declare type AccountTypes =
-  | "depository"
-  | "credit"
-  | "loan "
-  | "investment"
-  | "other";
+declare type AccountTypes = "depository" | "credit" | "loan " | "investment" | "other";
 
 declare type Category = "Food and Drink" | "Travel" | "Transfer";
 
@@ -262,19 +256,19 @@ declare interface PaymentTransferFormProps {
 }
 
 // Actions
-declare interface getAccountsProps {
+declare interface GetAccountsProps {
   userId: string;
 }
 
-declare interface getAccountProps {
+declare interface GetAccountProps {
   appwriteItemId: string;
 }
 
-declare interface getInstitutionProps {
+declare interface GetInstitutionProps {
   institutionId: string;
 }
 
-declare interface getTransactionsProps {
+declare interface GetTransactionsProps {
   accessToken: string;
 }
 
@@ -295,25 +289,25 @@ declare interface CreateTransactionProps {
   email: string;
 }
 
-declare interface getTransactionsByBankIdProps {
+declare interface GetTransactionsByBankIdProps {
   bankId: string;
 }
 
-declare interface signInProps {
+declare interface SignInProps {
   email: string;
   password: string;
 }
 
-declare interface getUserInfoProps {
+declare interface GetUserInfoProps {
   userId: string;
 }
 
-declare interface exchangePublicTokenProps {
+declare interface ExchangePublicTokenProps {
   publicToken: string;
   user: User;
 }
 
-declare interface createBankAccountProps {
+declare interface CreateBankAccountProps {
   accessToken: string;
   userId: string;
   accountId: string;
@@ -322,15 +316,15 @@ declare interface createBankAccountProps {
   sharableId: string;
 }
 
-declare interface getBanksProps {
+declare interface GetBanksProps {
   userId: string;
 }
 
-declare interface getBankProps {
+declare interface GetBankProps {
   documentId: string;
 }
 
-declare interface getBankByAccountIdProps {
+declare interface GetBankByAccountIdProps {
   accountId: string;
 }
 
