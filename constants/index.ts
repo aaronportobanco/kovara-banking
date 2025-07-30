@@ -1,3 +1,5 @@
+import { Landmark, Home, ScrollText, CreditCard, ArrowLeftRight } from "lucide-react";
+
 export const sidebarLinks = [
   {
     imgURL: "/icons/home.svg",
@@ -21,15 +23,7 @@ export const sidebarLinks = [
   },
 ];
 
-
 // Menu items.
-import {
-  Landmark,
-  Home,
-  ScrollText,
-  CreditCard,
-  ArrowLeftRight,
-} from "lucide-react";
 export const items = [
   {
     title: "Home",
@@ -58,7 +52,6 @@ export const items = [
   },
 ];
 
-
 export const accounts = [
   {
     id: "acc1",
@@ -82,7 +75,6 @@ export const accounts = [
   },
 ];
 
-
 // good_user / good_password - Bank of America
 export const TEST_USER_ID = "6627ed3d00267aa6fa3e";
 
@@ -91,8 +83,7 @@ export const TEST_USER_ID = "6627ed3d00267aa6fa3e";
 //   "access-sandbox-da44dac8-7d31-4f66-ab36-2238d63a3017";
 
 // custom_user -> Chase Bank
-export const TEST_ACCESS_TOKEN =
-  "access-sandbox-229476cf-25bc-46d2-9ed5-fba9df7a5d63";
+export const TEST_ACCESS_TOKEN = "access-sandbox-229476cf-25bc-46d2-9ed5-fba9df7a5d63";
 
 export const ITEMS = [
   {
@@ -112,7 +103,7 @@ export const ITEMS = [
 ];
 
 export const topCategoryStyles = {
-  "Food and Drink": {
+  foodAndDrink: {
     bg: "bg-blue-25",
     circleBg: "bg-blue-100",
     text: {
@@ -125,7 +116,7 @@ export const topCategoryStyles = {
     },
     icon: "/icons/monitor.svg",
   },
-  Travel: {
+  travel: {
     bg: "bg-success-25",
     circleBg: "bg-success-100",
     text: {
@@ -154,37 +145,37 @@ export const topCategoryStyles = {
 };
 
 export const transactionCategoryStyles = {
-  "Food and Drink": {
+  foodAndDrink: {
     borderColor: "border-pink-600",
     backgroundColor: "bg-pink-500",
     textColor: "text-pink-700",
     chipBackgroundColor: "bg-inherit",
   },
-  Payment: {
+  payment: {
     borderColor: "border-success-600",
     backgroundColor: "bg-green-600",
     textColor: "text-success-700",
     chipBackgroundColor: "bg-inherit",
   },
-  "Bank Fees": {
+  bankFees: {
     borderColor: "border-success-600",
     backgroundColor: "bg-green-600",
     textColor: "text-success-700",
     chipBackgroundColor: "bg-inherit",
   },
-  Transfer: {
+  transfer: {
     borderColor: "border-red-700",
     backgroundColor: "bg-red-700",
     textColor: "text-red-700",
     chipBackgroundColor: "bg-inherit",
   },
-  Processing: {
+  processing: {
     borderColor: "border-[#F2F4F7]",
     backgroundColor: "bg-gray-500",
     textColor: "text-[#344054]",
     chipBackgroundColor: "bg-[#F2F4F7]",
   },
-  Success: {
+  success: {
     borderColor: "border-[#12B76A]",
     backgroundColor: "bg-[#12B76A]",
     textColor: "text-[#027A48]",
