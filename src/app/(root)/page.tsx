@@ -1,4 +1,4 @@
-import { getLoggedInUser } from "@/lib/actions/user.actions";
+import { getLoggedInUser } from "@/services/actions/user.actions";
 import HeaderBox from "./components/HeaderBox";
 import TotalBalanceBox from "./components/TotalBalanceBox";
 import RightSidebar from "./components/rightSidebar/RightSidebar";
@@ -24,11 +24,7 @@ const Home = async () => {
             user={loggedIn?.name || "Guest"} // Fallback to "Guest" if firstName is not available
           />
         </header>
-        <TotalBalanceBox
-          accounts={[]}
-          totalBanks={2}
-          totalCurrentBalance={1243.45}
-        />
+        <TotalBalanceBox accounts={[]} totalBanks={2} totalCurrentBalance={1243.45} />
       </div>
       <RightSidebar
         user={loggedIn}
