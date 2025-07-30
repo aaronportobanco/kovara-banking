@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import FormFieldInput from "../components/FormFieldInput";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { signIn } from "@/lib/actions/user.actions";
+import { signIn } from "@/services/actions/user.actions";
 import Link from "next/link";
 import { toast } from "sonner";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
