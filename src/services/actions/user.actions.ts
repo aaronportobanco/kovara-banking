@@ -17,7 +17,7 @@ import { UserAccount } from "#/types";
  * It uses the signUpSchemaType to ensure the data conforms to the expected structure.
  * It handles errors by logging them and re-throwing for further handling if needed.
  */
-export const signUp = async (userData: SignUpSchemaType): Promise<UserAccount> => {
+export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaType> => {
   try {
     const { account } = await createAdminClient();
     const { email, password, firstname, lastname } = userData; // Destructure for clarity
@@ -39,7 +39,8 @@ export const signUp = async (userData: SignUpSchemaType): Promise<UserAccount> =
 
     return parseStringify(newUserAccount); // Return the new user account data
   } catch (error) {
-    throw new Error("Error during sign up:", { cause: error });
+    Sentry.captureException(error);
+    throw error;
   }
 };
 
@@ -54,8 +55,9 @@ export async function getLoggedInUser(): Promise<UserAccount | null> {
     const user = await account.get();
     return parseStringify(user);
   } catch (error) {
-    Sentry.captureException(error);
-    throw new Error("Error fetching logged in user:", { cause: error });
+    // If there's an error (like no session), it means the user is not logged in.
+    // This is an expected state, so we return null instead of throwing an error.
+    return null;
   }
 }
 
@@ -86,7 +88,8 @@ export const signIn = async ({ email, password }: LoginSchemaType): Promise<void
 
     redirect("/");
   } catch (error) {
-    throw new Error("Error during sign in:", { cause: error });
+    Sentry.captureException(error);
+    throw error;
   }
 };
 
@@ -103,6 +106,7 @@ export const signOut = async (): Promise<void> => {
     await account.deleteSession("current");
     redirect("/sign-in");
   } catch (error) {
-    throw new Error("Error during sign out:", { cause: error });
+    Sentry.captureException(error);
+    throw error;
   }
 };
