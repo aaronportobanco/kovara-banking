@@ -55,6 +55,11 @@ const eslintConfig = [
           format: ["camelCase"],
           leadingUnderscore: "allow",
         },
+        // Permitir cualquier formato para los imports, ya que no los controlamos
+        {
+          selector: "import",
+          format: null,
+        },
         // Forzar que las variables globales (como constantes) usen UPPER_CASE o camelCase
         {
           selector: "variable",
