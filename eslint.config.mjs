@@ -43,7 +43,7 @@ const eslintConfig = [
       "jsx-a11y/anchor-is-valid": "off",
       "prettier/prettier": "warn",
       "no-console": "warn",
-      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-unused-vars": "off", // Desactivar la regla de ESLint para no interferir con @typescript-eslint/no-unused-vars
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
 
       // Reglas de Nomenclatura
@@ -63,7 +63,7 @@ const eslintConfig = [
         // Forzar que las variables globales (como constantes) usen UPPER_CASE o camelCase
         {
           selector: "variable",
-          modifiers: ["global"],
+          modifiers: ["function"],
           format: ["camelCase", "UPPER_CASE"],
         },
         // Forzar que los componentes de React usen PascalCase
