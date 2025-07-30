@@ -2,7 +2,7 @@
 
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpSchema, SignUpSchemaType } from "@/schemas/signUpSchema";
+import { signUpSchema, SignUpSchemaType } from "@/schemas/signUpSchema";
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import FormFieldInput from "../components/FormFieldInput";
@@ -12,17 +12,18 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FormCountrySelect } from "./components/FormSelectState";
 import { FormRegionSelect } from "./components/FormSelectCity";
-import { signUp } from "@/lib/actions/user.actions";
+import { signUp } from "@/services/actions/user.actions";
 import { toast } from "sonner";
+import { UserAccount } from "#/types";
 
 const SignUpForm = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState<UserAccount | null>(null);
 
   // Use the zodResolver to validate the form data against the schema
   const form = useForm<SignUpSchemaType>({
-    resolver: zodResolver(SignUpSchema),
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       postalcode: "",
       dateofbirth: "",
