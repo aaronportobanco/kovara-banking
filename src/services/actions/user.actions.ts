@@ -1,10 +1,11 @@
 "use server";
 
 import { ID } from "node-appwrite";
+import * as Sentry from "@sentry/nextjs";
 import { createAdminClient, createSessionClient } from "../server/appwrite";
 import { cookies } from "next/headers";
 import { SignUpSchemaType } from "@/schemas/signUpSchema";
-import { parseStringify } from "../utils";
+import { parseStringify } from "@/lib/utils";
 import { LoginSchemaType } from "@/schemas/loginSchema";
 import { redirect } from "next/navigation";
 import { UserAccount } from "#/types";
@@ -13,10 +14,10 @@ import { UserAccount } from "#/types";
  * This function is responsible for signing up a new user.
  * It takes user data as input, creates a new user account
  * in Appwrite, and sets a session cookie for the user.
- * It uses the SignUpSchemaType to ensure the data conforms to the expected structure.
+ * It uses the signUpSchemaType to ensure the data conforms to the expected structure.
  * It handles errors by logging them and re-throwing for further handling if needed.
  */
-export const signUp = async (userData: SignUpSchemaType) => {
+export const signUp = async (userData: SignUpSchemaType): Promise<UserAccount> => {
   try {
     const { account } = await createAdminClient();
     const { email, password, firstname, lastname } = userData; // Destructure for clarity
@@ -25,7 +26,7 @@ export const signUp = async (userData: SignUpSchemaType) => {
       ID.unique(),
       email,
       password,
-      `${firstname} ${lastname}`
+      `${firstname} ${lastname}`,
     );
     const session = await account.createEmailPasswordSession(email, password);
 
@@ -38,8 +39,7 @@ export const signUp = async (userData: SignUpSchemaType) => {
 
     return parseStringify(newUserAccount); // Return the new user account data
   } catch (error) {
-    console.error("Error during sign up:", error);
-    throw error; // Re-throw the error for further handling if needed
+    throw new Error("Error during sign up:", { cause: error });
   }
 };
 
@@ -54,9 +54,8 @@ export async function getLoggedInUser(): Promise<UserAccount | null> {
     const user = await account.get();
     return parseStringify(user);
   } catch (error) {
-    console.error("Error fetching logged in user:", error);
-    // Handle the error appropriately, e.g., return null or throw an error
-    return null;
+    Sentry.captureException(error);
+    throw new Error("Error fetching logged in user:", { cause: error });
   }
 }
 
@@ -70,7 +69,7 @@ export async function getLoggedInUser(): Promise<UserAccount | null> {
  * It uses the LoginSchemaType to ensure the data conforms to the expected structure.
  * It handles errors by logging them and re-throwing for further handling if needed.
  */
-export const signIn = async ({ email, password }: LoginSchemaType) => {
+export const signIn = async ({ email, password }: LoginSchemaType): Promise<void> => {
   try {
     const { account } = await createAdminClient();
 
@@ -87,8 +86,7 @@ export const signIn = async ({ email, password }: LoginSchemaType) => {
 
     redirect("/");
   } catch (error) {
-    console.error("Error during sign in:", error);
-    throw error; // Re-throw the error for further handling if needed
+    throw new Error("Error during sign in:", { cause: error });
   }
 };
 
@@ -98,14 +96,13 @@ export const signIn = async ({ email, password }: LoginSchemaType) => {
  * It uses the createSessionClient to ensure the session is deleted
  * in the context of the user.
  */
-export const signOut = async () => {
+export const signOut = async (): Promise<void> => {
   try {
     const { account } = await createSessionClient();
     (await cookies()).delete("appwrite-session");
     await account.deleteSession("current");
     redirect("/sign-in");
   } catch (error) {
-    console.error("Error during sign out:", error);
-    return null;
+    throw new Error("Error during sign out:", { cause: error });
   }
 };
