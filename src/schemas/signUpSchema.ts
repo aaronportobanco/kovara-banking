@@ -1,13 +1,12 @@
 import { z } from "zod";
 import { MAX_AGE, MIN_AGE } from "../../constants";
 
-export const SignUpSchema = z.object({
+export const signUpSchema = z.object({
   firstname: z
     .string({ error: "First name must be a string" })
     .nonempty({ error: "First name is required" })
     .regex(/^[A-Za-z\s\u00C0-\u017F']+$/, {
-      error:
-        "First name can only contain letters, spaces, apostrophes and accents",
+      error: "First name can only contain letters, spaces, apostrophes and accents",
     })
     .min(3, { error: "First name must be at least 3 characters long" })
     .max(50, { error: "First name must be at most 50 characters long" })
@@ -16,8 +15,7 @@ export const SignUpSchema = z.object({
     .string({ error: "Last name must be a string" })
     .nonempty({ error: "Last name is required" })
     .regex(/^[A-Za-z\s\u00C0-\u017F']+$/, {
-      error:
-        "Last name can only contain letters, spaces, apostrophes and accents",
+      error: "Last name can only contain letters, spaces, apostrophes and accents",
     })
     .min(3, { error: "Last name must be at least 3 characters long" })
     .max(50, { error: "Last name must be at most 50 characters long" })
@@ -28,13 +26,14 @@ export const SignUpSchema = z.object({
     .min(10, { error: "Address must be at least 10 characters long" })
     .max(100, { error: "Address must be at most 100 characters long" })
     .trim(),
-  email: z.email({
-    error: (issue) =>
-      issue.input === undefined || issue.input === null
-        ? "Email is required"
-        : "Invalid email format",
-  })
-  .trim(),
+  email: z
+    .email({
+      error: issue =>
+        issue.input === undefined || issue.input === null
+          ? "Email is required"
+          : "Invalid email format",
+    })
+    .trim(),
   password: z
     .string()
     .nonempty({ error: "Password is required" })
@@ -71,62 +70,59 @@ export const SignUpSchema = z.object({
     .nonempty({ error: "Date of birth is required" })
     .min(10, { error: "Date of birth must be at least 10 characters long" })
     .max(10, { error: "Date of birth must be at most 10 characters long" })
+    .refine(str => /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(str), {
+      error: "Formato debe ser YYYY-MM-DD",
+    })
     .refine(
-      (str) => /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(str),
-      {
-        error: "Formato debe ser YYYY-MM-DD",
-      }
-    )
-    .refine(
-      (str) => {
+      str => {
         const date = new Date(str);
         return !isNaN(date.getTime());
       },
       {
         error: "Fecha inválida",
-      }
+      },
     )
     .refine(
-      (str) => {
+      str => {
         const birthDate = new Date(str);
         const today = new Date();
         return birthDate < today;
       },
       {
         error: "La fecha de nacimiento no puede ser en el futuro",
-      }
+      },
     )
     .refine(
-      (str) => {
+      str => {
         const birthDate = new Date(str);
         const today = new Date();
         const eighteenYearsAgo = new Date(
           today.getFullYear() - MIN_AGE,
           today.getMonth(),
-          today.getDate()
+          today.getDate(),
         );
         return birthDate <= eighteenYearsAgo;
       },
       {
         error: `You must be at least ${MIN_AGE} years old`,
-      }
+      },
     )
     .refine(
-      (str) => {
+      str => {
         const birthDate = new Date(str);
         const today = new Date();
         const hundredYearsAgo = new Date(
           today.getFullYear() - MAX_AGE,
           today.getMonth(),
-          today.getDate()
+          today.getDate(),
         );
         return birthDate > hundredYearsAgo;
       },
       {
         error: `La edad no puede ser mayor a ${MAX_AGE} años`,
-      }
+      },
     ),
 });
 
 // Export the type for use in the form
-export type SignUpSchemaType = z.infer<typeof SignUpSchema>;
+export type SignUpSchemaType = z.infer<typeof signUpSchema>;
