@@ -2,6 +2,7 @@ import ChartPie from "./charts/PieChart";
 import AnimatedCounter from "../../../components/animation/AnimatedCounter";
 import React from "react";
 import { accounts as accountsData } from "../../../../constants"; // importa la data
+import { TotalBalanceBoxProps } from "#/types";
 
 const TotalBalanceBox = ({
   totalBanks,
