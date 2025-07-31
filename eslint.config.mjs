@@ -1,6 +1,7 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import tsParser from "@typescript-eslint/parser";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,6 +23,7 @@ const eslintConfig = [
   {
     files: ["**/*.{js,ts,jsx,tsx}"],
     languageOptions: {
+      parser: tsParser,
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
@@ -44,7 +46,7 @@ const eslintConfig = [
       "prettier/prettier": "warn",
       "no-console": "warn",
       "no-unused-vars": "off", // Desactivar la regla de ESLint para no interferir con @typescript-eslint/no-unused-vars
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
 
       // Reglas de Nomenclatura
       "@typescript-eslint/naming-convention": [
@@ -60,13 +62,19 @@ const eslintConfig = [
           selector: "import",
           format: null,
         },
+        // Permitir que las variables que son funciones (como los componentes de React) usen PascalCase
+        {
+          selector: "variable",
+          types: ["function"],
+          format: ["PascalCase", "camelCase"],
+        },
         // Forzar que las variables globales (como constantes) usen UPPER_CASE o camelCase
         {
           selector: "variable",
-          modifiers: ["function"],
+          modifiers: ["global"],
           format: ["camelCase", "UPPER_CASE"],
         },
-        // Forzar que los componentes de React usen PascalCase
+        // Forzar que los componentes de React y funciones exportadas usen PascalCase o camelCase
         {
           selector: "function",
           modifiers: ["exported"],
