@@ -11,20 +11,22 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // 1. Configuraciones base que queremos extender
   ...compat.extends(
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
   ),
 
+  // 2. Reglas generales que se aplican a todos los archivos
   {
     files: ["**/*.{js,ts,jsx,tsx}"],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
+        project: true,
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: {
@@ -45,46 +47,24 @@ const eslintConfig = [
       "jsx-a11y/anchor-is-valid": "off",
       "prettier/prettier": "warn",
       "no-console": "warn",
-      "no-unused-vars": "off", // Desactivar la regla de ESLint para no interferir con @typescript-eslint/no-unused-vars
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "no-unused-vars": "off", // Siempre desactivar la regla base para usar la de TypeScript
+    },
+  },
 
-      // Reglas de Nomenclatura
+  // 3. Reglas específicas para TypeScript que ANULARÁN las anteriores si hay conflicto
+  // Al estar al final, estas reglas tienen la máxima prioridad para los archivos .ts y .tsx
+  {
+    files: ["**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/naming-convention": [
         "warn",
-        // Forzar que las variables, funciones y propiedades usen camelCase
-        {
-          selector: "default",
-          format: ["camelCase"],
-          leadingUnderscore: "allow",
-        },
-        // Permitir cualquier formato para los imports, ya que no los controlamos
-        {
-          selector: "import",
-          format: null,
-        },
-        // Permitir que las variables que son funciones (como los componentes de React) usen PascalCase
-        {
-          selector: "variable",
-          types: ["function"],
-          format: ["PascalCase", "camelCase"],
-        },
-        // Forzar que las variables globales (como constantes) usen UPPER_CASE o camelCase
-        {
-          selector: "variable",
-          modifiers: ["global"],
-          format: ["camelCase", "UPPER_CASE"],
-        },
-        // Forzar que los componentes de React y funciones exportadas usen PascalCase o camelCase
-        {
-          selector: "function",
-          modifiers: ["exported"],
-          format: ["PascalCase", "camelCase"],
-        },
-        // Forzar que los tipos, interfaces y enums usen PascalCase
-        {
-          selector: "typeLike",
-          format: ["PascalCase"],
-        },
+        { selector: "default", format: ["camelCase"], leadingUnderscore: "allow" },
+        { selector: "import", format: null },
+        { selector: "variable", types: ["function"], format: ["PascalCase", "camelCase"] },
+        { selector: "variable", modifiers: ["global"], format: ["camelCase", "UPPER_CASE"] },
+        { selector: "function", modifiers: ["exported"], format: ["PascalCase", "camelCase"] },
+        { selector: "typeLike", format: ["PascalCase"] },
       ],
     },
   },
