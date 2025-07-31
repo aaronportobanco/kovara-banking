@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const PlaidLinkPage = () => {
-  return (
-    <div>PlaidLinkPage</div>
-  )
-}
+  return <div>PlaidLinkPage</div>;
+};
 
-export default PlaidLinkPage
+export default PlaidLinkPage;

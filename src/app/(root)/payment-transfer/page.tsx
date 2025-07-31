@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const PaymentTransferPage = () => {
-  return (
-    <div>PaymentTransferPage</div>
-  )
-}
+  return <div>PaymentTransferPage</div>;
+};
 
-export default PaymentTransferPage
+export default PaymentTransferPage;

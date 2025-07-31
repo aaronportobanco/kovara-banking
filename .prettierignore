@@ -7,9 +7,17 @@ out
 dist
 coverage
 
+# Ignorar archivos de bloqueo de paquetes
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
 # Ignorar activos estáticos
 public
 
 # Ignorar archivos de log y entorno
 *.log
 .env*
+
+# Ignorar carpetas de caché
+.cache

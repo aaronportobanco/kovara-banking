@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ConnectAccountPage = () => {
-  return (
-    <div>ConnectAccountPage</div>
-  )
-}
+  return <div>ConnectAccountPage</div>;
+};
 
-export default ConnectAccountPage
+export default ConnectAccountPage;

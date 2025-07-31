@@ -1,13 +1,14 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.email({
-    error: (issue) =>
-      issue.input === undefined || issue.input === null
-        ? "Email is required"
-        : "Invalid email format",
-  })
-  .trim(),
+  email: z
+    .email({
+      error: issue =>
+        issue.input === undefined || issue.input === null
+          ? "Email is required"
+          : "Invalid email format",
+    })
+    .trim(),
   password: z
     .string()
     .nonempty({ error: "Password is required" })

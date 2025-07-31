@@ -716,9 +716,7 @@
     "Littleton",
     "Northglenn"
   ],
-  "District of Columbia": [
-    "Washington"
-  ],
+  "District of Columbia": ["Washington"],
   "Maryland": [
     "Baltimore",
     "Frederick",
@@ -786,14 +784,7 @@
     "Greenfield",
     "Beloit"
   ],
-  "Nevada": [
-    "Las Vegas",
-    "Henderson",
-    "Reno",
-    "North Las Vegas",
-    "Sparks",
-    "Carson City"
-  ],
+  "Nevada": ["Las Vegas", "Henderson", "Reno", "North Las Vegas", "Sparks", "Carson City"],
   "New Mexico": [
     "Albuquerque",
     "Las Cruces",
@@ -858,12 +849,7 @@
     "Smyrna",
     "Dunwoody"
   ],
-  "Nebraska": [
-    "Omaha",
-    "Lincoln",
-    "Bellevue",
-    "Grand Island"
-  ],
+  "Nebraska": ["Omaha", "Lincoln", "Bellevue", "Grand Island"],
   "Minnesota": [
     "Minneapolis",
     "St. Paul",
@@ -914,12 +900,8 @@
     "Monroe",
     "Alexandria"
   ],
-  "Hawaii": [
-    "Honolulu"
-  ],
-  "Alaska": [
-    "Anchorage"
-  ],
+  "Hawaii": ["Honolulu"],
+  "Alaska": ["Anchorage"],
   "New Jersey": [
     "Newark",
     "Jersey City",
@@ -1023,18 +1005,8 @@
     "East Providence",
     "Woonsocket"
   ],
-  "Mississippi": [
-    "Jackson",
-    "Gulfport",
-    "Southaven",
-    "Hattiesburg",
-    "Biloxi",
-    "Meridian"
-  ],
-  "South Dakota": [
-    "Sioux Falls",
-    "Rapid City"
-  ],
+  "Mississippi": ["Jackson", "Gulfport", "Southaven", "Hattiesburg", "Biloxi", "Meridian"],
+  "South Dakota": ["Sioux Falls", "Rapid City"],
   "Connecticut": [
     "Bridgeport",
     "New Haven",
@@ -1066,39 +1038,12 @@
     "Florence",
     "Spartanburg"
   ],
-  "New Hampshire": [
-    "Manchester",
-    "Nashua",
-    "Concord"
-  ],
-  "North Dakota": [
-    "Fargo",
-    "Bismarck",
-    "Grand Forks",
-    "Minot"
-  ],
-  "Montana": [
-    "Billings",
-    "Missoula",
-    "Great Falls",
-    "Bozeman"
-  ],
-  "Delaware": [
-    "Wilmington",
-    "Dover"
-  ],
-  "Maine": [
-    "Portland"
-  ],
-  "Wyoming": [
-    "Cheyenne",
-    "Casper"
-  ],
-  "West Virginia": [
-    "Charleston",
-    "Huntington"
-  ],
-  "Vermont": [
-    "Burlington"
-  ]
+  "New Hampshire": ["Manchester", "Nashua", "Concord"],
+  "North Dakota": ["Fargo", "Bismarck", "Grand Forks", "Minot"],
+  "Montana": ["Billings", "Missoula", "Great Falls", "Bozeman"],
+  "Delaware": ["Wilmington", "Dover"],
+  "Maine": ["Portland"],
+  "Wyoming": ["Cheyenne", "Casper"],
+  "West Virginia": ["Charleston", "Huntington"],
+  "Vermont": ["Burlington"]
 }

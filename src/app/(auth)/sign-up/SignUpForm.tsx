@@ -77,10 +77,7 @@ const SignUpForm = () => {
       </header>
       <div>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-6"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row gap-4">
               <FormFieldInput
                 control={form.control}
@@ -189,17 +186,12 @@ const SignUpForm = () => {
               disabled={isSubmitting || !isValid || isLoading}
               className="form-btn"
             >
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : null}
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               {isLoading ? "Submitting" : "Create account"}
             </Button>
             <footer className="text-center text-sm">
               Already have an account?{" "}
-              <Link
-                href="/sign-in"
-                className="underline underline-offset-4 text-bankGradient"
-              >
+              <Link href="/sign-in" className="underline underline-offset-4 text-bankGradient">
                 Log In
               </Link>
             </footer>

@@ -1,19 +1,15 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import {
   BellIcon,
   CreditCardIcon,
   LogOutIcon,
   MoreVerticalIcon,
   UserCircleIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,28 +18,28 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { getLoggedInUser, signOut } from "@/services/actions/user.actions"
-import { Skeleton } from "@/components/ui/skeleton"
-import { UserAccount } from "#/types"
+} from "@/components/ui/sidebar";
+import { getLoggedInUser, signOut } from "@/services/actions/user.actions";
+import { Skeleton } from "@/components/ui/skeleton";
+import { UserAccount } from "#/types";
 
 export const NavUser = () => {
-  const { isMobile } = useSidebar()
-  const [user, setUser] = useState<UserAccount | null>(null)
+  const { isMobile } = useSidebar();
+  const [user, setUser] = useState<UserAccount | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const loggedInUser = await getLoggedInUser()
-      setUser(loggedInUser)
-    }
-    fetchUser()
-  }, [])
+      const loggedInUser = await getLoggedInUser();
+      setUser(loggedInUser);
+    };
+    fetchUser();
+  }, []);
 
   if (!user) {
     return (
@@ -58,7 +54,7 @@ export const NavUser = () => {
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
-    )
+    );
   }
 
   return (
@@ -78,9 +74,7 @@ export const NavUser = () => {
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs text-muted-foreground">
-                  {user.email}
-                </span>
+                <span className="truncate text-xs text-muted-foreground">{user.email}</span>
               </div>
               <MoreVerticalIcon className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -101,9 +95,7 @@ export const NavUser = () => {
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    {user.email}
-                  </span>
+                  <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -131,5 +123,5 @@ export const NavUser = () => {
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
-}
+  );
+};

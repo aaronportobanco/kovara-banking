@@ -4,10 +4,7 @@ import React from "react";
 import { accounts as accountsData } from "../../../../constants"; // importa la data
 import { TotalBalanceBoxProps } from "#/types";
 
-const TotalBalanceBox = ({
-  totalBanks,
-  totalCurrentBalance,
-}: TotalBalanceBoxProps) => {
+const TotalBalanceBox = ({ totalBanks, totalCurrentBalance }: TotalBalanceBoxProps) => {
   return (
     <section className="total-balance">
       <div className="total-balance-chart">

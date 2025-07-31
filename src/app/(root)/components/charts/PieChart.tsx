@@ -34,7 +34,7 @@ const ChartPie = ({ accounts }: ChartPieProps) => {
     );
   }
 
-  const chartData = accounts.map((account) => ({
+  const chartData = accounts.map(account => ({
     name: account.name,
     value: account.currentBalance,
   }));
@@ -66,10 +66,7 @@ const ChartPie = ({ accounts }: ChartPieProps) => {
             padding: "8px",
             fontSize: "10px",
           }}
-          formatter={(value: number, name: string) => [
-            `$${value.toLocaleString()}`,
-            name,
-          ]}
+          formatter={(value: number, name: string) => [`$${value.toLocaleString()}`, name]}
         />
       </PieChart>
     </ResponsiveContainer>

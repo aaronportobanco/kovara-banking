@@ -1,5 +1,5 @@
 ---
-applyTo: '**'
+applyTo: "**"
 ---
 
 These examples should be used as guidance when configuring Sentry functionality within a project.
@@ -29,7 +29,7 @@ function TestComponent() {
         op: "ui.click",
         name: "Test Button Click",
       },
-      (span) => {
+      span => {
         const value = "some config";
         const metric = "some metric";
 

@@ -7,13 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { FormFieldProps } from "#/types";
 import { ControllerRenderProps, FieldPath } from "react-hook-form";
 import { SelectSearchInput } from "./SelectSearchInput";
@@ -29,19 +23,15 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
 }: FormFieldProps<T>) {
   const [search, setSearch] = useState("");
 
-  const filteredStates = usStates.filter((state) =>
-    state.toLowerCase().includes(search.toLowerCase())
+  const filteredStates = usStates.filter(state =>
+    state.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
     <FormField
       control={control}
       name={name}
-      render={({
-        field,
-      }: {
-        field: ControllerRenderProps<T, FieldPath<T>>;
-      }) => (
+      render={({ field }: { field: ControllerRenderProps<T, FieldPath<T>> }) => (
         <FormItem className="form-item w-full">
           <FormLabel className="form-label">{label}</FormLabel>
           <div className="w-full">
@@ -58,9 +48,9 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
                   <SelectSearchInput
                     placeholder="Search state..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value)}
                   />
-                  {filteredStates.map((state) => (
+                  {filteredStates.map(state => (
                     <SelectItem key={state} value={state}>
                       {state}
                     </SelectItem>

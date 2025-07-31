@@ -9,13 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { FormFieldProps } from "#/types";
 import { SelectSearchInput } from "./SelectSearchInput";
 import statesAndCitiesData from "#/US_States_and_Cities.json";
@@ -51,11 +45,8 @@ export function FormRegionSelect<T extends FieldValues>({
   }, [selectedState]);
 
   const filteredCities = useMemo(
-    () =>
-      cities.filter((city) =>
-        city.toLowerCase().includes(search.toLowerCase())
-      ),
-    [cities, search]
+    () => cities.filter(city => city.toLowerCase().includes(search.toLowerCase())),
+    [cities, search],
   );
 
   return (
@@ -80,9 +71,9 @@ export function FormRegionSelect<T extends FieldValues>({
                   <SelectSearchInput
                     placeholder="Search city..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value)}
                   />
-                  {filteredCities.map((city) => (
+                  {filteredCities.map(city => (
                     <SelectItem key={city} value={city}>
                       {city}
                     </SelectItem>

@@ -14,14 +14,10 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         <div className="profile-banner" />
         <div className="profile">
           <div className="profile-img">
-            <span className="text-5xl font-bold text-blue-500">
-              {user.name.charAt(0)}
-            </span>
+            <span className="text-5xl font-bold text-blue-500">{user.name.charAt(0)}</span>
           </div>
           <div className="profile-details">
-            <h1 className="profile-name">
-             {user.name}
-            </h1>
+            <h1 className="profile-name">{user.name}</h1>
             <p className="profile-email">{user.email}</p>
           </div>
         </div>
@@ -30,8 +26,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
       <section className="banks">
         <div className="flex w-full justify-between items-center">
           <h2 className="font-semibold text-gray-900 text-base">My Banks</h2>
-          <Button
-            variant="ghost">
+          <Button variant="ghost">
             <Plus />
             <Link href="#">Add Bank</Link>
           </Button>

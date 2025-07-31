@@ -37,10 +37,7 @@ const AppSidebar = () => {
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton
-                asChild
-                className="data-[slot=sidebar-menu-button]:!p-1.5"
-              >
+              <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
                 <Link href="/">
                   <SidebarTrigger className="h-5 w-5" />
                   <span className="text-base font-semibold">Acme Inc.</span>
@@ -53,7 +50,7 @@ const AppSidebar = () => {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu className="sidebar-link">
-                {items.map((item) => {
+                {items.map(item => {
                   const isActive = pathname === item.url;
                   return (
                     <SidebarMenuItem key={item.title} className="w-full">
@@ -61,9 +58,7 @@ const AppSidebar = () => {
                         <SidebarMenuButton
                           asChild
                           isActive={isActive}
-                          className={
-                            isActive ? "sidebar-link-active" : undefined
-                          }
+                          className={isActive ? "sidebar-link-active" : undefined}
                         >
                           {/* Using `asChild` to allow custom components like Link */}
                           <Link href={item.url}>

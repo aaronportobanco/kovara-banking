@@ -4,11 +4,7 @@ import * as React from "react";
 
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { FormFieldProps } from "#/types";
 import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import {
@@ -41,11 +37,7 @@ const FormDatePicker = <T extends FieldValues>({
     <FormField
       control={control}
       name={name}
-      render={({
-        field,
-      }: {
-        field: ControllerRenderProps<T, FieldPath<T>>;
-      }) => (
+      render={({ field }: { field: ControllerRenderProps<T, FieldPath<T>> }) => (
         <FormItem className="form-item">
           <div className="flex flex-col gap-3">
             <FormLabel className="form-label">{label}</FormLabel>
@@ -64,11 +56,9 @@ const FormDatePicker = <T extends FieldValues>({
                       pattern={pattern?.source}
                       required
                       readOnly
-                     value={
+                      value={
                         field.value
-                          ? formatDateTime(
-                              new Date(`${field.value}T00:00:00`)
-                            ).dateOnly
+                          ? formatDateTime(new Date(`${field.value}T00:00:00`)).dateOnly
                           : ""
                       }
                     />
@@ -76,38 +66,27 @@ const FormDatePicker = <T extends FieldValues>({
                   </div>
                 </FormControl>
               </PopoverTrigger>
-              <PopoverContent
-                className="w-auto overflow-hidden p-0"
-                align="start"
-              >
+              <PopoverContent className="w-auto overflow-hidden p-0" align="start">
                 <Calendar
                   mode="single"
                   required
-                  selected={
-                    field.value
-                      ? new Date(`${field.value}T00:00:00`)
-                      : undefined
-                  }
+                  selected={field.value ? new Date(`${field.value}T00:00:00`) : undefined}
                   captionLayout="dropdown"
-                  disabled={(date) => {
+                  disabled={date => {
                     const today = new Date();
                     const hundredYearsAgo = new Date(
                       today.getFullYear() - MAX_AGE,
                       today.getMonth(),
-                      today.getDate()
+                      today.getDate(),
                     );
                     const eighteenYearsAgo = new Date(
                       today.getFullYear() - MIN_AGE,
                       today.getMonth(),
-                      today.getDate()
+                      today.getDate(),
                     );
-                    return (
-                      date > eighteenYearsAgo ||
-                      date < hundredYearsAgo ||
-                      date > today
-                    );
+                    return date > eighteenYearsAgo || date < hundredYearsAgo || date > today;
                   }}
-                  onSelect={(date) => {
+                  onSelect={date => {
                     if (date) {
                       field.onChange(date.toISOString().split("T")[0]);
                     }
@@ -117,9 +96,7 @@ const FormDatePicker = <T extends FieldValues>({
               </PopoverContent>
             </Popover>{" "}
             {description && (
-              <FormDescription className="mt-1 text-xs">
-                {description}
-              </FormDescription>
+              <FormDescription className="mt-1 text-xs">{description}</FormDescription>
             )}
             <FormMessage className="form-message mt-2" />
           </div>
