@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 Introduction to Auth  
 ======================
 
