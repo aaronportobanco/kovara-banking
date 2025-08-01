@@ -2,7 +2,7 @@ import React from "react";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { redirect } from "next/navigation";
 
-const PlaidLinkPage: () => Promise<JSX.Element> = async () => {
+const PlaidLinkPage: () => Promise<React.ReactElement> = async () => {
   const user = await getLoggedInUser();
 
   // If the user is not logged in, render the sign-up form
