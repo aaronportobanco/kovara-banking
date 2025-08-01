@@ -16,7 +16,7 @@ import { signUp } from "@/services/actions/user.actions";
 import { toast } from "sonner";
 import { UserAccount } from "#/types";
 
-const SignUpForm = () => {
+const SignUpForm: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = React.useState<UserAccount | null>(null);
@@ -49,12 +49,14 @@ const SignUpForm = () => {
 
     try {
       const newUser = await signUp(data);
+      // eslint-disable-next-line no-console
       console.log("Form submitted successfully", data);
       setUser(newUser);
       toast.success("Sign Up successful! Welcome aboard!", {
         position: "top-center",
       });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error("Error signing up:", error);
       toast.error("Sign Up failed. Please try again later.", {
         position: "top-center",
