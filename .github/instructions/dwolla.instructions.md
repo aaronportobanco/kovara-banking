@@ -28,7 +28,7 @@ The benefits of using Dwolla include:
 The following key features help you diversify the way in which you embed account-to-account payments into your own platform:
 
 * Same-day ACH payments: Allows you to expedite the way you send and receive money via ACH by opening up additional windows for processing transactions on the same day.
-* Real-time payments: Dwolla also supports real-time payments, which allow businesses to send instantly. You can pre-fund your [Dwolla Balance] `https://developers.dwolla.com/docs/balance-funding-source.md` to enable near real-time push payments 24/7/365.
+* Real-time payments: Dwolla also supports real-time payments, which allow businesses to send instantly. You can pre-fund your [Dwolla Balance] [https://developers.dwolla.com/docs/balance-funding-source.md] to enable near real-time push payments 24/7/365.
 * Reporting and analytics: Dwolla provides businesses with detailed reporting and analytics data, which can be used to track payments and improve cash flow management.
 
 ## Limitations
