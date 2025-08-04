@@ -17,28 +17,20 @@ const { DATABASE_ID, USER_COLLECTION_ID } = process.env;
 /**
  * Registers a new user in the application.
  * This function is responsible for:
- * 1. Creating a user account in Appwrite Authentication.
- * 2. Creating a customer in Dwolla for payment processing.
+ * 1. Creating a customer in Dwolla for payment processing. This is the first step to ensure data validity before creating an app user.
+ * 2. Creating a user account in Appwrite Authentication.
  * 3. Saving user data and references to Appwrite and Dwolla in the database.
  * 4. Starting a session for the new user and setting a session cookie.
  *
- * @param {SignUpParams} userData - The user's data for registration (name, email, password, etc.).
+ * @param {SignUpSchemaType} userData - The user's data for registration (name, email, password, etc.).
  * @returns {Promise<SignUpSchemaType>} A promise that resolves with the data of the new user saved in the database.
- * @throws {Error} Throws an error if user creation, Dwolla customer creation, or session creation fails.
+ * @throws {Error} Throws an error if Dwolla customer creation, user creation, or session creation fails.
  */
 export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaType> => {
   let newUserAccount;
 
   try {
-    // Get Appwrite admin client for server-side operations
-    const { account, database } = await createAdminClient();
     const { email, password, firstName, lastName } = userData; // Destructure for clarity
-
-    // Create a new user account in Appwrite
-    newUserAccount = await account.create(ID.unique(), email, password, `${firstName} ${lastName}`);
-    if (!newUserAccount) {
-      throw new Error("Error creating user");
-    }
 
     // Create a Dwolla customer for the new user
     const dwollaCustomerUrl = await createDwollaCustomer({
@@ -47,6 +39,15 @@ export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaTy
     });
     if (!dwollaCustomerUrl) {
       throw new Error("Error creating Dwolla customer");
+    }
+
+    // Get Appwrite admin client for server-side operations
+    const { account, database } = await createAdminClient();
+
+    // Create a new user account in Appwrite
+    newUserAccount = await account.create(ID.unique(), email, password, `${firstName} ${lastName}`);
+    if (!newUserAccount) {
+      throw new Error("Error creating user");
     }
 
     // Extract the Dwolla customer ID from the URL
