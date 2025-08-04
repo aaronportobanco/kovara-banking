@@ -3,7 +3,7 @@ import SignUpForm from "./SignUpForm";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { redirect } from "next/navigation";
 
-const SignUpPage: () => Promise<JSX.Element> = async () => {
+const SignUpPage: () => Promise<React.ReactElement> = async () => {
   const user = await getLoggedInUser();
 
   // If the user is already logged in, redirect to the Plaid link page
