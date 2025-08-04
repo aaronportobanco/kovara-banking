@@ -60,7 +60,6 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
             </FormControl>
 
             <FormMessage className="form-message mt-2" />
-            <FormMessage />
           </div>
         </FormItem>
       )}
