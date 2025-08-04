@@ -4,32 +4,65 @@ import { ID } from "node-appwrite";
 import * as Sentry from "@sentry/nextjs";
 import { createAdminClient, createSessionClient } from "../server/appwrite";
 import { cookies } from "next/headers";
-import { SignUpSchemaType } from "@/schemas/signUpSchema";
-import { parseStringify } from "@/lib/utils";
+import { extractCustomerIdFromUrl, parseStringify } from "@/lib/utils";
 import { LoginSchemaType } from "@/schemas/loginSchema";
 import { redirect } from "next/navigation";
-import { UserAccount } from "#/types";
+import { SignUpParams, UserAccount } from "#/types";
+import { createDwollaCustomer } from "./dwolla.actions";
 
-/*
- * This function is responsible for signing up a new user.
- * It takes user data as input, creates a new user account
- * in Appwrite, and sets a session cookie for the user.
- * It uses the signUpSchemaType to ensure the data conforms to the expected structure.
- * It handles errors by logging them and re-throwing for further handling if needed.
+// Destructuring environment variables to access Appwrite database and collection IDs.
+const { DATABASE_ID, USER_COLLECTION_ID } = process.env;
+
+/**
+ * Registers a new user in the application.
+ * This function is responsible for:
+ * 1. Creating a user account in Appwrite Authentication.
+ * 2. Creating a customer in Dwolla for payment processing.
+ * 3. Saving user data and references to Appwrite and Dwolla in the database.
+ * 4. Starting a session for the new user and setting a session cookie.
+ *
+ * @param {SignUpParams} userData - The user's data for registration (name, email, password, etc.).
+ * @returns {Promise<SignUpParams>} A promise that resolves with the data of the new user saved in the database.
+ * @throws {Error} Throws an error if user creation, Dwolla customer creation, or session creation fails.
  */
-export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaType> => {
-  try {
-    const { account } = await createAdminClient();
-    const { email, password, firstname, lastname } = userData; // Destructure for clarity
+export const signUp = async (userData: SignUpParams): Promise<SignUpParams> => {
+  let newUserAccount;
 
-    const newUserAccount = await account.create(
-      ID.unique(),
-      email,
-      password,
-      `${firstname} ${lastname}`,
-    );
+  try {
+    // Get Appwrite admin client for server-side operations
+    const { account, database } = await createAdminClient();
+    const { email, password, firstName, lastName } = userData; // Destructure for clarity
+
+    // Create a new user account in Appwrite
+    newUserAccount = await account.create(ID.unique(), email, password, `${firstName} ${lastName}`);
+    if (!newUserAccount) {
+      throw new Error("Error creating user");
+    }
+
+    // Create a Dwolla customer for the new user
+    const dwollaCustomerUrl = await createDwollaCustomer({
+      ...userData,
+      type: "personal",
+    });
+    if (!dwollaCustomerUrl) {
+      throw new Error("Error creating Dwolla customer");
+    }
+
+    // Extract the Dwolla customer ID from the URL
+    const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
+
+    // Create a new document in the users collection with all user data
+    const newUser = await database.createDocument(DATABASE_ID!, USER_COLLECTION_ID!, ID.unique(), {
+      ...userData,
+      userId: newUserAccount.$id,
+      dwollaCustomerId,
+      dwollaCustomerUrl,
+    });
+
+    // Create a session for the new user to log them in immediately
     const session = await account.createEmailPasswordSession(email, password);
 
+    // Set the session cookie in the browser
     (await cookies()).set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
@@ -37,44 +70,50 @@ export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaTy
       secure: true,
     });
 
-    return parseStringify(newUserAccount); // Return the new user account data
+    return parseStringify(newUser); // Return the new user account data
   } catch (error) {
     Sentry.captureException(error);
     throw error;
   }
 };
 
-/*
- * Build a utility function to get the logged in user from Appwrite.
- * This function will be used in our components and routes
- * to check if a user is logged in, and access the user's details.
+/**
+ * Gets the data of the currently logged-in user.
+ * It uses the session cookie to authenticate with Appwrite and fetch the account details.
+ *
+ * @returns {Promise<UserAccount | null>} A promise that resolves with the user's account object
+ * if logged in, or `null` if there is no active session or an error occurs.
  */
 export async function getLoggedInUser(): Promise<UserAccount | null> {
   try {
+    // Get the session client, which uses the session cookie for authentication
     const { account } = await createSessionClient();
+    // Fetch the currently authenticated user's account details
     const user = await account.get();
     return parseStringify(user);
-  } catch (error) {
+  } catch {
     // If there's an error (like no session), it means the user is not logged in.
     // This is an expected state, so we return null instead of throwing an error.
     return null;
   }
 }
 
-/*
- * This function is responsible for signing in a user.
- * It takes email and password as input, creates a session
- * for the user in Appwrite, and returns the session data.
- * It sets a cookie with the session secret for authentication.
- * It uses the createSessionClient to ensure the session is created
- * in the context of the user.
- * It uses the LoginSchemaType to ensure the data conforms to the expected structure.
- * It handles errors by logging them and re-throwing for further handling if needed.
+/**
+ * Signs in an existing user.
+ * It verifies the credentials (email and password) with Appwrite, creates a new session,
+ * and sets a secure, httpOnly session cookie to keep the user authenticated.
+ * Finally, it redirects the user to the main page.
+ *
+ * @param {LoginSchemaType} { email, password } - Object with the user's email and password.
+ * @returns {Promise<void>} Does not return any value. Redirects the user or throws an error.
+ * @throws {Error} Throws an error if the credentials are incorrect or if session creation fails.
  */
-export const signIn = async ({ email, password }: LoginSchemaType): Promise<void> => {
+export const signIn = async ({ email, password }: LoginSchemaType): Promise<LoginSchemaType> => {
   try {
+    // Use admin client to create a session for the user
     const { account } = await createAdminClient();
 
+    // Create a session for the user with the provided email and password
     const session = await account.createEmailPasswordSession(email, password);
 
     // Set the session cookie for the user
@@ -86,6 +125,7 @@ export const signIn = async ({ email, password }: LoginSchemaType): Promise<void
       secure: true,
     });
 
+    // Redirect the user to the homepage after successful sign-in
     redirect("/");
   } catch (error) {
     Sentry.captureException(error);
@@ -93,17 +133,23 @@ export const signIn = async ({ email, password }: LoginSchemaType): Promise<void
   }
 };
 
-/*
- * This function is responsible for signing out the current user.
- * It deletes the session from Appwrite and removes the session cookie.
- * It uses the createSessionClient to ensure the session is deleted
- * in the context of the user.
+/**
+ * Signs out the current user.
+ * It deletes the active session in Appwrite and removes the session cookie from the browser.
+ * Finally, it redirects the user to the sign-in page.
+ *
+ * @returns {Promise<void>} Does not return any value. Redirects the user or throws an error.
+ * @throws {Error} Throws an error if signing out fails.
  */
 export const signOut = async (): Promise<void> => {
   try {
+    // Get the session client to interact with the current user's session
     const { account } = await createSessionClient();
+    // Delete the session cookie from the browser
     (await cookies()).delete("appwrite-session");
+    // Delete the session from Appwrite's side
     await account.deleteSession("current");
+    // Redirect the user to the sign-in page
     redirect("/sign-in");
   } catch (error) {
     Sentry.captureException(error);
