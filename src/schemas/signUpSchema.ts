@@ -2,7 +2,7 @@ import { z } from "zod";
 import { MAX_AGE, MIN_AGE } from "../../constants";
 
 export const signUpSchema = z.object({
-  firstname: z
+  firstName: z
     .string({ error: "First name must be a string" })
     .nonempty({ error: "First name is required" })
     .regex(/^[A-Za-z\s\u00C0-\u017F']+$/, {
@@ -11,7 +11,7 @@ export const signUpSchema = z.object({
     .min(3, { error: "First name must be at least 3 characters long" })
     .max(50, { error: "First name must be at most 50 characters long" })
     .trim(),
-  lastname: z
+  lastName: z
     .string({ error: "Last name must be a string" })
     .nonempty({ error: "Last name is required" })
     .regex(/^[A-Za-z\s\u00C0-\u017F']+$/, {
@@ -47,7 +47,7 @@ export const signUpSchema = z.object({
     .trim(),
   state: z.string().nonempty({ error: "State is required" }).trim(),
   city: z.string().nonempty({ error: "City is required" }).trim(),
-  postalcode: z
+  postalCode: z
     .string()
     .nonempty({ error: "Postal code is required" })
     .min(5, { error: "Postal code must be at least 5 characters long" })
@@ -64,7 +64,7 @@ export const signUpSchema = z.object({
       error: "It must be a valid SSN (e.g. 123-45-6789)",
     })
     .trim(),
-  dateofbirth: z
+  dateOfBirth: z
     .string()
     .trim()
     .nonempty({ error: "Date of birth is required" })
