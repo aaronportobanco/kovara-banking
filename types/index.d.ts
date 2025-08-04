@@ -348,3 +348,9 @@ declare interface FormFieldProps<T extends FieldValues> {
   autoComplete?: string;
   pattern?: RegExp;
 }
+
+interface StateItem {
+  code: string;
+  name: string;
+  cities: string[];
+}
