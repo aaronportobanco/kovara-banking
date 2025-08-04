@@ -1,6 +1,7 @@
 import React from "react";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { redirect } from "next/navigation";
+import PlaidLink from "./PlaidLink";
 
 const PlaidLinkPage: () => Promise<React.ReactElement> = async () => {
   const userLoggedIn = await getLoggedInUser();
@@ -10,7 +11,7 @@ const PlaidLinkPage: () => Promise<React.ReactElement> = async () => {
   // and prevents authenticated users from accessing it.
   if (!userLoggedIn) redirect("/sign-up");
 
-  return <div>PlaidLinkPage</div>;
+  return <PlaidLink user={userLoggedIn} variant="primary" />;
 };
 
 export default PlaidLinkPage;
