@@ -45,7 +45,11 @@ export const signUpSchema = z.object({
       error: "Password can only contain letters and numbers",
     })
     .trim(),
-  state: z.string().nonempty({ error: "State is required" }).trim(),
+  state: z
+    .string()
+    .nonempty({ error: "State is required" })
+    .min(2, { error: "State must be at least 2 characters long" })
+    .trim(),
   city: z.string().nonempty({ error: "City is required" }).trim(),
   postalCode: z
     .string()
