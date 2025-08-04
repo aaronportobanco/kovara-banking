@@ -13,7 +13,7 @@ import { ControllerRenderProps, FieldPath } from "react-hook-form";
 import { SelectSearchInput } from "./SelectSearchInput";
 import statesAndCitiesData from "#/US_States_and_Cities.json";
 
-const usStates = Object.keys(statesAndCitiesData).sort();
+const states: StateItem[] = statesAndCitiesData;
 
 export function FormCountrySelect<T extends Record<string, unknown>>({
   control,
@@ -23,8 +23,8 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
 }: FormFieldProps<T>): JSX.Element {
   const [search, setSearch] = useState("");
 
-  const filteredStates = usStates.filter(state =>
-    state.toLowerCase().includes(search.toLowerCase()),
+  const filteredStates = states.filter(state =>
+    `${state.name} ${state.code}`.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -51,8 +51,8 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
                     onChange={e => setSearch(e.target.value)}
                   />
                   {filteredStates.map(state => (
-                    <SelectItem key={state} value={state}>
-                      {state}
+                    <SelectItem key={state.code} value={state.code}>
+                      {state.name} ({state.code})
                     </SelectItem>
                   ))}
                 </SelectContent>
