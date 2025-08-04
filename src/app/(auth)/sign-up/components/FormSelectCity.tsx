@@ -14,17 +14,11 @@ import { FormFieldProps } from "#/types";
 import { SelectSearchInput } from "./SelectSearchInput";
 import statesAndCitiesData from "#/US_States_and_Cities.json";
 
-interface StatesAndCities {
-  [key: string]: string[];
-}
+const states: StateItem[] = statesAndCitiesData;
 
-const data: StatesAndCities = statesAndCitiesData;
-
-const getCitiesByState = (state: string): string[] => {
-  if (state && data[state]) {
-    return data[state].sort();
-  }
-  return [];
+const getCitiesByStateCode = (code: string): string[] => {
+  const state = states.find(s => s.code === code);
+  return state ? state.cities.sort() : [];
 };
 
 interface FormCitySelectProps<T extends FieldValues> extends FormFieldProps<T> {
@@ -40,9 +34,7 @@ export function FormRegionSelect<T extends FieldValues>({
   const selectedState = useWatch({ control, name: stateField });
   const [search, setSearch] = useState("");
 
-  const cities = useMemo(() => {
-    return getCitiesByState(selectedState);
-  }, [selectedState]);
+  const cities = useMemo(() => getCitiesByStateCode(selectedState), [selectedState]);
 
   const filteredCities = useMemo(
     () => cities.filter(city => city.toLowerCase().includes(search.toLowerCase())),
