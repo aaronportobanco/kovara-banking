@@ -20,7 +20,7 @@ export function FormCountrySelect<T extends Record<string, unknown>>({
   name,
   label,
   placeholder,
-}: FormFieldProps<T>) {
+}: FormFieldProps<T>): JSX.Element {
   const [search, setSearch] = useState("");
 
   const filteredStates = usStates.filter(state =>

@@ -36,7 +36,7 @@ export function FormRegionSelect<T extends FieldValues>({
   label,
   control,
   placeholder,
-}: FormCitySelectProps<T>) {
+}: FormCitySelectProps<T>): JSX.Element {
   const selectedState = useWatch({ control, name: stateField });
   const [search, setSearch] = useState("");
 

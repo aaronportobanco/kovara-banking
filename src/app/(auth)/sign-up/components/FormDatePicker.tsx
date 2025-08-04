@@ -30,7 +30,7 @@ const FormDatePicker = <T extends FieldValues>({
   pattern,
   minLength,
   maxLength,
-}: FormFieldProps<T>) => {
+}: FormFieldProps<T>): JSX.Element => {
   const [open, setOpen] = React.useState(false);
 
   return (
