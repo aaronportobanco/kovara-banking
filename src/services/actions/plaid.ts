@@ -1,3 +1,5 @@
+"use server";
+
 /* eslint-disable @typescript-eslint/naming-convention */
 import { CreateBankAccountProps, ExchangePublicTokenProps, User } from "#/types";
 import {
