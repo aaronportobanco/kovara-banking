@@ -14,21 +14,20 @@ import { FormCountrySelect } from "./components/FormSelectState";
 import { FormRegionSelect } from "./components/FormSelectCity";
 import { signUp } from "@/services/actions/user.actions";
 import { toast } from "sonner";
-import { UserAccount } from "#/types";
+import { useRouter } from "next/navigation";
 
 const SignUpForm: React.FC = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [user, setUser] = React.useState<UserAccount | null>(null);
 
   // Use the zodResolver to validate the form data against the schema
   const form = useForm<SignUpSchemaType>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      postalcode: "",
-      dateofbirth: "",
-      firstname: "",
-      lastname: "",
+      postalCode: "",
+      dateOfBirth: "",
+      firstName: "",
+      lastName: "",
       address: "",
       email: "",
       state: "",
@@ -51,7 +50,10 @@ const SignUpForm: React.FC = () => {
       const newUser = await signUp(data);
       // eslint-disable-next-line no-console
       console.log("Form submitted successfully", data);
-      setUser(newUser);
+
+      if (newUser) {
+        router.push("/plaid-link");
+      }
       toast.success("Sign Up successful! Welcome aboard!", {
         position: "top-center",
       });
@@ -83,7 +85,7 @@ const SignUpForm: React.FC = () => {
             <div className="flex flex-col md:flex-row gap-4">
               <FormFieldInput
                 control={form.control}
-                name="firstname"
+                name="firstName"
                 label="First Name"
                 type="text"
                 autoComplete="on"
@@ -94,7 +96,7 @@ const SignUpForm: React.FC = () => {
               />
               <FormFieldInput
                 control={form.control}
-                name="lastname"
+                name="lastName"
                 label="Last Name"
                 type="text"
                 autoComplete="on"
@@ -117,7 +119,7 @@ const SignUpForm: React.FC = () => {
             />
             <FormDatePicker
               control={form.control}
-              name="dateofbirth"
+              name="dateOfBirth"
               label="Date of Birth"
               placeholder="Select your date of birth"
               description="You must be at least 18 years old"
@@ -144,7 +146,7 @@ const SignUpForm: React.FC = () => {
 
             <FormFieldInput
               control={form.control}
-              name="postalcode"
+              name="postalCode"
               label="Postal Code"
               type="text"
               autoComplete="on"
