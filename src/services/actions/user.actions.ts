@@ -7,8 +7,9 @@ import { cookies } from "next/headers";
 import { extractCustomerIdFromUrl, parseStringify } from "@/lib/utils";
 import { LoginSchemaType } from "@/schemas/loginSchema";
 import { redirect } from "next/navigation";
-import { SignUpParams, UserAccount } from "#/types";
+import { UserAccount } from "#/types";
 import { createDwollaCustomer } from "./dwolla.actions";
+import { SignUpSchemaType } from "@/schemas/signUpSchema";
 
 // Destructuring environment variables to access Appwrite database and collection IDs.
 const { DATABASE_ID, USER_COLLECTION_ID } = process.env;
@@ -22,10 +23,10 @@ const { DATABASE_ID, USER_COLLECTION_ID } = process.env;
  * 4. Starting a session for the new user and setting a session cookie.
  *
  * @param {SignUpParams} userData - The user's data for registration (name, email, password, etc.).
- * @returns {Promise<SignUpParams>} A promise that resolves with the data of the new user saved in the database.
+ * @returns {Promise<SignUpSchemaType>} A promise that resolves with the data of the new user saved in the database.
  * @throws {Error} Throws an error if user creation, Dwolla customer creation, or session creation fails.
  */
-export const signUp = async (userData: SignUpParams): Promise<SignUpParams> => {
+export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaType> => {
   let newUserAccount;
 
   try {
