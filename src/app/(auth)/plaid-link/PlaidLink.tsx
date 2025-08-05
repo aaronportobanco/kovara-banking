@@ -5,16 +5,20 @@ import { PlaidLinkProps } from "#/types";
 import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from "react-plaid-link";
 import { Button } from "@/components/ui/button";
 import { createLinkToken, exchangePublicToken } from "@/services/actions/plaid";
+import { useRouter } from "next/navigation";
 
 const PlaidLink: React.FC<PlaidLinkProps> = ({ user, variant }) => {
+  const router = useRouter();
+
   const [token, setToken] = useState("");
 
   const onSuccess = useCallback<PlaidLinkOnSuccess>(
     // eslint-disable-next-line @typescript-eslint/naming-convention
     async (public_Token: string) => {
       await exchangePublicToken({ publicToken: public_Token, user });
+      router.push("/");
     },
-    [user],
+    [user, router],
   );
 
   useEffect(() => {
