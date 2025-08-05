@@ -13,7 +13,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-const SignInForm = () => {
+const SignInForm: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   // Use the zodResolver to validate the form data against the schema
@@ -36,15 +36,15 @@ const SignInForm = () => {
 
     try {
       await signIn(data);
-      console.log("Sign In successful", data);
+      toast.success("Sign In successful", {
+        position: "top-center",
+      });
     } catch (error) {
       // We check if the error is the special redirect error. If it is, we re-throw it
       // so Next.js can handle the redirection.
       if (isRedirectError(error)) {
         throw error;
       }
-
-      console.error("Error signing in:", error);
       toast.error("Sign In failed. Please check your credentials.", {
         position: "top-center",
       });
