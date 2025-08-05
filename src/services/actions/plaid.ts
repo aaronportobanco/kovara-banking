@@ -32,7 +32,7 @@ const {
  *                         Note: The function signature is `Promise<void>`, but it actually returns a value.
  * @throws {Error} If the Plaid API call to create the link token fails.
  */
-export const createLinkToken = async (user: User) => {
+export const createLinkToken = async (user: User): Promise<{ linkToken: string }> => {
   try {
     const tokenParams = {
       user: {
@@ -76,7 +76,7 @@ export const createBankAccount = async ({
   accessToken,
   fundingSourceUrl,
   shareableId,
-}: CreateBankAccountProps) => {
+}: CreateBankAccountProps): Promise<string> => {
   try {
     const { database } = await createAdminClient();
 
@@ -117,7 +117,10 @@ export const createBankAccount = async ({
  *                         Note: The function signature is `Promise<void>`, but it actually returns a value.
  * @throws {Error} If any step in the process fails (token exchange, Dwolla integration, database write).
  */
-export const exchangePublicToken = async ({ publicToken, user }: ExchangePublicTokenProps) => {
+export const exchangePublicToken = async ({
+  publicToken,
+  user,
+}: ExchangePublicTokenProps): Promise<string> => {
   try {
     // Exchange public token for access token and item ID
     const response = await plaidClient.itemPublicTokenExchange({
