@@ -1,18 +1,19 @@
+/* eslint-disable no-console */
 "use server";
 
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import * as Sentry from "@sentry/nextjs";
 import { createAdminClient, createSessionClient } from "../server/appwrite";
 import { cookies } from "next/headers";
 import { extractCustomerIdFromUrl, parseStringify } from "@/lib/utils";
 import { LoginSchemaType } from "@/schemas/loginSchema";
 import { redirect } from "next/navigation";
-import { UserAccount } from "#/types";
+import { GetUserInfoProps, User } from "#/types";
 import { createDwollaCustomer } from "./dwolla.actions";
 import { SignUpSchemaType } from "@/schemas/signUpSchema";
 
 // Destructuring environment variables to access Appwrite database and collection IDs.
-const { DATABASE_ID, USER_COLLECTION_ID } = process.env;
+const { APPWRITE_DATABASE_ID, APPWRITE_USER_COLLECTION_ID } = process.env;
 
 /**
  * Registers a new user in the application.
@@ -26,17 +27,22 @@ const { DATABASE_ID, USER_COLLECTION_ID } = process.env;
  * @returns {Promise<SignUpSchemaType>} A promise that resolves with the data of the new user saved in the database.
  * @throws {Error} Throws an error if Dwolla customer creation, user creation, or session creation fails.
  */
-export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaType> => {
+export const signUp = async ({
+  password,
+  ...userData
+}: SignUpSchemaType): Promise<SignUpSchemaType> => {
+  const { email, firstName, lastName } = userData; // Destructure for clarity
+
   let newUserAccount;
 
   try {
-    const { email, password, firstName, lastName } = userData; // Destructure for clarity
-
     // Create a Dwolla customer for the new user
     const dwollaCustomerUrl = await createDwollaCustomer({
       ...userData,
       type: "personal",
     });
+
+    // If the Dwolla customer creation fails, it will throw an error
     if (!dwollaCustomerUrl) {
       throw new Error("Error creating Dwolla customer");
     }
@@ -53,19 +59,29 @@ export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaTy
     // Extract the Dwolla customer ID from the URL
     const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
 
+    if (!APPWRITE_DATABASE_ID || !APPWRITE_USER_COLLECTION_ID) {
+      throw new Error("APPWRITE_DATABASE_ID or APPWRITE_USER_COLLECTION_ID is not set");
+    }
+
     // Create a new document in the users collection with all user data
-    const newUser = await database.createDocument(DATABASE_ID!, USER_COLLECTION_ID!, ID.unique(), {
-      ...userData,
-      userId: newUserAccount.$id,
-      dwollaCustomerId,
-      dwollaCustomerUrl,
-    });
+    const newUser = await database.createDocument(
+      APPWRITE_DATABASE_ID!,
+      APPWRITE_USER_COLLECTION_ID!,
+      ID.unique(),
+      {
+        ...userData,
+        userId: newUserAccount.$id,
+        dwollaCustomerId,
+        dwollaCustomerUrl,
+      },
+    );
 
     // Create a session for the new user to log them in immediately
     const session = await account.createEmailPasswordSession(email, password);
 
     // Set the session cookie in the browser
-    (await cookies()).set("appwrite-session", session.secret, {
+    const cookieStore = await cookies();
+    cookieStore.set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
@@ -75,7 +91,8 @@ export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaTy
     return parseStringify(newUser); // Return the new user account data
   } catch (error) {
     Sentry.captureException(error);
-    throw error;
+    console.error("Error during sign up:", error);
+    throw new Error("An error occurred during sign up.");
   }
 };
 
@@ -86,19 +103,33 @@ export const signUp = async (userData: SignUpSchemaType): Promise<SignUpSchemaTy
  * @returns {Promise<UserAccount | null>} A promise that resolves with the user's account object
  * if logged in, or `null` if there is no active session or an error occurs.
  */
-export async function getLoggedInUser(): Promise<UserAccount | null> {
+export async function getLoggedInUser(): Promise<User | null> {
   try {
-    // Get the session client, which uses the session cookie for authentication
     const { account } = await createSessionClient();
-    // Fetch the currently authenticated user's account details
-    const user = await account.get();
+    const result = await account.get();
+
+    const user = await getUserInfo({ userId: result.$id });
+
     return parseStringify(user);
-  } catch {
-    // If there's an error (like no session), it means the user is not logged in.
-    // This is an expected state, so we return null instead of throwing an error.
+  } catch (error) {
+    console.log(error);
     return null;
   }
 }
+
+export const getUserInfo = async ({ userId }: GetUserInfoProps) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const user = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_USER_COLLECTION_ID!, [
+      Query.equal("userId", [userId]),
+    ]);
+
+    return parseStringify(user.documents[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 /**
  * Signs in an existing user.
@@ -120,18 +151,24 @@ export const signIn = async ({ email, password }: LoginSchemaType): Promise<Logi
 
     // Set the session cookie for the user
     // This cookie will be used for subsequent requests to authenticate the user
-    (await cookies()).set("appwrite-session", session.secret, {
+    const cookieStore = await cookies();
+    cookieStore.set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
       secure: true,
     });
 
+    const user = await getLoggedInUser();
+
     // Redirect the user to the homepage after successful sign-in
     redirect("/");
+
+    return parseStringify(user);
   } catch (error) {
     Sentry.captureException(error);
-    throw error;
+    console.error("Error during sign in:", error);
+    throw new Error("Invalid email or password");
   }
 };
 
@@ -148,7 +185,8 @@ export const signOut = async (): Promise<void> => {
     // Get the session client to interact with the current user's session
     const { account } = await createSessionClient();
     // Delete the session cookie from the browser
-    (await cookies()).delete("appwrite-session");
+    const cookieStore = await cookies();
+    cookieStore.delete("appwrite-session");
     // Delete the session from Appwrite's side
     await account.deleteSession("current");
     // Redirect the user to the sign-in page
