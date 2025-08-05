@@ -53,7 +53,9 @@ const dwollaClient = new Client({
  * @throws {Error} If the API call to create the funding source fails.
  */
 // Create a Dwolla Funding Source using a Plaid Processor Token
-export const createFundingSource = async (options: CreateFundingSourceOptions) => {
+export const createFundingSource = async (
+  options: CreateFundingSourceOptions,
+): Promise<string | null> => {
   try {
     return await dwollaClient
       .post(`customers/${options.customerId}/funding-sources`, {
@@ -76,7 +78,7 @@ export const createFundingSource = async (options: CreateFundingSourceOptions) =
  * which contains the authorization link needed for subsequent API calls.
  * @throws {Error} If the API call to create the on-demand authorization fails.
  */
-export const createOnDemandAuthorization = async () => {
+export const createOnDemandAuthorization = async (): Promise<object> => {
   try {
     const onDemandAuthorization = await dwollaClient.post("on-demand-authorizations");
     const authLink = onDemandAuthorization.body._links;
@@ -97,7 +99,9 @@ export const createOnDemandAuthorization = async () => {
  * This URL is the unique identifier for the customer in the Dwolla system. Returns null if the location header is not present.
  * @throws {Error} If the API call to create the customer fails.
  */
-export const createDwollaCustomer = async (newCustomer: NewDwollaCustomerParams) => {
+export const createDwollaCustomer = async (
+  newCustomer: NewDwollaCustomerParams,
+): Promise<string | null> => {
   try {
     return await dwollaClient
       .post("customers", newCustomer)
@@ -123,7 +127,7 @@ export const createTransfer = async ({
   sourceFundingSourceUrl,
   destinationFundingSourceUrl,
   amount,
-}: TransferParams) => {
+}: TransferParams): Promise<string | null> => {
   try {
     const requestBody = {
       _links: {
@@ -164,7 +168,7 @@ export const addFundingSource = async ({
   dwollaCustomerId,
   processorToken,
   bankName,
-}: AddFundingSourceParams) => {
+}: AddFundingSourceParams): Promise<string | null> => {
   try {
     // create dwolla auth link
     const dwollaAuthLinks = await createOnDemandAuthorization();
