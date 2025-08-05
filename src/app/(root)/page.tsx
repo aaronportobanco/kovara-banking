@@ -21,7 +21,7 @@ const Home = async () => {
             type="greeting" // type can be "title" or "greeting"
             title="Welcome back,"
             subtext="Acces and manage your bank account easily and securely."
-            user={loggedIn?.name || "Guest"} // Fallback to "Guest" if firstName is not available
+            user={loggedIn?.firstName || "Guest"} // Fallback to "Guest" if firstName is not available
           />
         </header>
         <TotalBalanceBox accounts={[]} totalBanks={2} totalCurrentBalance={1243.45} />
