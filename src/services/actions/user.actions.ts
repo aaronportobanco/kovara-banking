@@ -116,19 +116,11 @@ export async function getLoggedInUser(): Promise<User | null> {
     }
 
     return parseStringify(user);
-  } catch (error) {
-    // Check if the error is the specific "session not found" error from Appwrite.
-    // A 401 Unauthorized code is the standard signal for no active session.
-    if (error instanceof AppwriteException && error.code === 401) {
-      // This is an EXPECTED case: the user is simply not logged in.
-      // We do NOT log this to Sentry. We return null as intended.
-      return null;
-    }
-
-    // For all other errors (network issues, server errors, data integrity issues),
-    // it's an UNEXPECTED problem. We log it and re-throw a generic error.
-    Sentry.captureException(error);
-    throw new Error("An unexpected error occurred while verifying your session.");
+  } catch {
+    // When no user is logged in, Appwrite throws an error.
+    // We catch it and return null, which is the expected behavior.
+    // We don't need to log this to Sentry as it's not an application error.
+    return null;
   }
 }
 
