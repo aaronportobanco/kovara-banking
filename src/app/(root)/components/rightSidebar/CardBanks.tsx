@@ -4,11 +4,11 @@ import { formatAmount } from "@/lib/utils";
 import Image from "next/image";
 import { CreditCardProps } from "#/types";
 
-const CardBanks = ({
+const CardBanks: React.FC<CreditCardProps> = ({
   account,
   userName,
   //showBalance = true,
-}: CreditCardProps) => {
+}) => {
   return (
     <div>
       <Link href="/" className="bank-card">
