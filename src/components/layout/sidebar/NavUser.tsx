@@ -27,11 +27,11 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoggedInUser, signOut } from "@/services/actions/user.actions";
 import { Skeleton } from "@/components/ui/skeleton";
-import { UserAccount } from "#/types";
+import { User } from "#/types";
 
 export const NavUser = () => {
   const { isMobile } = useSidebar();
-  const [user, setUser] = useState<UserAccount | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -56,6 +56,7 @@ export const NavUser = () => {
       </SidebarMenu>
     );
   }
+  const name = `${user.firstName} ${user.lastName}`;
 
   return (
     <SidebarMenu>
@@ -67,13 +68,13 @@ export const NavUser = () => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage alt={name} />
                 <AvatarFallback className="rounded-lg">
-                  {user.name.substring(0, 2).toUpperCase()}
+                  {name.substring(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{name}</span>
                 <span className="truncate text-xs text-muted-foreground">{user.email}</span>
               </div>
               <MoreVerticalIcon className="ml-auto size-4" />
@@ -88,13 +89,13 @@ export const NavUser = () => {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage alt={name} />
                   <AvatarFallback className="rounded-lg">
-                    {user.name.substring(0, 2).toUpperCase()}
+                    {name.substring(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <span className="truncate font-medium">{name}</span>
                   <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                 </div>
               </div>
