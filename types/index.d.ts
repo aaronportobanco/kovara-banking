@@ -308,18 +308,12 @@ declare interface ExchangePublicTokenProps {
 }
 
 declare interface CreateBankAccountProps {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  bank_user_id: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  bank_id: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  bank_account_id: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  bank_access_token: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  bank_funding_source_url: string;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  bank_sharable_id: string;
+  accessToken: string;
+  userId: string;
+  accountId: string;
+  bankId: string;
+  fundingSourceUrl: string;
+  shareableId: string;
 }
 
 declare interface GetBanksProps {
