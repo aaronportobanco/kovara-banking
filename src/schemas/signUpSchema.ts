@@ -20,11 +20,11 @@ export const signUpSchema = z.object({
     .min(3, { error: "Last name must be at least 3 characters long" })
     .max(50, { error: "Last name must be at most 50 characters long" })
     .trim(),
-  address: z
+  address1: z
     .string()
     .nonempty({ error: "Address is required" })
     .min(10, { error: "Address must be at least 10 characters long" })
-    .max(100, { error: "Address must be at most 100 characters long" })
+    .max(50, { error: "Address must be at most 50 characters long" })
     .trim(),
   email: z
     .email({
