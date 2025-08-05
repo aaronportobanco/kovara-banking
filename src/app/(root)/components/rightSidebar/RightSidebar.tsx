@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { RightSidebarProps } from "#/types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
+const RightSidebar = ({ user, banks }: RightSidebarProps) => {
+  const name = `${user.firstName} ${user.lastName}`;
+
   return (
     <aside className="right-sidebar">
       {/* FIRST SECTION */}
@@ -14,10 +15,10 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         <div className="profile-banner" />
         <div className="profile">
           <div className="profile-img">
-            <span className="text-5xl font-bold text-blue-500">{user.name.charAt(0)}</span>
+            <span className="text-5xl font-bold text-blue-500">{name.charAt(0)}</span>
           </div>
           <div className="profile-details">
-            <h1 className="profile-name">{user.name}</h1>
+            <h1 className="profile-name">{name}</h1>
             <p className="profile-email">{user.email}</p>
           </div>
         </div>
@@ -38,7 +39,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
               <CardBanks
                 key={banks[0].$id}
                 account={banks[0]}
-                userName={user.name}
+                userName={name}
                 showBalance={false}
               />
             </div>
@@ -47,7 +48,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
                 <CardBanks
                   key={banks[1].$id}
                   account={banks[1]}
-                  userName={user.name}
+                  userName={name}
                   showBalance={false}
                 />
               </div>
