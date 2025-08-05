@@ -28,7 +28,7 @@ const SignUpForm: React.FC = () => {
       dateOfBirth: "",
       firstName: "",
       lastName: "",
-      address: "",
+      address1: "",
       email: "",
       state: "",
       city: "",
@@ -109,12 +109,12 @@ const SignUpForm: React.FC = () => {
 
             <FormFieldInput
               control={form.control}
-              name="address"
+              name="address1"
               label="Address"
               type="text"
               autoComplete="on"
-              minLength={3}
-              maxLength={100}
+              minLength={10}
+              maxLength={50}
               placeholder="Enter your address"
             />
             <FormDatePicker
