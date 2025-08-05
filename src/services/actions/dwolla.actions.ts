@@ -52,9 +52,8 @@ const dwollaClient = new Client({
  * The URL is extracted from the "location" header of the API response. Returns null if the header is not present.
  * @throws {Error} If the API call to create the funding source fails.
  */
-export const createFundingSource = async (
-  options: CreateFundingSourceOptions,
-): Promise<string | null> => {
+// Create a Dwolla Funding Source using a Plaid Processor Token
+export const createFundingSource = async (options: CreateFundingSourceOptions) => {
   try {
     return await dwollaClient
       .post(`customers/${options.customerId}/funding-sources`, {
@@ -63,7 +62,7 @@ export const createFundingSource = async (
       })
       .then(res => res.headers.get("location"));
   } catch (error) {
-    throw new Error("Creating a Funding Source Failed: " + error);
+    throw new Error("Failed to create a funding source in Dwolla: " + error);
   }
 };
 
@@ -73,17 +72,17 @@ export const createFundingSource = async (
  * such as creating a funding source without requiring micro-deposit verification.
  * This is a necessary step before adding a funding source via a Plaid processor token.
  *
- * @returns {Promise<object>} A promise that resolves to the _links object from the Dwolla API response,
+ * @returns {Promise<unknown>} A promise that resolves to the _links object from the Dwolla API response,
  * which contains the authorization link needed for subsequent API calls.
  * @throws {Error} If the API call to create the on-demand authorization fails.
  */
-export const createOnDemandAuthorization = async (): Promise<object> => {
+export const createOnDemandAuthorization = async () => {
   try {
     const onDemandAuthorization = await dwollaClient.post("on-demand-authorizations");
     const authLink = onDemandAuthorization.body._links;
     return authLink;
   } catch (error) {
-    throw new Error("Creating an On Demand Authorization Failed: " + error);
+    throw new Error("Failed to create an on-demand authorization in Dwolla: " + error);
   }
 };
 
@@ -98,15 +97,13 @@ export const createOnDemandAuthorization = async (): Promise<object> => {
  * This URL is the unique identifier for the customer in the Dwolla system. Returns null if the location header is not present.
  * @throws {Error} If the API call to create the customer fails.
  */
-export const createDwollaCustomer = async (
-  newCustomer: NewDwollaCustomerParams,
-): Promise<string | null> => {
+export const createDwollaCustomer = async (newCustomer: NewDwollaCustomerParams) => {
   try {
     return await dwollaClient
       .post("customers", newCustomer)
       .then(res => res.headers.get("location"));
   } catch (error) {
-    throw new Error("Creating a Dwolla Customer Failed: " + error);
+    throw new Error("Failed to create a Dwolla customer: " + error);
   }
 };
 
@@ -126,7 +123,7 @@ export const createTransfer = async ({
   sourceFundingSourceUrl,
   destinationFundingSourceUrl,
   amount,
-}: TransferParams): Promise<string | null> => {
+}: TransferParams) => {
   try {
     const requestBody = {
       _links: {
@@ -146,7 +143,7 @@ export const createTransfer = async ({
       .post("transfers", requestBody)
       .then(res => res.headers.get("location"));
   } catch (error) {
-    throw new Error("Transfer fund failed: " + error);
+    throw new Error("Failed to transfer funds in Dwolla: " + error);
   }
 };
 
@@ -167,7 +164,7 @@ export const addFundingSource = async ({
   dwollaCustomerId,
   processorToken,
   bankName,
-}: AddFundingSourceParams): Promise<string | null> => {
+}: AddFundingSourceParams) => {
   try {
     // create dwolla auth link
     const dwollaAuthLinks = await createOnDemandAuthorization();
@@ -181,6 +178,6 @@ export const addFundingSource = async ({
     };
     return await createFundingSource(fundingSourceOptions);
   } catch (error) {
-    throw new Error("Transfer fund failed: " + error);
+    throw new Error("Failed to add a funding source in Dwolla: " + error);
   }
 };
