@@ -16,13 +16,14 @@ Assumptions:
 This document references Plaid's official documentation using markdown links.
 
 > [!WARNING]
-This guide is designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security, privacy, and compliance of your own app and Plaid integration. This guide is provided under the MIT license and is provided as-is and without warranty of any kind.
+> This guide is designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security, privacy, and compliance of your own app and Plaid integration. This guide is provided under the MIT license and is provided as-is and without warranty of any kind.
 
 ## Questions to ask the user
 
-BEFORE you write ANY code, you MUST ask the user what type of flow they want to build, either: 
-   - "Implement a Debit Transfer (Collecting Payment)" 
-   - "Implement a Credit Transfer (Sending a Payment)". 
+BEFORE you write ANY code, you MUST ask the user what type of flow they want to build, either:
+
+- "Implement a Debit Transfer (Collecting Payment)"
+- "Implement a Credit Transfer (Sending a Payment)".
 
 Follow the appropriate respective guide.
 
@@ -86,11 +87,15 @@ Send a POST request to Plaid with the following JSON payload:
 Use the `link_token` generated in Step 1 to initiate the Plaid Link flow on the frontend.
 
 ### 2.1 Add Plaid Link Script
+
 And use the link as follows
+
 ```html
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 ```
+
 or React SDK
+
 ```
 npm install --save react-plaid-link
 ```
@@ -162,14 +167,14 @@ Before creating a transfer, you must authorize it through Plaid's risk assessmen
   "secret": "<your-sandbox-secret>",
   "access_token": "<access-token>",
   "account_id": "<account-id>",
-  "type": "debit",  // or "credit" for sending money to user
-  "network": "ach",  // or "same-day-ach", "rtp" for instant payments
+  "type": "debit", // or "credit" for sending money to user
+  "network": "ach", // or "same-day-ach", "rtp" for instant payments
   "amount": "100.00",
-  "ach_class": "web",  // for ACH transfers
+  "ach_class": "web", // for ACH transfers
   "user": {
     "legal_name": "John Doe"
   },
-  "idempotency_key": "<unique-key>"  // Strongly recommended
+  "idempotency_key": "<unique-key>" // Strongly recommended
 }
 ```
 
@@ -253,7 +258,7 @@ Transfers go through various status changes as they progress through the payment
 {
   "client_id": "<your-client-id>",
   "secret": "<your-sandbox-secret>",
-  "after_id": "<last-event-id>"  // Optional, to only get new events
+  "after_id": "<last-event-id>" // Optional, to only get new events
 }
 ```
 
@@ -264,7 +269,7 @@ Transfers go through various status changes as they progress through the payment
   "transfer_events": [
     {
       "event_id": "event-id-1",
-      "timestamp": "2022-01-01T12:00:00Z", 
+      "timestamp": "2022-01-01T12:00:00Z",
       "event_type": "TRANSFER_CREATED",
       "account_id": "account-id-xxx",
       "transfer_id": "transfer-id-xxx",
@@ -291,36 +296,39 @@ Transfers go through various status changes as they progress through the payment
 
 All possible values for `event_type` include:
 
-  ##### Transfer Events
-  - **pending**: A new transfer was created; it is in the pending state.
-  - **cancelled**: The transfer was cancelled by the client.
-  - **failed**: The transfer failed, no funds were moved.
-  - **posted**: The transfer has been successfully submitted to the payment network.
-  - **settled**: The transfer has been successfully completed by the payment network.
-  - **funds_available**: Funds from the transfer have been released from hold and applied to the ledger's available balance. (Only applicable to ACH debits.)
-  - **returned**: A posted transfer was returned.
-  - **swept**: The transfer was swept to / from the sweep account.
-  - **swept_settled**: Credits are available to be withdrawn or debits have been deducted from the customer's business checking account.
-  - **return_swept**: Due to the transfer being returned, funds were pulled from or pushed back to the sweep account.
+##### Transfer Events
 
-  ##### Ledger Sweep Events
-  - **sweep.pending**: A new ledger sweep was created; it is in the pending state.
-  - **sweep.posted**: The ledger sweep has been successfully submitted to the payment network.
-  - **sweep.settled**: The transaction has settled in the funding account. This means that funds withdrawn from Plaid Ledger balance have reached the funding account, or funds to be 
+- **pending**: A new transfer was created; it is in the pending state.
+- **cancelled**: The transfer was cancelled by the client.
+- **failed**: The transfer failed, no funds were moved.
+- **posted**: The transfer has been successfully submitted to the payment network.
+- **settled**: The transfer has been successfully completed by the payment network.
+- **funds_available**: Funds from the transfer have been released from hold and applied to the ledger's available balance. (Only applicable to ACH debits.)
+- **returned**: A posted transfer was returned.
+- **swept**: The transfer was swept to / from the sweep account.
+- **swept_settled**: Credits are available to be withdrawn or debits have been deducted from the customer's business checking account.
+- **return_swept**: Due to the transfer being returned, funds were pulled from or pushed back to the sweep account.
+
+##### Ledger Sweep Events
+
+- **sweep.pending**: A new ledger sweep was created; it is in the pending state.
+- **sweep.posted**: The ledger sweep has been successfully submitted to the payment network.
+- **sweep.settled**: The transaction has settled in the funding account. This means that funds withdrawn from Plaid Ledger balance have reached the funding account, or funds to be
   deposited into the Plaid Ledger Balance have been pulled, and the hold period has begun.
-  - **sweep.returned**: A posted ledger sweep was returned.
-  - **sweep.failed**: The ledger sweep failed, no funds were moved.
-  - **sweep.funds_available**: Funds from the ledger sweep have been released from hold and applied to the ledger's available balance. This is only applicable to debits.
+- **sweep.returned**: A posted ledger sweep was returned.
+- **sweep.failed**: The ledger sweep failed, no funds were moved.
+- **sweep.funds_available**: Funds from the ledger sweep have been released from hold and applied to the ledger's available balance. This is only applicable to debits.
 
-  ##### Refund Events
-  - **refund.pending**: A new refund was created; it is in the pending state.
-  - **refund.cancelled**: The refund was cancelled.
-  - **refund.failed**: The refund failed, no funds were moved.
-  - **refund.posted**: The refund has been successfully submitted to the payment network.
-  - **refund.settled**: The refund transaction has settled in the Plaid linked account.
-  - **refund.returned**: A posted refund was returned.
-  - **refund.swept**: The refund was swept from the sweep account.
-  - **refund.return_swept**: Due to the refund being returned, funds were pushed back to the sweep account.
+##### Refund Events
+
+- **refund.pending**: A new refund was created; it is in the pending state.
+- **refund.cancelled**: The refund was cancelled.
+- **refund.failed**: The refund failed, no funds were moved.
+- **refund.posted**: The refund has been successfully submitted to the payment network.
+- **refund.settled**: The refund transaction has settled in the Plaid linked account.
+- **refund.returned**: A posted refund was returned.
+- **refund.swept**: The refund was swept from the sweep account.
+- **refund.return_swept**: Due to the refund being returned, funds were pushed back to the sweep account.
 
 ### 6.2 Webhook Method
 
@@ -339,7 +347,7 @@ In Sandbox, no real money movement occurs. You can simulate different transfer s
   "client_id": "<your-client-id>",
   "secret": "<your-sandbox-secret>",
   "transfer_id": "<transfer-id>",
-  "event_type": "posted"  // or "settled", "returned", etc.
+  "event_type": "posted" // or "settled", "returned", etc.
 }
 ```
 
@@ -356,6 +364,7 @@ For testing balance management and fund availability:
 This example shows how to collect payments from a user's bank account.
 
 ### Step 1: Link User's Bank Account
+
 Follow Steps 1-3 above to link a user's bank account and obtain an `access_token`.
 
 ### Step 2: Authorize a Debit Transfer
@@ -462,7 +471,7 @@ POST /sandbox/transfer/simulate
 
 This example shows how to send payments to a user's bank account. First, you need to fund your Plaid Ledger.
 
-### Step 1: Fund your Plaid Ledger 
+### Step 1: Fund your Plaid Ledger
 
 This step is required because if there are no (fake) funds in the Plaid Ledger, the authorization will be declined.
 
@@ -528,6 +537,7 @@ POST /sandbox/transfer/ledger/simulate_available
 ```
 
 ### Step 3: Link User's Bank Account
+
 Follow Steps 1-3 of the main guide to link a user's bank account and obtain an `access_token`.
 
 ### Step 4: Authorize a Credit Transfer
@@ -640,6 +650,7 @@ POST /sandbox/transfer/simulate
 - Always add logs for all Plaid API requests and responses in the backend implementation. This includes logging the request payload (excluding sensitive data like client secrets and access tokens), the endpoint being called, and the response status/result.
 - Log all errors and exceptions with enough context to debug issues, but never log sensitive credentials or tokens.
 - Example (Python):
+
 ```python
 import logging
 logging.basicConfig(level=logging.INFO)

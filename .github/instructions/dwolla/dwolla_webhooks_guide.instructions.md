@@ -18,10 +18,10 @@ A webhook is a means of notifying your application of the occurrence of an event
 
 Each webhook contains an [Event](/docs/api-reference/events) with `_links` to the following resources:
 
-* The unique event itself
-* The [Dwolla Account](/docs/api-reference/accounts) associated with the event
-* The Resource associated with the event
-* The [Customer](/docs/api-reference/customers) that the resource relates to (if applicable)
+- The unique event itself
+- The [Dwolla Account](/docs/api-reference/accounts) associated with the event
+- The Resource associated with the event
+- The [Customer](/docs/api-reference/customers) that the resource relates to (if applicable)
 
 Example webhook payload:
 
@@ -54,10 +54,10 @@ Example webhook payload:
 
 ## What to Know About Dwolla Webhooks
 
-* Each application can have multiple webhook subscriptions associated with it. While one subscription is sufficient, you can create up to **five** in Production and **ten** in <Tooltip tip="A testing environment that mimics the production environment but uses test data instead of real money">Sandbox</Tooltip> for redundancy.
-* Webhooks are sent asynchronously and are not guaranteed to be delivered in order. We recommend that applications protect against duplicated events by [making event processing idempotent](#check-for-duplicate-events).
-* Your application will need to respond to Dwolla webhook requests with a 200-level HTTP status code within 10 seconds of receipt. Otherwise, the attempt will be counted as a failure and Dwolla will retry sending the webhook according to the [back-off schedule](/docs/api-reference/webhook-subscriptions).
-* If there are 400 consecutive failures, and it has been 24 hours since your last success, your webhook subscription will be automatically paused and an email will be sent to the Admin of the Dwolla account. After fixing the issue that is causing the failures, you can unpause the webhook subscription either via your Dashboard or [Dwolla's API](/docs/api-reference/webhook-subscriptions/update-a-webhook-subscription) in order to continue receiving new webhooks and to [retry failed webhooks](/docs/api-reference/webhooks/retry-a-webhook).
+- Each application can have multiple webhook subscriptions associated with it. While one subscription is sufficient, you can create up to **five** in Production and **ten** in <Tooltip tip="A testing environment that mimics the production environment but uses test data instead of real money">Sandbox</Tooltip> for redundancy.
+- Webhooks are sent asynchronously and are not guaranteed to be delivered in order. We recommend that applications protect against duplicated events by [making event processing idempotent](#check-for-duplicate-events).
+- Your application will need to respond to Dwolla webhook requests with a 200-level HTTP status code within 10 seconds of receipt. Otherwise, the attempt will be counted as a failure and Dwolla will retry sending the webhook according to the [back-off schedule](/docs/api-reference/webhook-subscriptions).
+- If there are 400 consecutive failures, and it has been 24 hours since your last success, your webhook subscription will be automatically paused and an email will be sent to the Admin of the Dwolla account. After fixing the issue that is causing the failures, you can unpause the webhook subscription either via your Dashboard or [Dwolla's API](/docs/api-reference/webhook-subscriptions/update-a-webhook-subscription) in order to continue receiving new webhooks and to [retry failed webhooks](/docs/api-reference/webhooks/retry-a-webhook).
 
 ## Getting Started
 
@@ -69,8 +69,8 @@ You will need to have a [Sandbox account](https://accounts-sandbox.dwolla.com/si
 
 First, you will need to have a URL that is publicly accessible where Dwolla can send webhooks in the form of HTTP requests. This also means that anyone on the Internet can hit your endpoint. As such, here are some security concerns:
 
-* Your webhook endpoint should only be accessible over [TLS (HTTPS)](https://www.dwolla.com/updates/improving-transport-layer-security/) and your server should have a valid SSL certificate.
-* Your subscription should include a random, secret key, only known by your application. This secret key should be securely stored and used later when [validating the authenticity of the webhook request](#authentication) from Dwolla.
+- Your webhook endpoint should only be accessible over [TLS (HTTPS)](https://www.dwolla.com/updates/improving-transport-layer-security/) and your server should have a valid SSL certificate.
+- Your subscription should include a random, secret key, only known by your application. This secret key should be securely stored and used later when [validating the authenticity of the webhook request](#authentication) from Dwolla.
 
 #### Request Parameters
 
@@ -146,10 +146,10 @@ Now that you have created a webhook subscription in the previous step, we will w
 
 At its core, a webhook listener is an HTTP endpoint that Dwolla will call. As such, your endpoint must:
 
-* Be publicly accessible (Dwolla cannot send requests to `localhost`)
-* Be able to receive `POST` HTTP requests (Dwolla will not send `GET`, `PUT`, `PATCH`, etc.)
-* Have TLS enabled (with a valid SSL certificate issued to your domain)
-* Be able to handle at least 10 concurrency requests, unless a lower value has otherwise been configured for your application by Dwolla
+- Be publicly accessible (Dwolla cannot send requests to `localhost`)
+- Be able to receive `POST` HTTP requests (Dwolla will not send `GET`, `PUT`, `PATCH`, etc.)
+- Have TLS enabled (with a valid SSL certificate issued to your domain)
+- Be able to handle at least 10 concurrency requests, unless a lower value has otherwise been configured for your application by Dwolla
 
 ### Return HTTP 2xx Status Code
 
@@ -166,19 +166,16 @@ const crypto = require("crypto");
 
 const isSignatureValue = (body, signature) =>
   signature ===
-  crypto
-    .createHmac("sha256", process.env.DWOLLA_WEBHOOK_SECRET)
-    .update(body)
-    .digest("hex");
+  crypto.createHmac("sha256", process.env.DWOLLA_WEBHOOK_SECRET).update(body).digest("hex");
 ```
 
 ### Considerations and Limitations
 
 When implementing webhook authentication in your application, please consider the following:
 
-* Dwolla uses a highly dynamic and wide range of IP addresses, meaning that your application cannot use IP whitelisting to authenticate webhook requests.
-* The request body is already JSON-encoded prior to being sent. As such, the JSON body should never be re-encoded! If it is, the signatures will not match and authentication will fail, even if the request came from Dwolla.
-* Your webhook endpoint must have access to the request body in order to authenticate the request. This means that some services, such as AWS Lambda Authorizers, are unable to authenticate a webhook Dwolla.
+- Dwolla uses a highly dynamic and wide range of IP addresses, meaning that your application cannot use IP whitelisting to authenticate webhook requests.
+- The request body is already JSON-encoded prior to being sent. As such, the JSON body should never be re-encoded! If it is, the signatures will not match and authentication will fail, even if the request came from Dwolla.
+- Your webhook endpoint must have access to the request body in order to authenticate the request. This means that some services, such as AWS Lambda Authorizers, are unable to authenticate a webhook Dwolla.
 
 ## Queueing
 
@@ -231,19 +228,14 @@ Once you reach this point, you're finally ready to handle any business logic rel
 Although business logic will vary case by case based on your application's specific needs, in this final section, we will demonstrate how you can use an AWS Lambda function to pull the webhook off an SQS queue, and print it to the console.
 
 ```javascript
-module.exports.queueHandler = async (event) => {
+module.exports.queueHandler = async event => {
   try {
-    event.Records.forEach((record) => {
+    event.Records.forEach(record => {
       const webhook = JSON.parse(record.body);
-      console.log(
-        `Received ${webhook.topic}, body=${JSON.stringify(webhook, null, 2)}`
-      );
+      console.log(`Received ${webhook.topic}, body=${JSON.stringify(webhook, null, 2)}`);
     });
   } catch (e) {
-    console.error(
-      "An unexpected error occurred while processing the queue.",
-      e
-    );
+    console.error("An unexpected error occurred while processing the queue.", e);
   }
 };
 ```
@@ -275,6 +267,7 @@ We hope that this guide is helpful in getting your webhook listener/handler set 
       event. In order to get webhook notifications, you will need to have an
       active webhook subscription.
     </li>
+
   </ul>
 </Accordion>
 
@@ -305,6 +298,7 @@ We hope that this guide is helpful in getting your webhook listener/handler set 
     webhooks. Dwolla's IPs are dynamically allocated with no defined range and are
     subject to change. Refer to the Processing/Validating section for a more detailed
     guide.
+
   </p>
 </Accordion>
 
@@ -338,6 +332,7 @@ We hope that this guide is helpful in getting your webhook listener/handler set 
     </a> and <a href="/docs/api-reference/webhooks/retry-a-webhook">
     retry missed webhooks
     </a>.
+
   </p>
 </Accordion>
 
@@ -363,6 +358,7 @@ We hope that this guide is helpful in getting your webhook listener/handler set 
     HTTP status code that Dwolla received when the webhook attempt was made. If the
     status code that Dwolla received was >=300, then the attempt was considered to
     have failed.
+
   </p>
 </Accordion>
 

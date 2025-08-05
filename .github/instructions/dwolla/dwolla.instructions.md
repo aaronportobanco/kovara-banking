@@ -18,22 +18,22 @@ Dwolla is intended for businesses of all sizes, from small startups to large ent
 
 The benefits of using Dwolla include:
 
-* Fast and secure payments: Dwolla uses the Automated Clearing House (ACH) network to process payments, which is a secure and reliable way to transfer money.
-* Low fees: Dwolla's transaction fees are lower than those of traditional payment processors; such as credit cards.
-* Flexibility: Dwolla's API is flexible and can be customized to meet the needs of businesses of all sizes. Real-time <Tooltip tip="An HTTP request sent to a specified URL for near real-time updates and notifications when specific events or data changes occur in the Dwolla platform.">webhooks</Tooltip> enable your application to be in sync with all events that occur on the Dwolla platform.
-* Scalability and reliability: Dwolla is scalable and can handle large volumes of transactions. In addition, the API maintains 99.9% uptime so you can count on reliability as your business grows.
+- Fast and secure payments: Dwolla uses the Automated Clearing House (ACH) network to process payments, which is a secure and reliable way to transfer money.
+- Low fees: Dwolla's transaction fees are lower than those of traditional payment processors; such as credit cards.
+- Flexibility: Dwolla's API is flexible and can be customized to meet the needs of businesses of all sizes. Real-time <Tooltip tip="An HTTP request sent to a specified URL for near real-time updates and notifications when specific events or data changes occur in the Dwolla platform.">webhooks</Tooltip> enable your application to be in sync with all events that occur on the Dwolla platform.
+- Scalability and reliability: Dwolla is scalable and can handle large volumes of transactions. In addition, the API maintains 99.9% uptime so you can count on reliability as your business grows.
 
 ## Features
 
 The following key features help you diversify the way in which you embed account-to-account payments into your own platform:
 
-* Same-day ACH payments: Allows you to expedite the way you send and receive money via ACH by opening up additional windows for processing transactions on the same day.
-* Real-time payments: Dwolla also supports real-time payments, which allow businesses to send instantly. You can pre-fund your [Dwolla Balance] [https://developers.dwolla.com/docs/balance-funding-source.md] to enable near real-time push payments 24/7/365.
-* Reporting and analytics: Dwolla provides businesses with detailed reporting and analytics data, which can be used to track payments and improve cash flow management.
+- Same-day ACH payments: Allows you to expedite the way you send and receive money via ACH by opening up additional windows for processing transactions on the same day.
+- Real-time payments: Dwolla also supports real-time payments, which allow businesses to send instantly. You can pre-fund your [Dwolla Balance] [https://developers.dwolla.com/docs/balance-funding-source.md] to enable near real-time push payments 24/7/365.
+- Reporting and analytics: Dwolla provides businesses with detailed reporting and analytics data, which can be used to track payments and improve cash flow management.
 
 ## Limitations
 
 Some of the limitations of Dwolla include:
 
-* Not available in all countries: Dwolla is currently only available for businesses registered to operate within the United States.
-* Integration complexity: For complex payment flows, Dwolla can be challenging to set up for businesses that are not familiar with APIs.
+- Not available in all countries: Dwolla is currently only available for businesses registered to operate within the United States.
+- Integration complexity: For complex payment flows, Dwolla can be challenging to set up for businesses that are not familiar with APIs.

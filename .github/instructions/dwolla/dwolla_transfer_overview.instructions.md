@@ -201,7 +201,7 @@ Source specifies the clearing time for the source funding source involved in the
 
 | Parameter | Required | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| addenda   | no       | object | An addenda object contains a `values` key where its value is an array containing a **single** string addenda value. Addenda record information is used for the purpose of transmitting transfer-related information from a business. <br /> Addenda value must be less than or equal to 80 characters and can include spaces. <br /> Acceptable characters are: a-Z, 0-9, and special characters `- _ . ~ ! * ' ( ) ; : @ & = + $ , / ? % # [ ]`. <br /> *Transfers must be sent to/from a business entity's bank to guarantee addenda delivery.* |
+| addenda   | no       | object | An addenda object contains a `values` key where its value is an array containing a **single** string addenda value. Addenda record information is used for the purpose of transmitting transfer-related information from a business. <br /> Addenda value must be less than or equal to 80 characters and can include spaces. <br /> Acceptable characters are: a-Z, 0-9, and special characters `- _ . ~ ! * ' ( ) ; : @ & = + $ , / ? % # [ ]`. <br /> _Transfers must be sent to/from a business entity's bank to guarantee addenda delivery._ |
 
 #### achDetails with addenda example:
 
@@ -230,14 +230,14 @@ Refer to our [Real-time Payments developer concept article](/docs/real-time-paym
 
 ##### rtpDetails object
 
-| Parameter   | Required | Type   | Description                                                                                                                                                                                                                                                   |
-| ----------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter   | Required | Type   | Description                                                                                                                                                                                                                                                     |
+| ----------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | destination | no       | object | Represents information that is sent to a destination/receiving bank account along with an RTP® credit transfer. Include information within this JSON object for customizing details on RTP® credit transfers. Contains a key-value pair for `remittanceData`. |
 
 ##### destination object
 
-| Parameter      | Required | Type   | Description                                                                                                                                                                                                                             |
-| -------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter      | Required | Type   | Description                                                                                                                                                                                                                               |
+| -------------- | -------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | remittanceData | no       | string | Contains a string value. Used for the purpose of transmitting RTP® transfer-related information to the recipient's bank account. <br /> RTP® remittance data value must be less than or equal to 140 characters and can include spaces. |
 
 #### rtpDetails example:

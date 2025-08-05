@@ -16,11 +16,12 @@ Assumptions:
 This document references Plaid's official documentation using markdown links.
 
 > [!WARNING]
-This guide is designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security, privacy, and compliance of your own app and Plaid integration. This guide is provided under the MIT license and is provided as-is and without warranty of any kind.
+> This guide is designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security, privacy, and compliance of your own app and Plaid integration. This guide is provided under the MIT license and is provided as-is and without warranty of any kind.
 
 ## Prerequisites
 
-Before starting the integration, check with the user and make sure: 
+Before starting the integration, check with the user and make sure:
+
 - You have obtained your **client ID** and **Sandbox secret** from the dashboard.
 - Your development environment can serve both **frontend** and **backend** logic. The backend must be able to securely manage sensitive credentials and handle API calls.
 
@@ -75,11 +76,15 @@ Send a POST request to Plaid with the following JSON payload:
 Use the `link_token` generated in Step 1 to initiate the Plaid Link flow on the frontend.
 
 ### 2.1 Add Plaid Link Script
+
 And use the link as follows
+
 ```html
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 ```
+
 or React SDK
+
 ```
 npm install --save react-plaid-link
 ```
@@ -186,7 +191,7 @@ while True:
 
 - Do NOT log access tokens OR API credentials.
 - Store access tokens securely in the backend database, do not save the access token in the frontend.
-- If to build a prototype for simplicity, you could maintain an in memory mapping between the access token and user_id. You can create an endpoint `/api/update_access_token` so that you can update the access token for a specific user id. 
+- If to build a prototype for simplicity, you could maintain an in memory mapping between the access token and user_id. You can create an endpoint `/api/update_access_token` so that you can update the access token for a specific user id.
 - Tokens persist indefinitely unless manually removed or revoked.
 - Always validate request origin and authenticate client calls.
 - Log all errors and exceptions with enough context to debug issues, but never log sensitive credentials or tokens.

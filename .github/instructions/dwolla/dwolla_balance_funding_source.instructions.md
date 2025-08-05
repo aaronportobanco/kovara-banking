@@ -16,10 +16,10 @@ The Dwolla Balance allows for greater flexibility for your desired funds flow an
 
 As a Funding Source, you and your end users can use the Dwolla Balance to:
 
-* Receive funds from a bank account into the Dwolla Balance
-* Send funds from the Dwolla Balance to a bank account
-* Make instant payment transfers between two Dwolla Balances
-* Keep funds accessible in a Dwolla Balance
+- Receive funds from a bank account into the Dwolla Balance
+- Send funds from the Dwolla Balance to a bank account
+- Make instant payment transfers between two Dwolla Balances
+- Keep funds accessible in a Dwolla Balance
 
 To learn more about how to initiate transfers with the Dwolla API, check out our [API Reference Docs](/docs/api-reference/transfers)
 
@@ -47,104 +47,105 @@ To retrieve your Account ID, you will need to call the [root](/docs/api-referenc
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  ...
-  {
-      "_links": {
-          "self": {
-              "href": "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b/funding-sources",
-              "resource-type": "funding-source"
-          }
-      },
-      "_embedded": {
-          "funding-sources": [
-              {
-                  "_links": {
-                      "self": {
-                          "href": "https://api-sandbox.dwolla.com/funding-sources/04173e17-6398-4d36-a167-9d98c4b1f1c3",
-                          "type": "application/vnd.dwolla.v1.hal+json",
-                          "resource-type": "funding-source"
-                      },
-                      "account": {
-                          "href": "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b",
-                          "type": "application/vnd.dwolla.v1.hal+json",
-                          "resource-type": "account"
-                      }
-                  },
-                  "id": "04173e17-6398-4d36-a167-9d98c4b1f1c3",
-                  "status": "verified",
-                  "type": "bank",
-                  "bankAccountType": "checking",
-                  "name": "My Account - Checking",
-                  "created": "2017-09-25T20:03:41.000Z",
-                  "removed": false,
-                  "channels": [
-                      "ach"
-                  ],
-                  "bankName": "First Midwestern Bank"
-              },
-              {
-                  "_links": {
-                      "self": {
-                          "href": "https://api-sandbox.dwolla.com/funding-sources/b268f6b9-db3b-4ecc-83a2-8823a53ec8b7",
-                      },
-                      "account": {
-                          "href": "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b",
-                      },
-                      "with-available-balance": {
-                          "href": "https://api-sandbox.dwolla.com/funding-sources/b268f6b9-db3b-4ecc-83a2-8823a53ec8b7",
-                      },
-                      "balance": {
-                          "href": "https://api-sandbox.dwolla.com/funding-sources/b268f6b9-db3b-4ecc-83a2-8823a53ec8b7/balance",
-                      }
-                  },
-                  "id": "b268f6b9-db3b-4ecc-83a2-8823a53ec8b7",
-                  "status": "verified",
-                  "type": "balance",
-                  "name": "Balance",
-                  "created": "2017-08-22T18:21:51.000Z",
-                  "removed": false,
-                  "channels": []
-              }
-          ]
-      }
-  }
-  ```
+...
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b/funding-sources",
+"resource-type": "funding-source"
+}
+},
+"\_embedded": {
+"funding-sources": [
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/04173e17-6398-4d36-a167-9d98c4b1f1c3",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "funding-source"
+},
+"account": {
+"href": "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "account"
+}
+},
+"id": "04173e17-6398-4d36-a167-9d98c4b1f1c3",
+"status": "verified",
+"type": "bank",
+"bankAccountType": "checking",
+"name": "My Account - Checking",
+"created": "2017-09-25T20:03:41.000Z",
+"removed": false,
+"channels": [
+"ach"
+],
+"bankName": "First Midwestern Bank"
+},
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/b268f6b9-db3b-4ecc-83a2-8823a53ec8b7",
+},
+"account": {
+"href": "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b",
+},
+"with-available-balance": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/b268f6b9-db3b-4ecc-83a2-8823a53ec8b7",
+},
+"balance": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/b268f6b9-db3b-4ecc-83a2-8823a53ec8b7/balance",
+}
+},
+"id": "b268f6b9-db3b-4ecc-83a2-8823a53ec8b7",
+"status": "verified",
+"type": "balance",
+"name": "Balance",
+"created": "2017-08-22T18:21:51.000Z",
+"removed": false,
+"channels": []
+}
+]
+}
+}
 
-  ```ruby list_account_funding_sources.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  account_url = 'https://api.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b'
+````
 
-  funding_sources = app_token.get "#{account_url}/funding-sources"
-  funding_sources._embedded['funding-sources'][1].name # => "Balance"
-  ```
+```ruby list_account_funding_sources.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+account_url = 'https://api.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b'
 
-  ```javascript listAccountFundingSources.js
-  var accountUrl =
-    "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b";
+funding_sources = app_token.get "#{account_url}/funding-sources"
+funding_sources._embedded['funding-sources'][1].name # => "Balance"
+````
 
-  dwolla
-    .get(`${accountUrl}/funding-sources`)
-    .then((res) => res.body._embedded["funding-sources"][1].name); // => 'Balance'
-  ```
+```javascript listAccountFundingSources.js
+var accountUrl = "https://api-sandbox.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b";
 
-  ```python list_account_funding_sources.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  account_url = 'https://api.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b'
+dwolla
+  .get(`${accountUrl}/funding-sources`)
+  .then(res => res.body._embedded["funding-sources"][1].name); // => 'Balance'
+```
 
-  funding_sources = app_token.get('%s/funding-sources' % account_url)
-  funding_sources.body['_embedded']['funding-sources'][1]['name'] # => 'Balance'
-  ```
+```python list_account_funding_sources.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+account_url = 'https://api.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b'
 
-  ```php list_account_funding_sources.php
-  <?php
-  $accountUrl = 'https://api.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b';
+funding_sources = app_token.get('%s/funding-sources' % account_url)
+funding_sources.body['_embedded']['funding-sources'][1]['name'] # => 'Balance'
+```
 
-  $fsApi = new DwollaSwagger\FundingsourcesApi($apiClient);
+```php list_account_funding_sources.php
+<?php
+$accountUrl = 'https://api.dwolla.com/accounts/ca32853c-48fa-40be-ae75-77b37504581b';
 
-  $fundingSources = $fsApi->getAccountFundingSources($accountUrl);
-  $fundingSources->_embedded->{'funding-sources'}[1]->name; # => "Balance"
-  ?>
-  ```
+$fsApi = new DwollaSwagger\FundingsourcesApi($apiClient);
+
+$fundingSources = $fsApi->getAccountFundingSources($accountUrl);
+$fundingSources->_embedded->{'funding-sources'}[1]->name; # => "Balance"
+?>
+```
+
 </CodeGroup>
 
 #### Retrieve a Customer’s Dwolla Balance Funding Source
@@ -159,100 +160,101 @@ Check out our API Reference Docs to learn more about retrieving the Dwolla Balan
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  ...
+...
 
-  {
-    "_links": {
-      "self": {
-        "href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733/funding-sources"
-      },
-      "customer": {
-        "href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733"
-      }
-    },
-    "_embedded": {
-      "funding-sources": [
-        {
-          "_links": {
-            "self": {
-              "href": "https://api-sandbox.dwolla.com/funding-sources/ab9cd5de-9435-47af-96fb-8d2fa5db51e8"
-            },
-            "customer": {
-              "href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733"
-            },
-            "with-available-balance": {
-              "href": "https://api-sandbox.dwolla.com/funding-sources/ab9cd5de-9435-47af-96fb-8d2fa5db51e8"
-            }
-          },
-          "id": "ab9cd5de-9435-47af-96fb-8d2fa5db51e8",
-          "status": "verified",
-          "type": "balance",
-          "name": "Balance",
-          "created": "2015-10-02T21:00:28.153Z",
-          "removed": false,
-          "channels": []
-        },
-        {
-          "_links": {
-            "self": {
-              "href": "https://api-sandbox.dwolla.com/funding-sources/98c209d3-02d6-4bee-bc0f-61e18acf0e33"
-            },
-            "customer": {
-              "href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733"
-            }
-          },
-          "id": "98c209d3-02d6-4bee-bc0f-61e18acf0e33",
-          "status": "verified",
-          "type": "bank",
-          "bankAccountType": "checking",
-          "name": "Jane Doe’s Checking",
-          "created": "2015-10-02T22:03:45.537Z",
-          "removed": false,
-          "channels": [
-              "ach"
-          ],
-          "fingerprint": "4cf31392f678cb26c62b75096e1a09d4465a801798b3d5c3729de44a4f54c794"
-        }
-      ]
-    }
-  }
-  ```
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733/funding-sources"
+},
+"customer": {
+"href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733"
+}
+},
+"\_embedded": {
+"funding-sources": [
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/ab9cd5de-9435-47af-96fb-8d2fa5db51e8"
+},
+"customer": {
+"href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733"
+},
+"with-available-balance": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/ab9cd5de-9435-47af-96fb-8d2fa5db51e8"
+}
+},
+"id": "ab9cd5de-9435-47af-96fb-8d2fa5db51e8",
+"status": "verified",
+"type": "balance",
+"name": "Balance",
+"created": "2015-10-02T21:00:28.153Z",
+"removed": false,
+"channels": []
+},
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/98c209d3-02d6-4bee-bc0f-61e18acf0e33"
+},
+"customer": {
+"href": "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733"
+}
+},
+"id": "98c209d3-02d6-4bee-bc0f-61e18acf0e33",
+"status": "verified",
+"type": "bank",
+"bankAccountType": "checking",
+"name": "Jane Doe’s Checking",
+"created": "2015-10-02T22:03:45.537Z",
+"removed": false,
+"channels": [
+"ach"
+],
+"fingerprint": "4cf31392f678cb26c62b75096e1a09d4465a801798b3d5c3729de44a4f54c794"
+}
+]
+}
+}
 
-  ```ruby list_customer_funding_sources.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  customer_url = 'https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733'
+````
 
-  funding_sources = app_token.get "#{customer_url}/funding-sources"
-  funding_sources._embedded['funding-sources'][0].name # => "Balance"
-  ```
+```ruby list_customer_funding_sources.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+customer_url = 'https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733'
 
-  ```javascript listCustomerFundingSources.js
-  var customerUrl =
-    "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733";
+funding_sources = app_token.get "#{customer_url}/funding-sources"
+funding_sources._embedded['funding-sources'][0].name # => "Balance"
+````
 
-  dwolla
-    .get(`${customerUrl}/funding-sources`)
-    .then((res) => res.body._embedded["funding-sources"][0].name); // => 'Balance'
-  ```
+```javascript listCustomerFundingSources.js
+var customerUrl = "https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733";
 
-  ```python list_customer_funding_sources.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  customer_url = 'https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733'
+dwolla
+  .get(`${customerUrl}/funding-sources`)
+  .then(res => res.body._embedded["funding-sources"][0].name); // => 'Balance'
+```
 
-  funding_sources = app_token.get('%s/funding-sources' % customer_url)
-  funding_sources.body['_embedded']['funding-sources'][0]['name'] # => 'Balance'
-  ```
+```python list_customer_funding_sources.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+customer_url = 'https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733'
 
-  ```php list_customer_funding_sources.php
-  <?php
-  $customerUrl = 'https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733';
+funding_sources = app_token.get('%s/funding-sources' % customer_url)
+funding_sources.body['_embedded']['funding-sources'][0]['name'] # => 'Balance'
+```
 
-  $fsApi = new DwollaSwagger\FundingsourcesApi($apiClient);
+```php list_customer_funding_sources.php
+<?php
+$customerUrl = 'https://api-sandbox.dwolla.com/customers/5b29279d-6359-4c87-a318-e09095532733';
 
-  $fundingSources = $fsApi->getCustomerFundingSources($customerUrl);
-  $fundingSources->_embedded->{'funding-sources'}[0]->name; # => "Balance"
-  ?>
-  ```
+$fsApi = new DwollaSwagger\FundingsourcesApi($apiClient);
+
+$fundingSources = $fsApi->getCustomerFundingSources($customerUrl);
+$fundingSources->_embedded->{'funding-sources'}[0]->name; # => "Balance"
+?>
+```
+
 </CodeGroup>
 
 ## Create Transfers using the Dwolla Balance
@@ -283,10 +285,10 @@ There are two different amounts returned in the API response when [retrieving a 
 
 Available Balance means the amount readily available in a Verified Customer’s Dwolla Balance that can be sent, withdrawn, or labeled. The “Available Balance” does not include labeled funds. The amount of funds for the following actions are limited to the amount of the Available Balance:
 
-* Creating and adding funds to a new Label
-* Increasing an existing Label
-* Withdrawing funds
-* Available Balance transfers, i.e. send or withdraw
+- Creating and adding funds to a new Label
+- Increasing an existing Label
+- Withdrawing funds
+- Available Balance transfers, i.e. send or withdraw
 
 <Info>
   If a Return occurs on a Verified Customer’s transfer sourced from a Dwolla
@@ -310,63 +312,63 @@ Represents the Verified Customer Record’s total balance held in the Dwolla net
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  {
-      "_links": {
-          "self": {
-              "href": "https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61/balance",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "balance"
-          },
-          "funding-source": {
-              "href": "https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "funding-source"
-          }
-      },
-      "balance": {
-          "value": "142.50",
-          "currency": "USD"
-      },
-      "total": {
-          "value": "142.50",
-          "currency": "USD"
-      },
-      "lastUpdated": "2019-06-03T14:28:12.679Z"
-  }
-  ```
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61/balance",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "balance"
+},
+"funding-source": {
+"href": "https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "funding-source"
+}
+},
+"balance": {
+"value": "142.50",
+"currency": "USD"
+},
+"total": {
+"value": "142.50",
+"currency": "USD"
+},
+"lastUpdated": "2019-06-03T14:28:12.679Z"
+}
 
-  ```ruby retrieve_balance.rb
-  funding_source_url = 'https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61'
+````
 
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  funding_source = app_token.get "#{funding_source_url}/balance"
-  ```
+```ruby retrieve_balance.rb
+funding_source_url = 'https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61'
 
-  ```javascript retrieveBalance.js
-  var fundingSourceUrl =
-    "https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61";
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+funding_source = app_token.get "#{funding_source_url}/balance"
+````
 
-  dwolla
-    .get(`${fundingSourceUrl}/balance`)
-    .then((res) => res.body.balance.amount);
-  ```
+```javascript retrieveBalance.js
+var fundingSourceUrl =
+  "https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61";
 
-  ```python retrieve_balance.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  funding_source_url = 'https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61'
+dwolla.get(`${fundingSourceUrl}/balance`).then(res => res.body.balance.amount);
+```
 
-  funding_source = app_token.get('%s/balance' % funding_source_url)
-  ```
+```python retrieve_balance.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+funding_source_url = 'https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61'
 
-  ```php retrieve_balance.php
-  <?php
-  $fundingSourceUrl = 'https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61';
+funding_source = app_token.get('%s/balance' % funding_source_url)
+```
 
-  $fsApi = new DwollaSwagger\FundingsourcesApi($apiClient);
+```php retrieve_balance.php
+<?php
+$fundingSourceUrl = 'https://api-sandbox.dwolla.com/funding-sources/e5b8223f-08f7-4a7e-b952-88a773c0df61';
 
-  $fundingSource = $fsApi->getBalance($fundingSourceUrl);
-  ?>
-  ```
+$fsApi = new DwollaSwagger\FundingsourcesApi($apiClient);
+
+$fundingSource = $fsApi->getBalance($fundingSourceUrl);
+?>
+```
+
 </CodeGroup>
 
 ## Transfer failures
@@ -378,8 +380,8 @@ Funds can also be pulled from a Balance funding source in a transfer failure. In
 
 Let’s illustrate a transfer failure with an example: Say you, Dwolla’s Client, are using Dwolla to send payments to your vendors, who are established as Receive-only Users. You send a payment from your bank account to the vendor’s bank account.
 
-* Source - Dwolla Master Account’s Bank Funding Source
-* Destination - Receive-only User’s Bank Funding Source
+- Source - Dwolla Master Account’s Bank Funding Source
+- Destination - Receive-only User’s Bank Funding Source
 
 In this example, our Receive-only User closes down their bank account while the transaction has a `pending` status. The funds cannot settle in a closed bank account, and the receiving bank will send an ACH return. This will send these funds back to your Dwolla Master Account Balance funding source, not all the way back to your bank account. You can decide whether to build your application to prompt your Receive-only User to add another bank account, or if you want to withdraw that failed transfer amount to your bank account and attempt another method to make the payment.
 

@@ -2,10 +2,9 @@
 applyTo: "**"
 ---
 
-Get started with the Quickstart 
-================================
+# Get started with the Quickstart
 
-#### A quick introduction to building with Plaid 
+#### A quick introduction to building with Plaid
 
 [Watch video](https://www.youtube.com/watch?v=U9xa1gzyPx8)
 
@@ -15,17 +14,17 @@ Don't want to write code? Check out the [Plaid Postman Collection](https://githu
 
 Looking to get started with Identity Verification or Income Verification? For Identity Verification, check out the [Identity Verification Quickstart](https://github.com/plaid/idv-quickstart) . For Income, try the [Income Verification Starter app](https://github.com/plaid/income-sample) .
 
-### Introduction 
+### Introduction
 
 Let’s test out running Plaid locally by cloning the Quickstart app. You’ll need API keys, which you can receive by signing up in the [Dashboard](https://dashboard.plaid.com/developers/keys) .
 
 You'll have two different API keys, and there are three different Plaid environments. Today we'll start in the Sandbox environment. View the API Keys section of the Dashboard to find your Sandbox secret.
 
-###### API Key 
+###### API Key
 
 [View Keys in Dashboard](https://dashboard.plaid.com/developers/keys)
 
-client\_id
+client_id
 
 Private identifier for your team
 
@@ -33,7 +32,7 @@ secret
 
 Private key, one for each of the three environments
 
-###### Environment 
+###### Environment
 
 Sandbox
 
@@ -45,7 +44,7 @@ Test or launch your app with unlimited live credentials
 
 If you get stuck at any point in the Quickstart, help is just a click away! Check the Quickstart [troubleshooting guide](https://github.com/plaid/quickstart#troubleshooting) or ask other developers in our [Stack Overflow community](https://stackoverflow.com/questions/tagged/plaid) .
 
-### Quickstart setup 
+### Quickstart setup
 
 Once you have your API keys, it's time to run the Plaid Quickstart locally! The instructions below will guide you through the process of cloning the [Quickstart repository](https://github.com/plaid/quickstart) , customizing the .env file with your own Plaid client ID and Sandbox secret, and finally, building and running the app.
 
@@ -55,7 +54,7 @@ Select group for content switcher
 
 Non-DockerDocker
 
-#### Setting up without Docker 
+#### Setting up without Docker
 
 Make sure you have [npm installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) before following along. If you're using Windows, ensure you have a terminal capable of running basic Unix shell commands.
 
@@ -103,7 +102,7 @@ Visit localhost and log in with Sandbox credentials (typically `user_good` and `
 
 (An image of "Plaid Quickstart guide with 'Launch Link' button to simulate user bank account integration.")
 
-#### Setting up with Docker 
+#### Setting up with Docker
 
 Docker is a software platform that packages software into standardized units called containers that have everything the software needs to run, including libraries, system tools, code, and runtime. If you don't already have Docker, you can [download it from the Docker site](https://docs.docker.com/get-docker/) . Note that Windows users may need to take some additional steps, such installing a Linux environment; if you are using Windows and do not already have a Linux environment installed, we recommend selecting the non-Docker instructions instead.
 
@@ -146,13 +145,13 @@ $ make logs language=node
 $ make stop language=node
 ```
 
-#### Create your first Item 
+#### Create your first Item
 
 Most API requests interact with an _Item_, which is a Plaid term for a login at a financial institution. A single end-user of your application might have accounts at different financial institutions, which means they would have multiple different Items. An Item is not the same as a financial institution account, although every account will be associated with an Item. For example, if a user has one login at their bank that allows them to access both their checking account and their savings account, a single Item would be associated with both of those accounts.
 
 Now that you have the Quickstart running, you’ll add your first Item in the Sandbox environment. Once you’ve opened the Quickstart app on localhost, click the **Launch Link** button and select any institution. Use the Sandbox credentials to simulate a successful login.
 
-##### Sandbox credentials 
+##### Sandbox credentials
 
 ```bash
 username: user_good
@@ -162,7 +161,7 @@ If prompted to enter a 2FA code: 1234
 
 Once you have entered your credentials and moved to the next screen, you have created your first Item! You can now make API calls for that Item by using the buttons in the Quickstart. In the next section, we'll explain what actually happened and how the Quickstart works.
 
-### How it works 
+### How it works
 
 As you might have noticed, you use both a server and a client-side component to access the Plaid APIs. The flow looks like this:
 
@@ -178,7 +177,7 @@ As you might have noticed, you use both a server and a client-side component to 
 
 (An image of "Step 2 diagram")
 
-**3**Call [/item/public\_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) to exchange the `public_token` for a permanent `access_token` and `item_id` for the new `Item`.
+**3**Call [/item/public_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) to exchange the `public_token` for a permanent `access_token` and `item_id` for the new `Item`.
 
 (An image of "Step 3 diagram")
 
@@ -264,50 +263,44 @@ const Link: React.FC = (props: LinkProps) => {
   return (
      open()} disabled={!ready}>
       Link account
-    
+
   );
 };
 export default App;
 ```
 
-Next, on the server side, the Quickstart calls [/item/public\_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) to obtain an `access_token`, as illustrated in the code excerpt below. The `access_token` uniquely identifies an Item and is a required argument for most Plaid API endpoints. In your own code, you'll need to securely store your `access_token` in order to make API requests for that Item.
+Next, on the server side, the Quickstart calls [/item/public_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) to obtain an `access_token`, as illustrated in the code excerpt below. The `access_token` uniquely identifies an Item and is a required argument for most Plaid API endpoints. In your own code, you'll need to securely store your `access_token` in order to make API requests for that Item.
 
 Select group for content switcher
 
 Current librariesLegacy libraries
 
 ```javascript
-app.post('/api/exchange_public_token', async function (
-  request,
-  response,
-  next,
-) {
+app.post("/api/exchange_public_token", async function (request, response, next) {
   const publicToken = request.body.public_token;
   try {
     const response = await client.itemPublicTokenExchange({
       public_token: publicToken,
     });
 
-
     // These values should be saved to a persistent database and
     // associated with the currently signed-in user
     const accessToken = response.data.access_token;
     const itemID = response.data.item_id;
 
-
-    res.json({ public_token_exchange: 'complete' });
+    res.json({ public_token_exchange: "complete" });
   } catch (error) {
     // handle error
   }
 });
 ```
 
-#### Making API requests 
+#### Making API requests
 
 Now that we've gone over the Link flow and token exchange process, we can explore what happens when you press a button in the Quickstart to make an API call. As an example, we'll look at the Quickstart's call to [/accounts/get](https://plaid.com/docs/api/accounts/index.html.md#accountsget) , which retrieves basic information, such as name and balance, about the accounts associated with an Item. The call is fairly straightforward and uses the `access_token` as a single argument to the Plaid client object.
 
 ```javascript
-app.get('/api/accounts', async function (request, response, next) {
+app.get("/api/accounts", async function (request, response, next) {
   try {
     const accountsResponse = await client.accountsGet({
       access_token: accessToken,
@@ -392,7 +385,7 @@ Example response data:
 }
 ```
 
-#### Next steps 
+#### Next steps
 
 Congratulations, you have completed the Plaid Quickstart! From here, we invite you to modify the Quickstart code in order to get more practice with the Plaid API. There are a few directions you can go in now:
 

@@ -9,6 +9,7 @@ applyTo: "**"
 This guide provides a complete, step-by-step integration of Plaid's **Signal** product using the **Sandbox** environment. It is intended to support both **frontend** and **backend** implementations in a language-agnostic format with optional language-specific hints. The goal is to enable an AI agent or developer to execute a fully functional Plaid Signal integration, from user bank linking to evaluating ACH payment risk.
 
 Assumptions:
+
 - The developer has a Plaid account and Sandbox `client_id` and `secret` are available. If not provided, please ask the users for it.
 - The application is able to make HTTP requests.
 - You have been approved for Signal access (or are using Sandbox while waiting for approval).
@@ -16,7 +17,7 @@ Assumptions:
 This document references Plaid's official documentation using markdown links.
 
 > [!WARNING]
-This guide is designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security, privacy, and compliance of your own app and Plaid integration. This guide is provided under the MIT license and is provided as-is and without warranty of any kind.
+> This guide is designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security, privacy, and compliance of your own app and Plaid integration. This guide is provided under the MIT license and is provided as-is and without warranty of any kind.
 
 ## Prerequisites
 
@@ -71,6 +72,7 @@ Send a POST request to Plaid with the following JSON payload:
 ```
 
 **Optional Parameters:**
+
 - `webhook`: URL to receive webhooks (recommended in production).
 - `redirect_uri`: Required only for OAuth-based institutions.
 
@@ -93,11 +95,15 @@ Send a POST request to Plaid with the following JSON payload:
 Use the `link_token` generated in Step 2 to initiate the Plaid Link flow on the frontend.
 
 ### 3.1 Add Plaid Link Script
+
 And use the link as follows
+
 ```html
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 ```
+
 or React SDK
+
 ```
 npm install --save react-plaid-link
 ```
@@ -111,7 +117,7 @@ const handler = Plaid.create({
     // Send the public_token and account_id to backend
     const selectedAccount = metadata.accounts[0];
     const accountId = selectedAccount.id;
-    
+
     // Send public_token and accountId to your backend
   },
   onExit: function (err, metadata) {
@@ -173,7 +179,7 @@ Now that you have an access token and account ID, you can evaluate the risk of a
   "access_token": "<access_token>",
   "account_id": "<account_id>",
   "client_transaction_id": "unique-transaction-id",
-  "amount": 100.00,
+  "amount": 100.0,
   "user_present": true,
   "client_user_id": "user-123",
   "ruleset_key": "<ruleset_key_from_dashboard>"
@@ -185,6 +191,7 @@ All of the above are REQUIRED properties
 ### 5.3 Sandbox Testing
 
 In Sandbox, you can influence the returned score by providing the following test amounts:
+
 - `3.53`: Returns a score of 10 (low risk)
 - `12.17`: Returns a score of 60 (medium risk)
 - `27.53`: Returns a score of 90 (high risk)
@@ -196,10 +203,10 @@ In Sandbox, you can influence the returned score by providing the following test
   "request_id": "request-id",
   "scores": {
     "bank_initiated_return_risk": {
-      "score": 45,
+      "score": 45
     },
     "customer_initiated_return_risk": {
-      "score": 30,
+      "score": 30
     }
   },
   "core_attributes": {
@@ -243,7 +250,7 @@ After deciding whether to process a transaction, report your decision back to Pl
   "client_id": "<your-client-id>",
   "secret": "<your-sandbox-secret>",
   "client_transaction_id": "unique-transaction-id",
-  "initiated": true,
+  "initiated": true
 }
 ```
 
@@ -275,6 +282,7 @@ If a transaction is returned (e.g., insufficient funds), report this to Plaid to
 ```
 
 **Optional Parameter:**
+
 - `returned_at`: ISO 8601 timestamp of when the return occurred
 
 ### 7.3 Response Body
@@ -302,6 +310,7 @@ If a transaction is returned (e.g., insufficient funds), report this to Plaid to
 - Always add logs for all Plaid API requests and responses in the backend implementation. This includes logging the request payload (excluding sensitive data like client secrets and access tokens), the endpoint being called, and the response status/result.
 - Log all errors and exceptions with enough context to debug issues, but never log sensitive credentials or tokens.
 - Example (Python):
+
 ```python
 import logging
 logging.basicConfig(level=logging.INFO)

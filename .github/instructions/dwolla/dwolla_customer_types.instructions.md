@@ -48,9 +48,9 @@ With a per-transaction default send limit of \$10,000, this Customer type is abl
 
 Business Verified Customers are unique in their sign up flow, as they need multiple parties to be verified. These will include:
 
-* The Business (required)
-* The Controller (Conditionally Required)
-* The Beneficial Owner (Conditionally Required)
+- The Business (required)
+- The Controller (Conditionally Required)
+- The Beneficial Owner (Conditionally Required)
 
 Business Verified Customers will need an Account Admin to sign up the company during the onboarding process. This Account Admin is not identity verified. To become a fully verified Customer, a controller and/or a beneficial owner may need to be identity verified. A controller is any natural individual who holds significant responsibilities to control, manage, or direct a company or other corporate entity (i.e. CEO, CFO, General Partner, President, etc). A company may have more than one controller, but only one controller's information must be collected. A beneficial owner is any natural person who, directly or indirectly, owns 25% or more of the equity interests of the company.
 

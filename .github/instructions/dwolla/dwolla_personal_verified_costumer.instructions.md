@@ -94,122 +94,122 @@ Once you submit this request, Dwolla will perform some initial validation to che
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  {
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "johndoe@email.net",
-    "ipAddress": "10.10.10.10",
-    "type": "personal",
-    "address1": "99-99 33rd St",
-    "city": "Some City",
-    "state": "NY",
-    "postalCode": "11101",
-    "dateOfBirth": "1970-01-01",
-    "ssn": "1234"
-  }
+{
+"firstName": "John",
+"lastName": "Doe",
+"email": "johndoe@email.net",
+"ipAddress": "10.10.10.10",
+"type": "personal",
+"address1": "99-99 33rd St",
+"city": "Some City",
+"state": "NY",
+"postalCode": "11101",
+"dateOfBirth": "1970-01-01",
+"ssn": "1234"
+}
 
-  HTTP/1.1 201 Created
-  Location: https://api.dwolla.com/customers/FC451A7A-AE30-4404-AB95-E3553FCD733F
-  ```
+HTTP/1.1 201 Created
+Location: https://api.dwolla.com/customers/FC451A7A-AE30-4404-AB95-E3553FCD733F
 
-  ```php create_customer.php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
+````
 
-  $newCustomer = $customersApi->create([
-    'firstName' => 'John',
-    'lastName' => 'Doe',
-    'email' => 'jdoe@nomail.net',
-    'type' => 'personal',
-    'address1' => '99-99 33rd St',
-    'city' => 'Some City',
-    'state' => 'NY',
-    'postalCode' => '11101',
-    'dateOfBirth' => '1970-01-01',
+```php create_customer.php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
 
-    # For the first attempt, only the
-    # last 4 digits of SSN required
+$newCustomer = $customersApi->create([
+  'firstName' => 'John',
+  'lastName' => 'Doe',
+  'email' => 'jdoe@nomail.net',
+  'type' => 'personal',
+  'address1' => '99-99 33rd St',
+  'city' => 'Some City',
+  'state' => 'NY',
+  'postalCode' => '11101',
+  'dateOfBirth' => '1970-01-01',
 
-    # If the entire SSN is provided,
-    # it will still be accepted
-    'ssn' => '1234'
-  ]);
+  # For the first attempt, only the
+  # last 4 digits of SSN required
 
-  $newCustomer; # => "https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C"
-  ?>
-  ```
+  # If the entire SSN is provided,
+  # it will still be accepted
+  'ssn' => '1234'
+]);
 
-  ```ruby create_customer.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  request_body = {
-    :firstName => 'John',
-    :lastName => 'Doe',
-    :email => 'jdoe@nomail.net',
-    :type => 'personal',
-    :address1 => '99-99 33rd St',
-    :city => 'Some City',
-    :state => 'NY',
-    :postalCode => '11101',
-    :dateOfBirth => '1970-01-01',
+$newCustomer; # => "https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C"
+?>
+````
 
-    # For the first attempt, only the
-    # last 4 digits of SSN required
+```ruby create_customer.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+request_body = {
+  :firstName => 'John',
+  :lastName => 'Doe',
+  :email => 'jdoe@nomail.net',
+  :type => 'personal',
+  :address1 => '99-99 33rd St',
+  :city => 'Some City',
+  :state => 'NY',
+  :postalCode => '11101',
+  :dateOfBirth => '1970-01-01',
 
-    # If the entire SSN is provided,
-    # it will still be accepted
+  # For the first attempt, only the
+  # last 4 digits of SSN required
 
-    :ssn => '1234'
-  }
+  # If the entire SSN is provided,
+  # it will still be accepted
 
-  new_customer = app_token.post "customers", request_body
-  new_customer.response_headers[:location] # => "https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C"
-  ```
+  :ssn => '1234'
+}
 
-  ```python create_customer.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  request_body = {
-    'firstName': 'John',
-    'lastName': 'Doe',
-    'email': 'jdoe@nomail.net',
-    'type': 'personal',
-    'address1': '99-99 33rd St',
-    'city': 'Some City',
-    'state': 'NY',
-    'postalCode': '11101',
-    'dateOfBirth': '1970-01-01',
-    # For the first attempt, only the
-    # last 4 digits of SSN required
-    # If the entire SSN is provided,
-    # it will still be accepted
-    'ssn': '1234'
-  }
+new_customer = app_token.post "customers", request_body
+new_customer.response_headers[:location] # => "https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C"
+```
 
-  new_customer = app_token.post('customers', request_body)
-  new_customer.headers['location'] # => 'https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C'
-  ```
+```python create_customer.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+request_body = {
+  'firstName': 'John',
+  'lastName': 'Doe',
+  'email': 'jdoe@nomail.net',
+  'type': 'personal',
+  'address1': '99-99 33rd St',
+  'city': 'Some City',
+  'state': 'NY',
+  'postalCode': '11101',
+  'dateOfBirth': '1970-01-01',
+  # For the first attempt, only the
+  # last 4 digits of SSN required
+  # If the entire SSN is provided,
+  # it will still be accepted
+  'ssn': '1234'
+}
 
-  ```javascript createCustomer.js
-  var requestBody = {
-    firstName: "John",
-    lastName: "Doe",
-    email: "jdoe@nomail.net",
-    type: "personal",
-    address1: "99-99 33rd St",
-    city: "Some City",
-    state: "NY",
-    postalCode: "11101",
-    dateOfBirth: "1970-01-01",
-    // For the first attempt, only the
-    // last 4 digits of SSN required
-    // If the entire SSN is provided,
-    // it will still be accepted
-    ssn: "1234",
-  };
+new_customer = app_token.post('customers', request_body)
+new_customer.headers['location'] # => 'https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C'
+```
 
-  dwolla
-    .post("customers", requestBody)
-    .then((res) => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/FC451A7A-AE30-4404-AB95-E3553FCD733F'
-  ```
+```javascript createCustomer.js
+var requestBody = {
+  firstName: "John",
+  lastName: "Doe",
+  email: "jdoe@nomail.net",
+  type: "personal",
+  address1: "99-99 33rd St",
+  city: "Some City",
+  state: "NY",
+  postalCode: "11101",
+  dateOfBirth: "1970-01-01",
+  // For the first attempt, only the
+  // last 4 digits of SSN required
+  // If the entire SSN is provided,
+  // it will still be accepted
+  ssn: "1234",
+};
+
+dwolla.post("customers", requestBody).then(res => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/FC451A7A-AE30-4404-AB95-E3553FCD733F'
+```
+
 </CodeGroup>
 
 ### Check the status of the personal verified Customer
@@ -291,13 +291,13 @@ It is recommended to have an active [webhook subscription](/docs/api-reference/w
 
 ### Verification statuses
 
-| Customer status | Event                                    | Description                                                                                                                                                                                                                                                                                                                                                                                           |
-| --------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| verified        | customer\_verified                       | The identifying information submitted was sufficient in verifying the Customer account.                                                                                                                                                                                                                                                                                                               |
-| retry           | customer\_reverification\_needed         | The initial identity verification attempt failed because the information provided did not satisfy Dwolla's verification check. You can make one additional attempt by changing some or all the attributes of the existing Customer with a POST request. All fields are required on the retry attempt. If the additional attempt fails, the resulting status will be either `document` or `suspended`. |
-| kba             | customer\_kba\_verification\_needed      | The `retry` identity verification attempt failed due to insufficient scores on the submitted data. The end user will have a single kba attempt to answer a set of "out of wallet" questions about themselves for identity verification. **Note:** KBA is a premium feature. Please contact Sales or your account manager for more information on enabling KBA functionality.                          |
-| document        | customer\_verification\_document\_needed | Dwolla requires additional documentation to identify the Customer in the document status. Once a document is uploaded it will be reviewed for verification.                                                                                                                                                                                                                                           |
-| suspended       | customer\_suspended                      | The Customer is suspended and may neither send nor receive funds. Contact Account Management for more information.                                                                                                                                                                                                                                                                                    |
+| Customer status | Event                                 | Description                                                                                                                                                                                                                                                                                                                                                                                           |
+| --------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| verified        | customer_verified                     | The identifying information submitted was sufficient in verifying the Customer account.                                                                                                                                                                                                                                                                                                               |
+| retry           | customer_reverification_needed        | The initial identity verification attempt failed because the information provided did not satisfy Dwolla's verification check. You can make one additional attempt by changing some or all the attributes of the existing Customer with a POST request. All fields are required on the retry attempt. If the additional attempt fails, the resulting status will be either `document` or `suspended`. |
+| kba             | customer_kba_verification_needed      | The `retry` identity verification attempt failed due to insufficient scores on the submitted data. The end user will have a single kba attempt to answer a set of "out of wallet" questions about themselves for identity verification. **Note:** KBA is a premium feature. Please contact Sales or your account manager for more information on enabling KBA functionality.                          |
+| document        | customer_verification_document_needed | Dwolla requires additional documentation to identify the Customer in the document status. Once a document is uploaded it will be reviewed for verification.                                                                                                                                                                                                                                           |
+| suspended       | customer_suspended                    | The Customer is suspended and may neither send nor receive funds. Contact Account Management for more information.                                                                                                                                                                                                                                                                                    |
 
 ### Testing verification statuses in Sandbox
 
@@ -322,113 +322,114 @@ A `retry` status occurs when a Customer's identity scores are too low during the
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  {
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "johndoe@nomail.net",
-    "ipAddress": "10.10.10.10",
-    "type": "personal",
-    "address1": "221 Corrected Address St.",
-    "address2": "Fl 8",
-    "city": "Ridgewood",
-    "state": "NY",
-    "postalCode": "11385",
-    "dateOfBirth": "1990-07-11",
-    "ssn ": "202-99-1516"
-  }
-  ```
+{
+"firstName": "John",
+"lastName": "Doe",
+"email": "johndoe@nomail.net",
+"ipAddress": "10.10.10.10",
+"type": "personal",
+"address1": "221 Corrected Address St.",
+"address2": "Fl 8",
+"city": "Ridgewood",
+"state": "NY",
+"postalCode": "11385",
+"dateOfBirth": "1990-07-11",
+"ssn ": "202-99-1516"
+}
 
-  ```ruby retry_customer.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
-  request_body = {
-        "firstName" => "John",
-         "lastName" => "Doe",
-            "email" => "jdoe@nomail.com",
-        "ipAddress" => "10.10.10.10",
-             "type" => "personal",
-         "address1" => "221 Corrected Address St..",
-         "address2" => "Apt 201",
-             "city" => "San Francisco",
-            "state" => "CA",
-       "postalCode" => "94104",
-      "dateOfBirth" => "1970-07-11",
-              "ssn" => "123-45-6789"
-  }
+````
 
-  customer = app_token.post customer_url, request_body
-  customer.id # => "132681fa-1b4d-4181-8ff2-619ca46235b1"
-  ```
+```ruby retry_customer.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
+request_body = {
+      "firstName" => "John",
+       "lastName" => "Doe",
+          "email" => "jdoe@nomail.com",
+      "ipAddress" => "10.10.10.10",
+           "type" => "personal",
+       "address1" => "221 Corrected Address St..",
+       "address2" => "Apt 201",
+           "city" => "San Francisco",
+          "state" => "CA",
+     "postalCode" => "94104",
+    "dateOfBirth" => "1970-07-11",
+            "ssn" => "123-45-6789"
+}
 
-  ```javascript retryCustomer.js
-  // Using dwolla-v2 - https://github.com/Dwolla/dwolla-v2-node
-  var customerUrl =
-    "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
-  var requestBody = {
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@dwolla.com",
-    ipAddress: "10.10.10.10",
-    type: "personal",
-    address1: "221 Corrected Address St..",
-    address2: "Fl 8",
-    city: "Ridgewood",
-    state: "NY",
-    postalCode: "11385",
-    dateOfBirth: "1990-07-11",
-    ssn: "202-99-1516",
-  };
+customer = app_token.post customer_url, request_body
+customer.id # => "132681fa-1b4d-4181-8ff2-619ca46235b1"
+````
 
-  dwolla.post(customerUrl, requestBody).then(function (res) {
-    res.body.id; // => '132681fa-1b4d-4181-8ff2-619ca46235b1'
-  });
-  ```
+```javascript retryCustomer.js
+// Using dwolla-v2 - https://github.com/Dwolla/dwolla-v2-node
+var customerUrl = "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
+var requestBody = {
+  firstName: "John",
+  lastName: "Doe",
+  email: "johndoe@dwolla.com",
+  ipAddress: "10.10.10.10",
+  type: "personal",
+  address1: "221 Corrected Address St..",
+  address2: "Fl 8",
+  city: "Ridgewood",
+  state: "NY",
+  postalCode: "11385",
+  dateOfBirth: "1990-07-11",
+  ssn: "202-99-1516",
+};
 
-  ```python retry_customer.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
-  request_body = {
-    'firstName': 'John',
-    'lastName': 'Doe',
-    'email': 'jdoe@nomail.com',
-    'ipAddress': '10.10.10.10',
-    'type': 'personal',
-    'address1': '221 Corrected Address St..',
-    'address2': 'Apt 201',
-    'city': 'San Francisco',
-    'state': 'CA',
-    'postalCode': '94104',
-    'dateOfBirth': '1970-07-11',
-    'ssn': '123-45-6789'
-  }
+dwolla.post(customerUrl, requestBody).then(function (res) {
+  res.body.id; // => '132681fa-1b4d-4181-8ff2-619ca46235b1'
+});
+```
 
-  customer = app_token.post(customer_url, request_body)
-  customer.body.id # => '132681fa-1b4d-4181-8ff2-619ca46235b1'
-  ```
+```python retry_customer.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
+request_body = {
+  'firstName': 'John',
+  'lastName': 'Doe',
+  'email': 'jdoe@nomail.com',
+  'ipAddress': '10.10.10.10',
+  'type': 'personal',
+  'address1': '221 Corrected Address St..',
+  'address2': 'Apt 201',
+  'city': 'San Francisco',
+  'state': 'CA',
+  'postalCode': '94104',
+  'dateOfBirth': '1970-07-11',
+  'ssn': '123-45-6789'
+}
 
-  ```php retry_customer.php
-  <?php
-  $customersApi = DwollaSwagger\CustomersApi($apiClient);
+customer = app_token.post(customer_url, request_body)
+customer.body.id # => '132681fa-1b4d-4181-8ff2-619ca46235b1'
+```
 
-  $customerUrl = "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
-  $retryCustomer = $customersApi->updateCustomer(array (
-    'firstName' => 'John',
-    'lastName' => 'Doe',
-    'email' => 'johndoe@nomail.net',
-    'ipAddress' => '10.10.10.10',
-    'type' => 'personal',
-    'address1' => '221 Corrected Address St.',
-    'address2' => 'Fl 8',
-    'city' => 'Ridgewood',
-    'state' => 'NY',
-    'postalCode' => '11385',
-    'dateOfBirth' => '1990-07-11',
-    'ssn' => '202-99-1516',
-  ), $customerUrl);
+```php retry_customer.php
+<?php
+$customersApi = DwollaSwagger\CustomersApi($apiClient);
 
-  print($retryCustomer->id); # => 132681fa-1b4d-4181-8ff2-619ca46235b1
-  ?>
-  ```
+$customerUrl = "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
+$retryCustomer = $customersApi->updateCustomer(array (
+  'firstName' => 'John',
+  'lastName' => 'Doe',
+  'email' => 'johndoe@nomail.net',
+  'ipAddress' => '10.10.10.10',
+  'type' => 'personal',
+  'address1' => '221 Corrected Address St.',
+  'address2' => 'Fl 8',
+  'city' => 'Ridgewood',
+  'state' => 'NY',
+  'postalCode' => '11385',
+  'dateOfBirth' => '1990-07-11',
+  'ssn' => '202-99-1516',
+), $customerUrl);
+
+print($retryCustomer->id); # => 132681fa-1b4d-4181-8ff2-619ca46235b1
+?>
+```
+
 </CodeGroup>
 
 Check the Customer's status again. The Customer will either be in the `verified`, `kba`, `document`, or `suspended` state of verification.
@@ -454,44 +455,45 @@ The first step in the KBA flow is to make a request to the Dwolla API to [genera
   Content-Type: application/json
   Accept: application/vnd.dwolla.v1.hal+json
 
-  ...
+...
 
-  HTTP/1.1 201 Created\
-  Location: https://api.dwolla.com/kba/33aa88b1-97df-424a-9043-d5f85809858b
-  ```
+HTTP/1.1 201 Created\
+ Location: https://api.dwolla.com/kba/33aa88b1-97df-424a-9043-d5f85809858b
 
-  ```ruby initiate_kba.rb
-  customer_url = 'https://api-sandbox.dwolla.com/customers/ca22d192-48f1-4b72-b29d-681e9e20795d'
+````
 
-  kba = app_token.post "#{customer_url}/kba"
-  kba.response_headers[:location] # => "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31"
-  ```
+```ruby initiate_kba.rb
+customer_url = 'https://api-sandbox.dwolla.com/customers/ca22d192-48f1-4b72-b29d-681e9e20795d'
 
-  ```php initiate_kba.php
-  <?php
-  // Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
+kba = app_token.post "#{customer_url}/kba"
+kba.response_headers[:location] # => "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31"
+````
 
-  $customerUrl = "https://api.dwolla.com/customers/ca22d192-48f1-4b72-b29d-681e9e20795d"
+```php initiate_kba.php
+<?php
+// Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
 
-  $kba = $customersApi->initiateKba($customer_url);
-  $kba; # => "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31"
-  ?>
-  ```
+$customerUrl = "https://api.dwolla.com/customers/ca22d192-48f1-4b72-b29d-681e9e20795d"
 
-  ```python initiate_kba.py
-  customer_url = 'https://api-sandbox.dwolla.com/customers/61a74e62-e27d-46f1-9fa6-a8e57226bb3e'
+$kba = $customersApi->initiateKba($customer_url);
+$kba; # => "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31"
+?>
+```
 
-  kba = app_token.post('%s/kba' % customer_url)
-  kba.headers['location'] # => "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31"
-  ```
+```python initiate_kba.py
+customer_url = 'https://api-sandbox.dwolla.com/customers/61a74e62-e27d-46f1-9fa6-a8e57226bb3e'
 
-  ```javascript initiate_kba.js
-  var customerUrl =
-    "https://api-sandbox.dwolla.com/customers/61a74e62-e27d-46f1-9fa6-a8e57226bb3e";
+kba = app_token.post('%s/kba' % customer_url)
+kba.headers['location'] # => "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31"
+```
 
-  dwolla.post(`${customerUrl}/kba`).then((res) => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
-  ```
+```javascript initiate_kba.js
+var customerUrl = "https://api-sandbox.dwolla.com/customers/61a74e62-e27d-46f1-9fa6-a8e57226bb3e";
+
+dwolla.post(`${customerUrl}/kba`).then(res => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
+```
+
 </CodeGroup>
 
 ### Retrieve KBA Question set
@@ -506,132 +508,133 @@ Once the KBA ID is created, your application will have a **single attempt** to [
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer cRahPzURfaIrTewKL18tmslWPqKdzkLeYJm0oB1hGJ1vMPArft1v
 
-  ...
+...
 
-  {
-      "_links": {
-          "answer": {
-              "href": "https://api-sandbox.dwolla.com/kba/33aa88b1-97df-424a-9043-d5f85809858b",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "kba"
-          }
-      },
-      "id": "33aa88b1-97df-424a-9043-d5f85809858b",
-      "questions": [
-          {
-              "id": "2355953375",
-              "text": "In what county do you currently live?",
-              "answers": [
-                  {
-                      "id": "2687969295",
-                      "text": "Pulaski"
-                  },
-                  {
-                      "id": "2687969305",
-                      "text": "St. Joseph"
-                  },
-                  {
-                      "id": "2687969315",
-                      "text": "Daviess"
-                  },
-                  {
-                      "id": "2687969325",
-                      "text": "Jackson"
-                  },
-                  {
-                      "id": "2687969335",
-                      "text": "None of the above"
-                  }
-              ]
-          },
-          {
-              "id": "2355953385",
-              "text": "Which team nickname is associated with a college you attended?",
-              "answers": [
-                  {
-                      "id": "2687969345",
-                      "text": "Colts"
-                  },
-                  {
-                      "id": "2687969355",
-                      "text": "Eagles"
-                  },
-                  {
-                      "id": "2687969365",
-                      "text": "Gator"
-                  },
-                  {
-                      "id": "2687969375",
-                      "text": "Sentinels"
-                  },
-                  {
-                      "id": "2687969385",
-                      "text": "None of the above"
-                  }
-              ]
-          },
-          {
-              "id": "2355953395",
-              "text": "What kind of IA license plate has been on your 1996 Acura TL?",
-              "answers": [
-                  {
-                      "id": "2687969395",
-                      "text": "Antique"
-                  },
-                  {
-                      "id": "2687969405",
-                      "text": "Disabled Veteran"
-                  },
-                  {
-                      "id": "2687969415",
-                      "text": "Educational Affiliation"
-                  },
-                  {
-                      "id": "2687969425",
-                      "text": "Military Honor"
-                  },
-                  {
-                      "id": "2687969435",
-                      "text": "I have never been associated with this vehicle"
-                  }
-              ]
-          }
-      ]
-  }
-  ```
+{
+"\_links": {
+"answer": {
+"href": "https://api-sandbox.dwolla.com/kba/33aa88b1-97df-424a-9043-d5f85809858b",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "kba"
+}
+},
+"id": "33aa88b1-97df-424a-9043-d5f85809858b",
+"questions": [
+{
+"id": "2355953375",
+"text": "In what county do you currently live?",
+"answers": [
+{
+"id": "2687969295",
+"text": "Pulaski"
+},
+{
+"id": "2687969305",
+"text": "St. Joseph"
+},
+{
+"id": "2687969315",
+"text": "Daviess"
+},
+{
+"id": "2687969325",
+"text": "Jackson"
+},
+{
+"id": "2687969335",
+"text": "None of the above"
+}
+]
+},
+{
+"id": "2355953385",
+"text": "Which team nickname is associated with a college you attended?",
+"answers": [
+{
+"id": "2687969345",
+"text": "Colts"
+},
+{
+"id": "2687969355",
+"text": "Eagles"
+},
+{
+"id": "2687969365",
+"text": "Gator"
+},
+{
+"id": "2687969375",
+"text": "Sentinels"
+},
+{
+"id": "2687969385",
+"text": "None of the above"
+}
+]
+},
+{
+"id": "2355953395",
+"text": "What kind of IA license plate has been on your 1996 Acura TL?",
+"answers": [
+{
+"id": "2687969395",
+"text": "Antique"
+},
+{
+"id": "2687969405",
+"text": "Disabled Veteran"
+},
+{
+"id": "2687969415",
+"text": "Educational Affiliation"
+},
+{
+"id": "2687969425",
+"text": "Military Honor"
+},
+{
+"id": "2687969435",
+"text": "I have never been associated with this vehicle"
+}
+]
+}
+]
+}
 
-  ```ruby retrieve_kba.rb
-  kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
+````
 
-  kba_questions = app_token.get kba_url
-  kba_questions.id # => "70b0e9cc-020d-4de2-9a82-a2281afa4c31"
-  ```
+```ruby retrieve_kba.rb
+kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
 
-  ```php retrieve_kba.php
-  <?php
-  // Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
-  $kbaApi = new DwollaSwagger\KbaApi($apiClient);
+kba_questions = app_token.get kba_url
+kba_questions.id # => "70b0e9cc-020d-4de2-9a82-a2281afa4c31"
+````
 
-  kba_url = "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
+```php retrieve_kba.php
+<?php
+// Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
+$kbaApi = new DwollaSwagger\KbaApi($apiClient);
 
-  $kbaQuestions = $kbaApi->getKbaQuestions($kbaUrl);
-  print $kbaQuestions->id; # => "70b0e9cc-020d-4de2-9a82-a2281afa4c31"
-  ?>
-  ```
+kba_url = "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
 
-  ```python retrieve_kba.py
-  kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
+$kbaQuestions = $kbaApi->getKbaQuestions($kbaUrl);
+print $kbaQuestions->id; # => "70b0e9cc-020d-4de2-9a82-a2281afa4c31"
+?>
+```
 
-  kba_questions = app_token.get(kba_url)
-  kba_questions.id # => '70b0e9cc-020d-4de2-9a82-a2281afa4c31'
-  ```
+```python retrieve_kba.py
+kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
 
-  ```javascript retrieveKba.js
-  var kbaUrl =
-    "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
+kba_questions = app_token.get(kba_url)
+kba_questions.id # => '70b0e9cc-020d-4de2-9a82-a2281afa4c31'
+```
 
-  dwolla.get(kbaUrl).then((res) => res.body.id); // => '70b0e9cc-020d-4de2-9a82-a2281afa4c31'
-  ```
+```javascript retrieveKba.js
+var kbaUrl = "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
+
+dwolla.get(kbaUrl).then(res => res.body.id); // => '70b0e9cc-020d-4de2-9a82-a2281afa4c31'
+```
+
 </CodeGroup>
 
 ### Answer KBA Questions
@@ -646,139 +649,141 @@ Questions and answers will have their own unique identifiers. Questions and answ
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer cRahPzURfaIrTewKL18tmslWPqKdzkLeYJm0oB1hGJ1vMPArft1v
 
-  ...
+...
 
-  {
-      "answers": [
-          {
-              "questionId": "2355953375",
-              "answerId": "2687969335"
-          },
-          {
-              "questionId": "2355953385",
-              "answerId": "2687969385"
-          },
-          {
-              "questionId": "2355953395",
-              "answerId": "2687969435"
-          },
-          {
-              "questionId": "2355953405",
-              "answerId": "2687969485"
-          }
-      ]
-  }
-  ```
+{
+"answers": [
+{
+"questionId": "2355953375",
+"answerId": "2687969335"
+},
+{
+"questionId": "2355953385",
+"answerId": "2687969385"
+},
+{
+"questionId": "2355953395",
+"answerId": "2687969435"
+},
+{
+"questionId": "2355953405",
+"answerId": "2687969485"
+}
+]
+}
 
-  ```ruby answer_kba.rb
-  kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
+````
 
-  request_body = {
-      :answers => [
-          {
-              :questionId => "2355953375",
-              :answerId => "2687969335"
-          },
-          {
-              :questionId => "2355953385",
-              :answerId => "2687969385"
-          },
-          {
-              :questionId => "2355953395",
-              :answerId => "2687969435"
-          },
-          {
-              :questionId => "2355953405",
-              :answerId => "2687969485"
-          }
-      ]
-  }
+```ruby answer_kba.rb
+kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
 
-  kba_answers = app_token.post kba_url, request_body
-  ```
+request_body = {
+    :answers => [
+        {
+            :questionId => "2355953375",
+            :answerId => "2687969335"
+        },
+        {
+            :questionId => "2355953385",
+            :answerId => "2687969385"
+        },
+        {
+            :questionId => "2355953395",
+            :answerId => "2687969435"
+        },
+        {
+            :questionId => "2355953405",
+            :answerId => "2687969485"
+        }
+    ]
+}
 
-  ```php answer_kba.php
-  <?php
-  // Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
-  $kbaApi = new DwollaSwagger\KbaApi($apiClient);
+kba_answers = app_token.post kba_url, request_body
+````
 
-  $kbaUrl = "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
+```php answer_kba.php
+<?php
+// Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
+$kbaApi = new DwollaSwagger\KbaApi($apiClient);
 
-  $kbaAnswers = $kbaApi->answerKbaQuestions([
-      "answers" => [
-           [
-               "questionId" => "2355953375",
-               "answerId" => "2687969335"
-           ],
-           [
-               "questionId" => "2355953385",
-               "answerId" => "2687969385"
-           ],
-           [
-               "questionId" => "2355953395",
-               "answerId" => "2687969435"
-           ],
-           [
-               "questionId" => "2355953405",
-               "answerId" => "2687969485"
-           ]
-      ]
-    ], $kbaUrl);
-  ?>
-  ```
+$kbaUrl = "https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
 
-  ```python answer_kba.py
-  kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
+$kbaAnswers = $kbaApi->answerKbaQuestions([
+    "answers" => [
+         [
+             "questionId" => "2355953375",
+             "answerId" => "2687969335"
+         ],
+         [
+             "questionId" => "2355953385",
+             "answerId" => "2687969385"
+         ],
+         [
+             "questionId" => "2355953395",
+             "answerId" => "2687969435"
+         ],
+         [
+             "questionId" => "2355953405",
+             "answerId" => "2687969485"
+         ]
+    ]
+  ], $kbaUrl);
+?>
+```
 
-  request_body = {
-      'answers' : [
-          {
-              'questionId': "2355953375",
-              'answerId': "2687969335"
-          },
-          {
-              'questionId': "2355953385",
-              'answerId': "2687969385"
-          },
-          {
-              'questionId': "2355953395",
-              'answerId':"2687969435"
-          },
-          {
-              'questionId': "2355953405",
-              'answerId': "2687969485"
-          }
-      ]
-  }
+```python answer_kba.py
+kba_url = 'https://api-sandbox.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31'
 
-  kba_answers = app_token.post (kba_url, request_body)
-  ```
+request_body = {
+    'answers' : [
+        {
+            'questionId': "2355953375",
+            'answerId': "2687969335"
+        },
+        {
+            'questionId': "2355953385",
+            'answerId': "2687969385"
+        },
+        {
+            'questionId': "2355953395",
+            'answerId':"2687969435"
+        },
+        {
+            'questionId': "2355953405",
+            'answerId': "2687969485"
+        }
+    ]
+}
 
-  ```javascript answer_kba.js
-  var kbaUrl = "https://api.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
-  var requestBody = {
-    answers: [
-      {
-        questionId: "2355953375",
-        answerId: "2687969335",
-      },
-      {
-        questionId: "2355953385",
-        answerId: "2687969385",
-      },
-      {
-        questionId: "2355953395",
-        answerId: "2687969435",
-      },
-      {
-        questionId: "2355953405",
-        answerId: "2687969485",
-      },
-    ],
-  };
+kba_answers = app_token.post (kba_url, request_body)
+```
 
-  dwolla.post(kbaUrl, requestBody);
-  ```
+```javascript answer_kba.js
+var kbaUrl = "https://api.dwolla.com/kba/70b0e9cc-020d-4de2-9a82-a2281afa4c31";
+var requestBody = {
+  answers: [
+    {
+      questionId: "2355953375",
+      answerId: "2687969335",
+    },
+    {
+      questionId: "2355953385",
+      answerId: "2687969385",
+    },
+    {
+      questionId: "2355953395",
+      answerId: "2687969435",
+    },
+    {
+      questionId: "2355953405",
+      answerId: "2687969485",
+    },
+  ],
+};
+
+dwolla.post(kbaUrl, requestBody);
+```
+
 </CodeGroup>
 
 #### KBA Success
@@ -795,16 +800,16 @@ If the Customer has a status of `document`, the Customer will need to upload add
 
 You can provide the following best practices to the Customer in order to reduce the chances of a document being rejected:
 
-* Only images of the front of an ID
-* All 4 Edges of the document should be visible
-* A dark/high contrast background should be used
-* At least 90% of the image should be the document
-* Should be at least 300dpi
-* Capture image from directly above the document
-* Make sure that the image is properly aligned, not rotated, tilted or skewed
-* No flash to reduce glare
-* No black and white documents
-* No expired IDs
+- Only images of the front of an ID
+- All 4 Edges of the document should be visible
+- A dark/high contrast background should be used
+- At least 90% of the image should be the document
+- Should be at least 300dpi
+- Capture image from directly above the document
+- Make sure that the image is properly aligned, not rotated, tilted or skewed
+- No flash to reduce glare
+- No black and white documents
+- No expired IDs
 
 ### Document types
 
@@ -881,55 +886,56 @@ To upload a color photo of the document, you'll initiate a multipart form-data P
   \ -F "file=@foo.png"
   \ 'https://api-sandbox.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1/documents'
 
-  HTTP/1.1 201 Created
-  Location: https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0
-  ```
+HTTP/1.1 201 Created
+Location: https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
+````
 
-  file = Faraday::UploadIO.new('mclovin.jpg', 'image/jpeg')
-  document = app_token.post "#{customer_url}/documents", file: file, documentType: 'license'
-  document.response_headers[:location] # => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
-  ```
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
 
-  ```javascript
-  // Using dwolla-v2 - https://github.com/Dwolla/dwolla-v2-node
-  var customerUrl =
-    "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
+file = Faraday::UploadIO.new('mclovin.jpg', 'image/jpeg')
+document = app_token.post "#{customer_url}/documents", file: file, documentType: 'license'
+document.response_headers[:location] # => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
+````
 
-  var requestBody = new FormData();
-  body.append("file", fs.createReadStream("mclovin.jpg"), {
-    filename: "mclovin.jpg",
-    contentType: "image/jpeg",
-    knownLength: fs.statSync("mclovin.jpg").size,
-  });
-  body.append("documentType", "license");
+```javascript
+// Using dwolla-v2 - https://github.com/Dwolla/dwolla-v2-node
+var customerUrl = "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
 
-  dwolla.post(`${customerUrl}/documents`, requestBody).then(function (res) {
-    res.headers.get("location"); // => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
-  });
-  ```
+var requestBody = new FormData();
+body.append("file", fs.createReadStream("mclovin.jpg"), {
+  filename: "mclovin.jpg",
+  contentType: "image/jpeg",
+  knownLength: fs.statSync("mclovin.jpg").size,
+});
+body.append("documentType", "license");
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
+dwolla.post(`${customerUrl}/documents`, requestBody).then(function (res) {
+  res.headers.get("location"); // => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
+});
+```
 
-  document = app_token.post('%s/documents' % customer_url, file = open('mclovin.jpg', 'rb'), documentType = 'license')
-  document.headers['location'] # => 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
-  ```
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
 
-  ```php
-  // No SDK support. Coming soon
-  ```
+document = app_token.post('%s/documents' % customer_url, file = open('mclovin.jpg', 'rb'), documentType = 'license')
+document.headers['location'] # => 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
+```
 
-  If the document was successfully uploaded, the response will be a HTTP 201 Created with the URL of the new document resource contained in the Location header.
+```php
+// No SDK support. Coming soon
+```
 
-  ```bash
-  HTTP/1.1 201 Created
-  Location: https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0
-  ```
+If the document was successfully uploaded, the response will be a HTTP 201 Created with the URL of the new document resource contained in the Location header.
+
+```bash
+HTTP/1.1 201 Created
+Location: https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0
+```
+
 </CodeGroup>
 
 You'll also get a webhook with a `customer_verification_document_uploaded` event to let you know the document was successfully uploaded.
@@ -966,67 +972,68 @@ A document can fail if, for example, the Customer uploaded the wrong type of doc
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer tJlyMNW6e3QVbzHjeJ9JvAPsRglFjwnba4NdfCzsYJm7XbckcR
 
-  ...
+...
 
-  {
-    "_links": {
-      "self": {
-        "href": "https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
-      }
-    },
-    "id": "11fe0bab-39bd-42ee-bb39-275afcc050d0",
-    "status": "reviewed",
-    "type": "license",
-    "created": "2016-01-29T21:22:22.000Z",
-    "failureReason": "ScanNotReadable",
-    "allFailureReasons": [
-        {
-            "reason": "ScanDobMismatch",
-            "description": "Date of Birth mismatch"
-        },
-        {
-            "reason": "ScanIdExpired",
-            "description": "ID is expired"
-        }
-    ]
-  }
-  ```
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
+}
+},
+"id": "11fe0bab-39bd-42ee-bb39-275afcc050d0",
+"status": "reviewed",
+"type": "license",
+"created": "2016-01-29T21:22:22.000Z",
+"failureReason": "ScanNotReadable",
+"allFailureReasons": [
+{
+"reason": "ScanDobMismatch",
+"description": "Date of Birth mismatch"
+},
+{
+"reason": "ScanIdExpired",
+"description": "ID is expired"
+}
+]
+}
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
+````
 
-  document = app_token.get document_url
-  document.failureReason # => "ScanNotReadable"
-  ```
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
 
-  ```javascript
-  var documentUrl =
-    "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0";
+document = app_token.get document_url
+document.failureReason # => "ScanNotReadable"
+````
 
-  dwolla.get(document_url).then(function (res) {
-    res.body.failureReason; // => "ScanNotReadable"
-  });
-  ```
+```javascript
+var documentUrl = "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0";
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
+dwolla.get(document_url).then(function (res) {
+  res.body.failureReason; // => "ScanNotReadable"
+});
+```
 
-  documents = app_token.get(document_url)
-  documents.body['failureReason'] # => 'ScanNotReadable'
-  ```
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
 
-  ```php
-  <?php
-  $aDocument = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0';
+documents = app_token.get(document_url)
+documents.body['failureReason'] # => 'ScanNotReadable'
+```
 
-  $documentsApi = DwollaSwagger\DocumentsApi($apiClient);
+```php
+<?php
+$aDocument = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0';
 
-  $retrieved = $documentsApi->getCustomer($aDocument);
-  print($retrieved->failureReason); # => "ScanNotReadable"
-  ?>
-  ```
+$documentsApi = DwollaSwagger\DocumentsApi($apiClient);
+
+$retrieved = $documentsApi->getCustomer($aDocument);
+print($retrieved->failureReason); # => "ScanNotReadable"
+?>
+```
+
 </CodeGroup>
 
 ## Handling status: suspended
@@ -1036,14 +1043,16 @@ If the Customer is `suspended`, there's no further action you can take to correc
 # Frequently Asked Questions
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: My Customer has a <code>retry</code> status. What activity would they
-    be able to engage in while being in <code>retry</code> status, as it
-    relates to the Dwolla Platform?
-  </span>
+triggerText={
+<span>
+Q: My Customer has a <code>retry</code> status. What activity would they
+be able to engage in while being in <code>retry</code> status, as it
+relates to the Dwolla Platform?
+</span>
 }
+
 >
+
   <ul>
     <li>Send funds - No</li>
 
@@ -1054,18 +1063,21 @@ If the Customer is `suspended`, there's no further action you can take to correc
     </li>
 
     <li>Add and verify a bank funding source - Yes</li>
+
   </ul>
 </Collapsible>
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: My Customer has a <code>document</code> status. What activity would
-    they be able to engage in while being in <code>document</code> status, as
-    it relates to the Dwolla Platform?
-  </span>
+triggerText={
+<span>
+Q: My Customer has a <code>document</code> status. What activity would
+they be able to engage in while being in <code>document</code> status, as
+it relates to the Dwolla Platform?
+</span>
 }
+
 >
+
   <ul>
     <li>Send funds - No</li>
 
@@ -1076,19 +1088,22 @@ If the Customer is `suspended`, there's no further action you can take to correc
     </li>
 
     <li>Add and verify a bank funding source - Yes</li>
+
   </ul>
 </Collapsible>
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: My Customer has a <code>deactivated</code> or <code>suspended</code>{" "}
-    status. What activity would they be able to engage in while being in{" "}
-    <code>deactivated</code> or <code>suspended</code> status, as it relates
-    to the Dwolla Platform?
-  </span>
+triggerText={
+<span>
+Q: My Customer has a <code>deactivated</code> or <code>suspended</code>{" "}
+status. What activity would they be able to engage in while being in{" "}
+<code>deactivated</code> or <code>suspended</code> status, as it relates
+to the Dwolla Platform?
+</span>
 }
+
 >
+
   <ul>
     <li>Send funds - No</li>
     <li>Receive funds - No</li>
@@ -1097,13 +1112,15 @@ If the Customer is `suspended`, there's no further action you can take to correc
 </Collapsible>
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: My Customer has a <code>verified</code> status, but is unable to send
-    funds. Why is this?
-  </span>
+triggerText={
+<span>
+Q: My Customer has a <code>verified</code> status, but is unable to send
+funds. Why is this?
+</span>
 }
+
 >
+
   <p>
     Your Customer has likely not completed the bank verification process. You
     can check to see the status of the funding source{" "}
@@ -1116,30 +1133,35 @@ If the Customer is `suspended`, there's no further action you can take to correc
 
     or by going into the{" "}
     <a href="https://www.dwolla.com/platform/dashboard">Dwolla dashboard.</a>
+
   </p>
 </Collapsible>
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: Can I change a <code>Verified</code> Customer type to an{" "}
-    <code>Unverified</code> Customer type?
-  </span>
+triggerText={
+<span>
+Q: Can I change a <code>Verified</code> Customer type to an{" "}
+<code>Unverified</code> Customer type?
+</span>
 }
+
 >
+
   <p>
     No. Downgrade functionality is not supported for Dwolla Verified Customers.
   </p>
 </Collapsible>
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: My Customer has a <code>document</code> status. Can I submit more than
-    one document via the API?
-  </span>
+triggerText={
+<span>
+Q: My Customer has a <code>document</code> status. Can I submit more than
+one document via the API?
+</span>
 }
+
 >
+
   <p>
     Yes, although this is not necessary, nor recommended. Dwolla manually
     reviews all documents, so sending more documents than necessary may slow
@@ -1148,13 +1170,15 @@ If the Customer is `suspended`, there's no further action you can take to correc
 </Collapsible>
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: My end user is not a US resident, can they still create a Personal
-    Verified Customer via the API to access my application?
-  </span>
+triggerText={
+<span>
+Q: My end user is not a US resident, can they still create a Personal
+Verified Customer via the API to access my application?
+</span>
 }
+
 >
+
   <p>
     No. At this time, Dwolla only supports end users that are US residents when
     creating Personal Verified Customers.
@@ -1162,13 +1186,15 @@ If the Customer is `suspended`, there's no further action you can take to correc
 </Collapsible>
 
 <Collapsible
-  triggerText={
-  <span>
-    Q: My Customer needs to send more funds than is allowed in my Dwolla
-    services agreement. What is the best way to go about this?
-  </span>
+triggerText={
+<span>
+Q: My Customer needs to send more funds than is allowed in my Dwolla
+services agreement. What is the best way to go about this?
+</span>
 }
+
 >
+
   <p>
     Your Customer is able to send multiple separate transfers as long as each
     transfer amount is less than the transfer limit defined in your services
@@ -1179,5 +1205,6 @@ If the Customer is `suspended`, there's no further action you can take to correc
     Example Scenario: The transaction limit for my Customer is $10,000 and they
         need to send $15,000. In this case, you can prompt your Customer to send two
     transfers. One for $10,000 and another for $5,000.
+
   </p>
 </Collapsible>

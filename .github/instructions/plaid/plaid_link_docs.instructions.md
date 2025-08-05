@@ -2,16 +2,15 @@
 applyTo: "**"
 ---
 
-Link overview 
-==============
+# Link overview
 
-#### Use Link to connect to your users' financial accounts with the Plaid API 
+#### Use Link to connect to your users' financial accounts with the Plaid API
 
 (An image of "Plaid Link UI workflow: Select bank, enter credentials, and confirm successful account connection with sample customer.")
 
 \=\*=\*=\*=
 
-#### Introduction to Link 
+#### Introduction to Link
 
 Plaid Link is the client-side component that your users will interact with in order to link their accounts to Plaid and allow you to access their accounts via the Plaid API.
 
@@ -21,13 +20,13 @@ For webview-based integrations or integrations that don't have a frontend, Plaid
 
 To try Link, see [Plaid Link Demo](https://plaid.com/demo/) .
 
-Link is the only available method for connecting accounts in Production and is mandatory for all Plaid integrations. In the Sandbox test environment, Link can optionally be bypassed for testing purposes via [/sandbox/public\_token/create](https://plaid.com/docs/api/sandbox/index.html.md#sandboxpublic_tokencreate) .
+Link is the only available method for connecting accounts in Production and is mandatory for all Plaid integrations. In the Sandbox test environment, Link can optionally be bypassed for testing purposes via [/sandbox/public_token/create](https://plaid.com/docs/api/sandbox/index.html.md#sandboxpublic_tokencreate) .
 
 Want to build a Plaid-powered application using Link directly in your browser? The [Plaid Basics interactive tutorial](https://plaid.com/tutorials/basics/) can walk you through the process.
 
 \=\*=\*=\*=
 
-#### Initializing Link 
+#### Initializing Link
 
 Link is initialized by passing the `link_token` to Link. The exact implementation details for passing the `link_token` will vary by platform. For detailed instructions, see the page for your specific platform: [web](https://plaid.com/docs/link/web/index.html.md) , [iOS](https://plaid.com/docs/link/ios/index.html.md) , [Android](https://plaid.com/docs/link/android/index.html.md) , [React Native](https://plaid.com/docs/link/react-native/index.html.md) , [mobile webview](https://plaid.com/docs/link/webview/index.html.md) , or [Plaid-hosted](https://plaid.com/docs/link/hosted-link/index.html.md) .
 
@@ -35,7 +34,7 @@ For recommendations on configuring the `link_token` for your use case, see [Choo
 
 \=\*=\*=\*=
 
-#### Link flow overview 
+#### Link flow overview
 
 Most Plaid products use Link to generate `public_tokens`. The diagram below shows a model of how Link is used to obtain a `public_token`, which can then be exchanged for an `access_token`, which is used to authenticate requests to the Plaid API.
 
@@ -53,7 +52,7 @@ Note that some products (including Identity Verification, Monitor, Document Inco
 
 (An image of "Step 2 diagram")
 
-**3**Call [/item/public\_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) to exchange the `public_token` for a permanent `access_token` and `item_id` for the new `Item`.
+**3**Call [/item/public_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) to exchange the `public_token` for a permanent `access_token` and `item_id` for the new `Item`.
 
 (An image of "Step 3 diagram")
 
@@ -65,20 +64,20 @@ In code, this flow is initiated by creating a `link_token` and using it to initi
 
 Once the user has logged in via Link, Link will issue a `public_token`. You can obtain the `public_token` through either the frontend or the backend:
 
-*   On the frontend: From the client-side `onSuccess` callback returned by Link after a successful session. For more details on this method, see the Link frontend documentation for your specific platform.
-*   On the backend: From the [/link/token/get](https://plaid.com/docs/api/link/index.html.md#linktokenget) endpoint or opt-in `SESSION_FINISHED` webhook after the Link session has been completed successfully. For more details on this method, see the [Hosted Link](https://plaid.com/docs/link/hosted-link/index.html.md) documentation.
+- On the frontend: From the client-side `onSuccess` callback returned by Link after a successful session. For more details on this method, see the Link frontend documentation for your specific platform.
+- On the backend: From the [/link/token/get](https://plaid.com/docs/api/link/index.html.md#linktokenget) endpoint or opt-in `SESSION_FINISHED` webhook after the Link session has been completed successfully. For more details on this method, see the [Hosted Link](https://plaid.com/docs/link/hosted-link/index.html.md) documentation.
 
-The `public_token` can then be exchanged for an `access_token` via [/item/public\_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) .
+The `public_token` can then be exchanged for an `access_token` via [/item/public_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) .
 
 \=\*=\*=\*=
 
-#### Supporting OAuth 
+#### Supporting OAuth
 
 Some institutions use an OAuth authentication flow, in which Plaid Link redirects the end user to their bank's website or mobile app to authenticate. To learn how to connect to an institution that uses OAuth, see the [OAuth guide](https://plaid.com/docs/link/oauth/index.html.md) .
 
 \=\*=\*=\*=
 
-#### Customizing Link 
+#### Customizing Link
 
 You can customize parts of Link's flow, including some text elements, the institution select view, and the background color, and enable additional features like the Account Select view straight from the [Dashboard](https://dashboard.plaid.com/link) . You can preview your changes in realtime and then publish them instantly once you're ready to go live. For more details, see [Link customization](https://plaid.com/docs/link/customization/index.html.md) .
 
@@ -88,13 +87,13 @@ Link's appearance will also automatically change if the institution selected is 
 
 \=\*=\*=\*=
 
-#### Returning user flows 
+#### Returning user flows
 
 The returning user flow allows you to enable a faster Plaid Link experience for your users who already use Plaid. To learn more, see [Returning user experience](https://plaid.com/docs/link/returning-user/index.html.md) .
 
 \=\*=\*=\*=
 
-#### Error-handling flows 
+#### Error-handling flows
 
 If your application will access an Item on a recurring basis, rather than just once, it should support [update mode](https://plaid.com/docs/link/update-mode/index.html.md) . Update mode allows you to refresh an Item if it enters an error state, such as when a user changes their password or MFA information. For more information, see [Updating an Item](https://plaid.com/docs/link/update-mode/index.html.md) .
 
@@ -104,19 +103,19 @@ Occasionally, Link itself can enter an error state if the user takes over 30 min
 
 \=\*=\*=\*=
 
-#### Optimizing Link conversion 
+#### Optimizing Link conversion
 
 How you configure Link can have a huge impact on the percentage of users who successfully complete the Link flow. To ensure you're maximizing conversion, see [Best practices for Link conversion](https://plaid.com/docs/link/best-practices/index.html.md) .
 
 \=\*=\*=\*=
 
-#### Troubleshooting 
+#### Troubleshooting
 
 Since all your users will go through Link, it's important to build as robust an integration as possible. For details on dealing with common problems, see the [Troubleshooting](https://plaid.com/docs/link/troubleshooting/index.html.md) section.
 
 \=\*=\*=\*=
 
-#### Link updates 
+#### Link updates
 
 Plaid periodically updates Link to add new functionality and improve conversion. These changes will be automatically deployed. Any test suites and business logic in your app should be robust to the possibility of changes to the user-facing Link flow.
 

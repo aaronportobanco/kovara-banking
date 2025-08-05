@@ -2,14 +2,11 @@
 applyTo: "**"
 ---
 
-Add Dwolla to your app 
-=======================
+# Add Dwolla to your app
 
-#### Use Dwolla with Plaid Auth to send and receive payments 
+#### Use Dwolla with Plaid Auth to send and receive payments
 
 (An image of "Plaid and Dwolla logos, side by side.")
-
-  
 
 Plaid and Dwolla have partnered to offer businesses an easier way to connect to the U.S. banking system. Plaid enables businesses to instantly authenticate a customer's bank account, giving them the ability to leverage the Dwolla API to connect to the ACH or RTP® networks for sending and receiving payments. Dwolla’s solution offers frictionless ACH or real-time payments payments for companies looking to automate their current payments process and scale their business.
 
@@ -17,15 +14,15 @@ With the Plaid + Dwolla integration, your users can verify their accounts in sec
 
 As part of the integration, Dwolla customers can access Plaid’s full suite of APIs for clean, categorized transaction data, real-time balances, and more.
 
-#### Getting started 
+#### Getting started
 
 You'll first want to familiarize yourself with [Plaid Link](https://plaid.com/docs/link/index.html.md) , a drop-in client-side integration for the Plaid API that handles input validation, error handling, and multi-factor authentication.
 
 Your customers will use Link to authenticate with their financial institution and select the depository account they wish to use for ACH or RTP® transactions. From there, you'll receive a Plaid `access_token`, allowing you to leverage real-time balance checks and transaction data, and a Dwolla `processor_token`, which allows you to quickly and securely verify a bank funding source via [Dwolla's API](https://www.dwolla.com/?utm_campaign=Plaid-Documentation&utm_source=Plaid&utm_medium=Referral) without having to store any sensitive banking information. Utilizing Plaid + Dwolla enables a seamless workflow for sending and receiving payments.
 
-#### Instructions 
+#### Instructions
 
-##### Set up your Plaid and Dwolla accounts 
+##### Set up your Plaid and Dwolla accounts
 
 You'll need accounts at both Plaid and Dwolla in order to use the Plaid + Dwolla integration. You'll also need to be a Dwolla customer in order to add a bank funding source.
 
@@ -37,11 +34,11 @@ To verify that your Plaid account is enabled for the integration, go to the [Int
 
 Use the [Dwolla Sandbox](https://developers.dwolla.com/guides/sandbox-setup/) to test the Plaid + Dwolla integration for free.
 
-##### Complete your Plaid application profile and company profile 
+##### Complete your Plaid application profile and company profile
 
 After connecting your Plaid and Dwolla accounts, you'll need to complete your Plaid [application profile](https://dashboard.plaid.com/settings/company/app-branding) and [company profile](https://dashboard.plaid.com/settings/company/profile) in the Dashboard, which involves filling out basic information about your app, such as your company name and website. This step helps your end-users learn more how your product uses their bank information and is also required for connecting to some banks.
 
-##### Create a link\_token 
+##### Create a link_token
 
 In order to integrate with Plaid Link, you will first need to create a `link_token`. A `link_token` is a short-lived, one-time use token that is used to authenticate your app with Link. To create one, make a [/link/token/create](https://plaid.com/docs/api/link/index.html.md#linktokencreate) request with your `client_id`, `secret`, and a few other required parameters from your app server. View the [/link/token/create](https://plaid.com/docs/api/link/index.html.md#linktokencreate) documentation for a full list of `link_token` configurations.
 
@@ -73,7 +70,7 @@ app.post('/api/create_link_token', async function (request, response) {
 });
 ```
 
-##### Integrate with Plaid Link 
+##### Integrate with Plaid Link
 
 Once you have a `link_token`, all it takes is a few lines of client-side JavaScript to launch Link. Then, in the `onSuccess` callback, you can call a simple server-side handler to exchange the Link `public_token` for a Plaid `access_token` and a Dwolla `processor_token`.
 
@@ -131,9 +128,9 @@ See the [Link parameter reference](https://plaid.com/docs/link/web/index.html.md
 
 `Plaid.create` accepts one argument, a configuration `Object`, and returns an `Object` with three functions, [open](https://plaid.com/docs/link/web/index.html.md#open) , [exit](https://plaid.com/docs/link/web/index.html.md#exit) , and [destroy](https://plaid.com/docs/link/web/index.html.md#destroy) . Calling `open` will display the "Institution Select" view, calling `exit` will close Link, and calling `destroy` will clean up the iframe.
 
-##### Write server-side handler 
+##### Write server-side handler
 
-The Link module handles the entire onboarding flow securely and quickly, but does not actually retrieve account data for a user. Instead, the Link module returns a `public_token` and an `accounts` array, which is a property on the `metadata` object, via the `onSuccess` callback. Exchange this `public_token` for a Plaid `access_token` using the [/item/public\_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) API endpoint.
+The Link module handles the entire onboarding flow securely and quickly, but does not actually retrieve account data for a user. Instead, the Link module returns a `public_token` and an `accounts` array, which is a property on the `metadata` object, via the `onSuccess` callback. Exchange this `public_token` for a Plaid `access_token` using the [/item/public_token/exchange](https://plaid.com/docs/api/items/index.html.md#itempublic_tokenexchange) API endpoint.
 
 The `accounts` array will contain information about bank accounts associated with the credentials entered by the user, and may contain multiple accounts if the user has more than one bank account at the institution. In order to avoid any confusion about which account your user wishes to use with Dwolla, it is recommended to set [Account Select](https://dashboard.plaid.com/link/account-select) to "enabled for one account" in the Plaid Dashboard. When this setting is selected, the `accounts` array will always contain exactly one account.
 
@@ -198,7 +195,7 @@ For a valid request, the API will return a JSON response similar to:
 }
 ```
 
-##### Make a request to Dwolla 
+##### Make a request to Dwolla
 
 Once you've obtained the `processor_token`, you'll then pass it to Dwolla as the value of the `plaidToken` request parameter, along with a funding source `name`, to create a funding source for a Dwolla Customer:
 
@@ -224,25 +221,25 @@ Location: https://api-sandbox.dwolla.com/funding-sources/375c6781-2a17-476c-84f7
 
 Once you’ve received a successful response from the Dwolla API, you’ll use the unique funding source URL to identify the Customer’s bank when [initiating ACH](https://docs.dwolla.com/#initiate-a-transfer?utm_campaign=Plaid-Documentation&utm_source=Plaid&utm_medium=Referral) or [RTP transfers](https://developers.dwolla.com/concepts/real-time-payments#real-time-payments?utm_campaign=Plaid-Documentation&utm_source=Landing-Page&utm_medium=Referral) .
 
-##### Testing your Dwolla integration 
+##### Testing your Dwolla integration
 
 You can create Dwolla `processor_tokens` in Sandbox (sandbox.plaid.com, allows testing with simulated users) or Production (production.plaid.com, requires Dwolla Production credentials).
 
 To test the integration in Sandbox mode, simply use the Plaid [Sandbox credentials](https://plaid.com/docs/sandbox/test-credentials/index.html.md) when launching Link with a `link_token` created in the Sandbox environment.
 
-When testing in the Sandbox, you have the option to use the [/sandbox/public\_token/create](https://plaid.com/docs/api/sandbox/index.html.md#sandboxpublic_tokencreate) endpoint instead of the end-to-end Link flow to create a `public_token`. When using the [/sandbox/public\_token/create](https://plaid.com/docs/api/sandbox/index.html.md#sandboxpublic_tokencreate) \-based flow, the Account Select flow will be bypassed and the `accounts` array will not be populated. On Sandbox, instead of using the `accounts` array, you can call [/accounts/get](https://plaid.com/docs/api/accounts/index.html.md#accountsget) and test with any returned account ID associated with an account with the subtype `checking` or `savings`.
+When testing in the Sandbox, you have the option to use the [/sandbox/public_token/create](https://plaid.com/docs/api/sandbox/index.html.md#sandboxpublic_tokencreate) endpoint instead of the end-to-end Link flow to create a `public_token`. When using the [/sandbox/public_token/create](https://plaid.com/docs/api/sandbox/index.html.md#sandboxpublic_tokencreate) \-based flow, the Account Select flow will be bypassed and the `accounts` array will not be populated. On Sandbox, instead of using the `accounts` array, you can call [/accounts/get](https://plaid.com/docs/api/accounts/index.html.md#accountsget) and test with any returned account ID associated with an account with the subtype `checking` or `savings`.
 
-##### Get ready for production 
+##### Get ready for production
 
 Your account is immediately enabled for our Sandbox environment ([https://sandbox.plaid.com](https://sandbox.plaid.com) ). To move to Production, please request access from the [Dashboard](https://dashboard.plaid.com/developers/keys) .
 
-#### Example code in Plaid Pattern 
+#### Example code in Plaid Pattern
 
 For a real-life example of an app that incorporates the creation of processor tokens, see the Node-based [Plaid Pattern Account Funding](https://github.com/plaid/pattern-account-funding) sample app. Pattern Account Funding is a sample account funding app that creates a processor token to send to your payment partner. The processor token creation code can be found in [items.js](https://github.com/plaid/pattern-account-funding/blob/master/server/routes/items.js#L126-L135) .
 
 For a tutorial walkthrough of creating a similar app with Dwolla support, see [Account funding tutorial](https://github.com/plaid/account-funding-tutorial) .
 
-#### Support and questions 
+#### Support and questions
 
 Find answers to many common integration questions and concerns—such as pricing, sandbox and test mode usage, and more, in our [docs](https://plaid.com/docs/index.html.md) .
 

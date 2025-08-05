@@ -45,11 +45,11 @@ Including the `Content-Type: application/x-www-form-urlencoded` header, the requ
 
 ##### Request parameters
 
-| Parameter      | Required | Type   | Description                                                                                                                                                                             |
-| -------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id     | yes      | string | Application key. Navigate to `https://www.dwolla.com/applications` (production) or `https://dashboard-sandbox.dwolla.com/applications-legacy` (Sandbox) for your application key        |
-| client\_secret | yes      | string | Application secret. Navigate to `https://www.dwolla.com/applications` (production) or `https://dashboard-sandbox.dwolla.com/applications-legacy` (Sandbox) for your application secret. |
-| grant\_type    | yes      | string | This must be set to `client_credentials`.                                                                                                                                               |
+| Parameter     | Required | Type   | Description                                                                                                                                                                             |
+| ------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| client_id     | yes      | string | Application key. Navigate to `https://www.dwolla.com/applications` (production) or `https://dashboard-sandbox.dwolla.com/applications-legacy` (Sandbox) for your application key        |
+| client_secret | yes      | string | Application secret. Navigate to `https://www.dwolla.com/applications` (production) or `https://dashboard-sandbox.dwolla.com/applications-legacy` (Sandbox) for your application secret. |
+| grant_type    | yes      | string | This must be set to `client_credentials`.                                                                                                                                               |
 
 ### Example request
 
@@ -59,41 +59,43 @@ Including the `Content-Type: application/x-www-form-urlencoded` header, the requ
   Authorization: Basic YkVEMGJMaEFhb0pDamplbmFPVjNwMDZSeE9Eb2pyOUNFUzN1dldXcXUyeE9RYk9GeUE6WEZ0bmJIbXR3dXEwNVI1Yk91WmVOWHlqcW9RelNSc21zUU5qelFOZUFZUlRIbmhHRGw=
   Content-Type: application/x-www-form-urlencoded
 
-  grant_type=client_credentials
-  ```
+grant_type=client_credentials
 
-  ```python auth.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  # This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
-  application_token = client.Auth.client()
-  ```
+````
 
-  ```javascript auth.js
-  // Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-node
-  // This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
-  var Client = require("dwolla-v2").Client;
-  var appToken = new Client({
-    key: process.env.DWOLLA_APP_KEY,
-    secret: process.env.DWOLLA_APP_SECRET,
-    environment: "sandbox", // defaults to 'production'
-  });
-  ```
+```python auth.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+# This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
+application_token = client.Auth.client()
+````
 
-  ```ruby auth.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  # This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
-  application_token = $dwolla.auths.client
-  # => #<DwollaV2::Token client=#<DwollaV2::Client id="..." secret="..." environment=:sandbox> access_token="..." expires_in=3600 scope="...">
-  ```
+```javascript auth.js
+// Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-node
+// This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
+var Client = require("dwolla-v2").Client;
+var appToken = new Client({
+  key: process.env.DWOLLA_APP_KEY,
+  secret: process.env.DWOLLA_APP_SECRET,
+  environment: "sandbox", // defaults to 'production'
+});
+```
 
-  ```php auth.php
-  <?php
-  // Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
-  // This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
-  $tokensApi = new DwollaSwagger\TokensApi($apiClient);
-  $appToken = $tokensApi->token();
-  ?>
-  ```
+```ruby auth.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+# This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
+application_token = $dwolla.auths.client
+# => #<DwollaV2::Token client=#<DwollaV2::Client id="..." secret="..." environment=:sandbox> access_token="..." expires_in=3600 scope="...">
+```
+
+```php auth.php
+<?php
+// Using dwollaswagger - https://github.com/Dwolla/dwolla-swagger-php
+// This example assumes you've already intialized the client. Reference the SDKs page for more information: https://developers.dwolla.com/sdks-tools
+$tokensApi = new DwollaSwagger\TokensApi($apiClient);
+$appToken = $tokensApi->token();
+?>
+```
+
 </CodeGroup>
 
 ### Refreshing an application access token

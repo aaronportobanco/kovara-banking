@@ -8,7 +8,7 @@ applyTo: "**"
 
 ## OpenAPI
 
-````yaml post /customers
+```yaml post /customers
 paths:
   path: /customers
   method: post
@@ -81,7 +81,7 @@ paths:
             required: true
             title: CreateReceiveOnlyUser
             description: Create a Receive Only User
-            refIdentifier: '#/components/schemas/CreateReceiveOnlyUser'
+            refIdentifier: "#/components/schemas/CreateReceiveOnlyUser"
             requiredProperties:
               - firstName
               - lastName
@@ -120,7 +120,7 @@ paths:
             required: true
             title: CreateUnverifiedCustomer
             description: Create an Unverified Customer
-            refIdentifier: '#/components/schemas/CreateUnverifiedCustomer'
+            refIdentifier: "#/components/schemas/CreateUnverifiedCustomer"
             requiredProperties:
               - firstName
               - lastName
@@ -182,11 +182,11 @@ paths:
               dateOfBirth:
                 allOf:
                   - type: string
-                    example: '1980-09-12'
+                    example: "1980-09-12"
             required: true
             title: CreateVerifiedPersonalCustomer
             description: Create a Verified Personal customer
-            refIdentifier: '#/components/schemas/CreateVerifiedPersonalCustomer'
+            refIdentifier: "#/components/schemas/CreateVerifiedPersonalCustomer"
             requiredProperties:
               - firstName
               - lastName
@@ -255,7 +255,7 @@ paths:
               dateOfBirth:
                 allOf:
                   - type: string
-                    example: '1980-09-12'
+                    example: "1980-09-12"
               businessClassification:
                 allOf:
                   - type: string
@@ -283,7 +283,7 @@ paths:
             required: true
             title: CreateVerifiedSolePropCustomer
             description: Create a Verified Business customer (Sole Proprietorship)
-            refIdentifier: '#/components/schemas/CreateVerifiedSolePropCustomer'
+            refIdentifier: "#/components/schemas/CreateVerifiedSolePropCustomer"
             requiredProperties:
               - firstName
               - lastName
@@ -390,12 +390,12 @@ paths:
                         example: CEO
                       dateOfBirth:
                         type: string
-                        example: '1980-01-31'
+                        example: "1980-01-31"
                       address:
-                        $ref: '#/components/schemas/InternationalAddress'
+                        $ref: "#/components/schemas/InternationalAddress"
                       ssn:
                         type: string
-                        example: '1234'
+                        example: "1234"
               businessType:
                 allOf:
                   - type: string
@@ -407,7 +407,7 @@ paths:
             required: true
             title: CreateVerifiedBusinessCustomerWithController
             description: Create a Verified Business customer with a US controller
-            refIdentifier: '#/components/schemas/CreateVerifiedBusinessCustomerWithController'
+            refIdentifier: "#/components/schemas/CreateVerifiedBusinessCustomerWithController"
             requiredProperties:
               - firstName
               - lastName
@@ -514,11 +514,11 @@ paths:
                         example: CEO
                       dateOfBirth:
                         type: string
-                        example: '1980-01-31'
+                        example: "1980-01-31"
                       address:
-                        $ref: '#/components/schemas/InternationalAddress'
+                        $ref: "#/components/schemas/InternationalAddress"
                       passport:
-                        $ref: '#/components/schemas/Passport'
+                        $ref: "#/components/schemas/Passport"
               businessType:
                 allOf:
                   - type: string
@@ -561,14 +561,14 @@ paths:
               businessName: Jane Corp llc
         description: Parameters for customer to be created
   response:
-    '201':
+    "201":
       _mintlify/placeholder:
         schemaArray:
           - type: any
             description: successful operation
         examples: {}
         description: successful operation
-    '400':
+    "400":
       application/vnd.dwolla.v1.hal+json:
         schemaArray:
           - type: object
@@ -583,7 +583,7 @@ paths:
                     example: The request body contains bad syntax or is incomplete.
             title: BadRequestError
             description: Error response schema for 400 Bad Request
-            refIdentifier: '#/components/schemas/BadRequestError'
+            refIdentifier: "#/components/schemas/BadRequestError"
             requiredProperties:
               - code
               - message
@@ -593,7 +593,7 @@ paths:
               code: BadRequest
               message: The request body contains bad syntax or is incomplete.
         description: Bad Request
-    '403':
+    "403":
       application/vnd.dwolla.v1.hal+json:
         schemaArray:
           - type: object
@@ -612,7 +612,7 @@ paths:
               code: forbidden
               message: Not authorized to create customers.
         description: forbidden
-    '404':
+    "404":
       application/vnd.dwolla.v1.hal+json:
         schemaArray:
           - type: object
@@ -658,7 +658,7 @@ components:
           example: Des Moines
         postalCode:
           type: string
-          example: '50309'
+          example: "50309"
         country:
           type: string
           example: USA
@@ -676,5 +676,4 @@ components:
           type: string
         country:
           type: string
-
-````
+```

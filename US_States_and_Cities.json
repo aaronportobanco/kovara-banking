@@ -779,9 +779,7 @@
   {
     "code": "DC",
     "name": "District of Columbia",
-    "cities": [
-      "Washington"
-    ]
+    "cities": ["Washington"]
   },
   {
     "code": "MD",
@@ -873,14 +871,7 @@
   {
     "code": "NV",
     "name": "Nevada",
-    "cities": [
-      "Las Vegas",
-      "Henderson",
-      "Reno",
-      "North Las Vegas",
-      "Sparks",
-      "Carson City"
-    ]
+    "cities": ["Las Vegas", "Henderson", "Reno", "North Las Vegas", "Sparks", "Carson City"]
   },
   {
     "code": "NM",
@@ -965,12 +956,7 @@
   {
     "code": "NE",
     "name": "Nebraska",
-    "cities": [
-      "Omaha",
-      "Lincoln",
-      "Bellevue",
-      "Grand Island"
-    ]
+    "cities": ["Omaha", "Lincoln", "Bellevue", "Grand Island"]
   },
   {
     "code": "MN",
@@ -1037,16 +1023,12 @@
   {
     "code": "HI",
     "name": "Hawaii",
-    "cities": [
-      "Honolulu"
-    ]
+    "cities": ["Honolulu"]
   },
   {
     "code": "AK",
     "name": "Alaska",
-    "cities": [
-      "Anchorage"
-    ]
+    "cities": ["Anchorage"]
   },
   {
     "code": "NJ",
@@ -1170,34 +1152,17 @@
   {
     "code": "RI",
     "name": "Rhode Island",
-    "cities": [
-      "Providence",
-      "Warwick",
-      "Cranston",
-      "Pawtucket",
-      "East Providence",
-      "Woonsocket"
-    ]
+    "cities": ["Providence", "Warwick", "Cranston", "Pawtucket", "East Providence", "Woonsocket"]
   },
   {
     "code": "MS",
     "name": "Mississippi",
-    "cities": [
-      "Jackson",
-      "Gulfport",
-      "Southaven",
-      "Hattiesburg",
-      "Biloxi",
-      "Meridian"
-    ]
+    "cities": ["Jackson", "Gulfport", "Southaven", "Hattiesburg", "Biloxi", "Meridian"]
   },
   {
     "code": "SD",
     "name": "South Dakota",
-    "cities": [
-      "Sioux Falls",
-      "Rapid City"
-    ]
+    "cities": ["Sioux Falls", "Rapid City"]
   },
   {
     "code": "CT",
@@ -1241,68 +1206,41 @@
   {
     "code": "NH",
     "name": "New Hampshire",
-    "cities": [
-      "Manchester",
-      "Nashua",
-      "Concord"
-    ]
+    "cities": ["Manchester", "Nashua", "Concord"]
   },
   {
     "code": "ND",
     "name": "North Dakota",
-    "cities": [
-      "Fargo",
-      "Bismarck",
-      "Grand Forks",
-      "Minot"
-    ]
+    "cities": ["Fargo", "Bismarck", "Grand Forks", "Minot"]
   },
   {
     "code": "MT",
     "name": "Montana",
-    "cities": [
-      "Billings",
-      "Missoula",
-      "Great Falls",
-      "Bozeman"
-    ]
+    "cities": ["Billings", "Missoula", "Great Falls", "Bozeman"]
   },
   {
     "code": "DE",
     "name": "Delaware",
-    "cities": [
-      "Wilmington",
-      "Dover"
-    ]
+    "cities": ["Wilmington", "Dover"]
   },
   {
     "code": "ME",
     "name": "Maine",
-    "cities": [
-      "Portland"
-    ]
+    "cities": ["Portland"]
   },
   {
     "code": "WY",
     "name": "Wyoming",
-    "cities": [
-      "Cheyenne",
-      "Casper"
-    ]
+    "cities": ["Cheyenne", "Casper"]
   },
   {
     "code": "WV",
     "name": "West Virginia",
-    "cities": [
-      "Charleston",
-      "Huntington"
-    ]
+    "cities": ["Charleston", "Huntington"]
   },
   {
     "code": "VT",
     "name": "Vermont",
-    "cities": [
-      "Burlington"
-    ]
+    "cities": ["Burlington"]
   }
 ]

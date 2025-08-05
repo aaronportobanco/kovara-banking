@@ -32,11 +32,11 @@ The business verification process consists of the following key steps:
 
 ### Key Terminology
 
-* **Account Admin** - The representative creating the business verified Customer on behalf of the business and Controller.
-* **Controller** - Any natural individual who holds significant responsibilities to control, manage, or direct a company or other corporate entity (i.e. CEO, CFO, General Partner, President, etc). A company may have more than one controller, but only one controller's information must be collected.
-* **Beneficial owner** - Any natural person who, directly or indirectly, owns 25% or more of the equity interests of the company.
-* **Beneficial ownership certification** - An action taken by the Account Admin to confirm that the information provided is correct.
-* **EIN (Employer Identification Number)** - A unique identification number that is assigned to a business entity so that they can easily be identified by the Internal Revenue Service.
+- **Account Admin** - The representative creating the business verified Customer on behalf of the business and Controller.
+- **Controller** - Any natural individual who holds significant responsibilities to control, manage, or direct a company or other corporate entity (i.e. CEO, CFO, General Partner, President, etc). A company may have more than one controller, but only one controller's information must be collected.
+- **Beneficial owner** - Any natural person who, directly or indirectly, owns 25% or more of the equity interests of the company.
+- **Beneficial ownership certification** - An action taken by the Account Admin to confirm that the information provided is correct.
+- **EIN (Employer Identification Number)** - A unique identification number that is assigned to a business entity so that they can easily be identified by the Internal Revenue Service.
 
 # Step 1 - Creating a Business Verified Customer
 
@@ -109,121 +109,121 @@ In order to create a business verified Customer with `businessType` of `soleProp
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer 0Sn0W6kzNic+oWhDbQcVSKLRUpGjIdl/YyrHqrDDoRnQwE7Q
 
-  {
-      "firstName": "Business",
-      "lastName": "Owner",
-      "email": "solePropBusiness@email.com",
-      "ipAddress": "143.156.7.8",
-      "type": "business",
-      "dateOfBirth": "1980-01-31",
-      "ssn": "6789",
-      "address1": "99-99 33rd St",
-      "city": "Some City",
-      "state": "NY",
-      "postalCode": "11101",
-      "businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
-      "businessType": "soleProprietorship",
-      "businessName":"Jane Corp",
-      "ein":"00-0000000"
-  }
+{
+"firstName": "Business",
+"lastName": "Owner",
+"email": "solePropBusiness@email.com",
+"ipAddress": "143.156.7.8",
+"type": "business",
+"dateOfBirth": "1980-01-31",
+"ssn": "6789",
+"address1": "99-99 33rd St",
+"city": "Some City",
+"state": "NY",
+"postalCode": "11101",
+"businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
+"businessType": "soleProprietorship",
+"businessName":"Jane Corp",
+"ein":"00-0000000"
+}
 
-  HTTP/1.1 201 Created
-  Location: https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5
-  ```
+HTTP/1.1 201 Created
+Location: https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5
 
-  ```php create_business_customer.php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
-  $new_customer = $customersApi->create([
-      'firstName' => 'Business',
-      'lastName' => 'Owner',
-      'email' => 'solePropBusiness@email.com',
-      'ipAddress' => '143.156.7.8',
-      'type' => 'business',
-      'dateOfBirth' => '1980-01-31',
-      'ssn' => '6789',
-      'address1' => '99-99 33rd St',
-      'city' => 'Some City',
-      'state' => 'NY',
-      'postalCode' => '11101',
-      'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-      'businessType' => 'soleProprietorship',
-      'businessName' => 'Jane Corp',
-      'ein' => '00-0000000']);
-  ?>
-  ```
+````
 
-  ```ruby create_business_customer.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  request_body = {
-      :firstName => 'Business',
-      :lastName => 'Owner',
-      :email => 'solePropBusiness@email.com',
-      :ipAddress => '143.156.7.8',
-      :type => 'business',
-      :dateOfBirth => '1980-01-31',
-      :ssn => '6789',
-      :address1 => '99-99 33rd St',
-      :city => 'Some City',
-      :state => 'NY',
-      :postalCode => '11101',
-      :businessClassification => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-      :businessType => 'soleProprietorship',
-      :businessName => 'Jane Corp',
-      :ein => '00-0000000'
-  }
+```php create_business_customer.php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
+$new_customer = $customersApi->create([
+    'firstName' => 'Business',
+    'lastName' => 'Owner',
+    'email' => 'solePropBusiness@email.com',
+    'ipAddress' => '143.156.7.8',
+    'type' => 'business',
+    'dateOfBirth' => '1980-01-31',
+    'ssn' => '6789',
+    'address1' => '99-99 33rd St',
+    'city' => 'Some City',
+    'state' => 'NY',
+    'postalCode' => '11101',
+    'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+    'businessType' => 'soleProprietorship',
+    'businessName' => 'Jane Corp',
+    'ein' => '00-0000000']);
+?>
+````
 
-  customer = app_token.post "customers", request_body
-  customer.response_headers[:location] # => "https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
-  ```
+```ruby create_business_customer.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+request_body = {
+    :firstName => 'Business',
+    :lastName => 'Owner',
+    :email => 'solePropBusiness@email.com',
+    :ipAddress => '143.156.7.8',
+    :type => 'business',
+    :dateOfBirth => '1980-01-31',
+    :ssn => '6789',
+    :address1 => '99-99 33rd St',
+    :city => 'Some City',
+    :state => 'NY',
+    :postalCode => '11101',
+    :businessClassification => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+    :businessType => 'soleProprietorship',
+    :businessName => 'Jane Corp',
+    :ein => '00-0000000'
+}
 
-  ```python create_business_customer.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  request_body = {
-    'firstName': 'Business',
-    'lastName': 'Owner',
-    'email': 'solePropBusiness@email.com',
-    'ipAddress': '143.156.7.8',
-    'type': 'business',
-    'dateOfBirth': '1980-01-31',
-    'ssn': '6789',
-    'address1': '99-99 33rd St',
-    'city': 'Some City',
-    'state': 'NY',
-    'postalCode': '11101',
-    'businessClassification': '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-    'businessType': 'soleProprietorship',
-    'businessName': 'Jane Corp',
-    'ein': '00-0000000'
-  }
+customer = app_token.post "customers", request_body
+customer.response_headers[:location] # => "https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
+```
 
-  customer = app_token.post('customers', request_body)
-  customer.headers['location'] # => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
+```python create_business_customer.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+request_body = {
+  'firstName': 'Business',
+  'lastName': 'Owner',
+  'email': 'solePropBusiness@email.com',
+  'ipAddress': '143.156.7.8',
+  'type': 'business',
+  'dateOfBirth': '1980-01-31',
+  'ssn': '6789',
+  'address1': '99-99 33rd St',
+  'city': 'Some City',
+  'state': 'NY',
+  'postalCode': '11101',
+  'businessClassification': '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+  'businessType': 'soleProprietorship',
+  'businessName': 'Jane Corp',
+  'ein': '00-0000000'
+}
 
-  ```javascript create_business_customer.js
-  var requestBody = {
-    firstName: "Business",
-    lastName: "Owner",
-    email: "solePropBusiness@email.com",
-    ipAddress: "143.156.7.8",
-    type: "business",
-    dateOfBirth: "1980-01-31",
-    ssn: "6789",
-    address1: "99-99 33rd St",
-    city: "Some City",
-    state: "NY",
-    postalCode: "11101",
-    businessClassification: "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
-    businessType: "soleProprietorship",
-    businessName: "Jane Corp",
-    ein: "00-0000000",
-  };
+customer = app_token.post('customers', request_body)
+customer.headers['location'] # => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
 
-  dwolla
-    .post("customers", requestBody)
-    .then((res) => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
+```javascript create_business_customer.js
+var requestBody = {
+  firstName: "Business",
+  lastName: "Owner",
+  email: "solePropBusiness@email.com",
+  ipAddress: "143.156.7.8",
+  type: "business",
+  dateOfBirth: "1980-01-31",
+  ssn: "6789",
+  address1: "99-99 33rd St",
+  city: "Some City",
+  state: "NY",
+  postalCode: "11101",
+  businessClassification: "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
+  businessType: "soleProprietorship",
+  businessName: "Jane Corp",
+  ein: "00-0000000",
+};
+
+dwolla.post("customers", requestBody).then(res => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
+
 </CodeGroup>
 
 ## Create a business verified Customer with controller
@@ -310,186 +310,186 @@ Once you submit this request, Dwolla will perform some initial validation to che
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer 0Sn0W6kzNic+oWhDbQcVSKLRUpGjIdl/YyrHqrDDoRnQwE7Q
 
-  {
-      "firstName": "Account",
-      "lastName": "Admin",
-      "email": "accountAdmin@email.com",
-      "ipAddress": "143.156.7.8",
-      "type": "business",
-      "address1": "99-99 33rd St",
-      "city": "Some City",
-      "state": "NY",
-      "postalCode": "11101",
-      "controller": {
-          "firstName": "John",
-          "lastName": "Controller",
-          "title": "CEO",
-          "ssn": "6789",
-          "dateOfBirth": "1980-01-31",
-          "address": {
-              "address1": "1749 18th st",
-              "address2": "apt 12",
-              "city": "Des Moines",
-              "stateProvinceRegion": "IA",
-              "postalCode": "50266",
-              "country": "US"
-          }
-      },
-      "businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
-      "businessType": "llc",
-      "businessName":"Jane Corp",
-      "ein":"00-0000000"
-  }
+{
+"firstName": "Account",
+"lastName": "Admin",
+"email": "accountAdmin@email.com",
+"ipAddress": "143.156.7.8",
+"type": "business",
+"address1": "99-99 33rd St",
+"city": "Some City",
+"state": "NY",
+"postalCode": "11101",
+"controller": {
+"firstName": "John",
+"lastName": "Controller",
+"title": "CEO",
+"ssn": "6789",
+"dateOfBirth": "1980-01-31",
+"address": {
+"address1": "1749 18th st",
+"address2": "apt 12",
+"city": "Des Moines",
+"stateProvinceRegion": "IA",
+"postalCode": "50266",
+"country": "US"
+}
+},
+"businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
+"businessType": "llc",
+"businessName":"Jane Corp",
+"ein":"00-0000000"
+}
 
-  HTTP/1.1 201 Created
-  Location: https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5
-  ```
+HTTP/1.1 201 Created
+Location: https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5
 
-  ```php create_business_customer.php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
-  $new_customer = $customersApi->create([
-    'firstName' => 'Account',
-    'lastName' => 'Admin',
-    'email' => 'accountAdmin@email.com',
-    'type' => 'business',
-    'address1' => '99-99 33rd St',
-    'city' => 'Some City',
-    'state' => 'NY',
-    'postalCode' => '11101',
-    'controller' =>
-    [
-        'firstName' => 'John',
-        'lastName'=> 'Controller',
-        'title' => 'CEO',
-        'dateOfBirth' => '1990-01-31',
-        'ssn' => '1234',
-        'address' =>
-        [
-            'address1' => '18749 18th st',
-            'address2' => 'apt 12',
-            'city' => 'Des Moines',
-            'stateProvinceRegion' => 'IA',
-            'postalCode' => '50265',
-            'country' => 'US'
-        ],
-    ],
-    'phone' => '5554321234',
-    'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-    'businessType' => 'llc',
-    'businessName' => 'Jane Corp',
-    'ein' => '00-0000000']);
+````
 
-  ?>
-  ```
+```php create_business_customer.php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
+$new_customer = $customersApi->create([
+  'firstName' => 'Account',
+  'lastName' => 'Admin',
+  'email' => 'accountAdmin@email.com',
+  'type' => 'business',
+  'address1' => '99-99 33rd St',
+  'city' => 'Some City',
+  'state' => 'NY',
+  'postalCode' => '11101',
+  'controller' =>
+  [
+      'firstName' => 'John',
+      'lastName'=> 'Controller',
+      'title' => 'CEO',
+      'dateOfBirth' => '1990-01-31',
+      'ssn' => '1234',
+      'address' =>
+      [
+          'address1' => '18749 18th st',
+          'address2' => 'apt 12',
+          'city' => 'Des Moines',
+          'stateProvinceRegion' => 'IA',
+          'postalCode' => '50265',
+          'country' => 'US'
+      ],
+  ],
+  'phone' => '5554321234',
+  'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+  'businessType' => 'llc',
+  'businessName' => 'Jane Corp',
+  'ein' => '00-0000000']);
 
-  ```ruby create_business_customer.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  request_body = {
-    :firstName => 'Account',
-    :lastName => 'Admin',
-    :email => 'accountAdmin@email.com',
-    :type => 'business',
-    :address1 => '99-99 33rd St',
-    :city => 'Some City',
-    :state => 'NY',
-    :postalCode => '11101',
-    :controller => {
-        :firstName => 'John',
-        :lastName => 'Controller',
-        :title => 'CEO',
-        :dateOfBirth => '1980-01-31',
-        :ssn => '1234',
-        :address => {
-          :address1 => '1749 18th st',
-          :address2 => 'apt 12',
-          :city => 'Des Moines',
-          :stateProvinceRegion => 'IA',
-          :postalCode => '50266',
-          :country => 'US',
-        }
+?>
+````
+
+```ruby create_business_customer.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+request_body = {
+  :firstName => 'Account',
+  :lastName => 'Admin',
+  :email => 'accountAdmin@email.com',
+  :type => 'business',
+  :address1 => '99-99 33rd St',
+  :city => 'Some City',
+  :state => 'NY',
+  :postalCode => '11101',
+  :controller => {
+      :firstName => 'John',
+      :lastName => 'Controller',
+      :title => 'CEO',
+      :dateOfBirth => '1980-01-31',
+      :ssn => '1234',
+      :address => {
+        :address1 => '1749 18th st',
+        :address2 => 'apt 12',
+        :city => 'Des Moines',
+        :stateProvinceRegion => 'IA',
+        :postalCode => '50266',
+        :country => 'US',
+      }
+  },
+  :businessClassification => '9ed38155-7d6f-11e3-83c3-5404a6144203',
+  :businessType => 'llc',
+  :businessName => 'Jane Corp',
+  :ein => '12-3456789'
+}
+
+customer = app_token.post "customers", request_body
+customer.response_headers[:location] # => "https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
+```
+
+```python create_business_customer.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+request_body = {
+  'firstName': 'Account',
+  'lastName': 'Admin',
+  'email': 'accountAdmin@email.com',
+  'type': 'business',
+  'address1': '99-99 33rd St',
+  'city': 'Some City',
+  'state': 'NY',
+  'postalCode': '11101',
+  'controller': {
+      'firstName': 'John',
+      'lastName': 'Controller',
+      'title': 'CEO',
+      'dateOfBirth': '1980-01-31',
+      'ssn': '1234',
+      'address': {
+        'address1': '1749 18th st',
+        'address2': 'apt12',
+        'city': 'Des Moines',
+        'stateProvinceRegion': 'IA',
+        'postalCode': '50266',
+        'country': 'US'
+      }
+  },
+  'businessClassification': '9ed38155-7d6f-11e3-83c3-5404a6144203',
+  'businessType': 'llc',
+  'businessName': 'Jane Corp',
+  'ein': '12-3456789'
+}
+
+customer = app_token.post('customers', request_body)
+customer.headers['location'] # => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
+
+```javascript createBusinessCustomer.js
+var requestBody = {
+  firstName: "Account",
+  lastName: "Admin",
+  email: "accountAdmin@email.com",
+  type: "business",
+  address1: "99-99 33rd St",
+  city: "Some City",
+  state: "NY",
+  postalCode: "11101",
+  controller: {
+    firstName: "John",
+    lastName: "Controller",
+    title: "CEO",
+    dateOfBirth: "1980-01-31",
+    ssn: "1234",
+    address: {
+      address1: "1749 18th st",
+      address2: "apt 12",
+      city: "Des Moines",
+      stateProvinceRegion: "IA",
+      postalCode: "50266",
+      country: "US",
     },
-    :businessClassification => '9ed38155-7d6f-11e3-83c3-5404a6144203',
-    :businessType => 'llc',
-    :businessName => 'Jane Corp',
-    :ein => '12-3456789'
-  }
+  },
+  businessClassification: "9ed38155-7d6f-11e3-83c3-5404a6144203",
+  businessType: "llc",
+  businessName: "Jane Corp",
+  ein: "12-3456789",
+};
 
-  customer = app_token.post "customers", request_body
-  customer.response_headers[:location] # => "https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
-  ```
+dwolla.post("customers", requestBody).then(res => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
 
-  ```python create_business_customer.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  request_body = {
-    'firstName': 'Account',
-    'lastName': 'Admin',
-    'email': 'accountAdmin@email.com',
-    'type': 'business',
-    'address1': '99-99 33rd St',
-    'city': 'Some City',
-    'state': 'NY',
-    'postalCode': '11101',
-    'controller': {
-        'firstName': 'John',
-        'lastName': 'Controller',
-        'title': 'CEO',
-        'dateOfBirth': '1980-01-31',
-        'ssn': '1234',
-        'address': {
-          'address1': '1749 18th st',
-          'address2': 'apt12',
-          'city': 'Des Moines',
-          'stateProvinceRegion': 'IA',
-          'postalCode': '50266',
-          'country': 'US'
-        }
-    },
-    'businessClassification': '9ed38155-7d6f-11e3-83c3-5404a6144203',
-    'businessType': 'llc',
-    'businessName': 'Jane Corp',
-    'ein': '12-3456789'
-  }
-
-  customer = app_token.post('customers', request_body)
-  customer.headers['location'] # => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
-
-  ```javascript createBusinessCustomer.js
-  var requestBody = {
-    firstName: "Account",
-    lastName: "Admin",
-    email: "accountAdmin@email.com",
-    type: "business",
-    address1: "99-99 33rd St",
-    city: "Some City",
-    state: "NY",
-    postalCode: "11101",
-    controller: {
-      firstName: "John",
-      lastName: "Controller",
-      title: "CEO",
-      dateOfBirth: "1980-01-31",
-      ssn: "1234",
-      address: {
-        address1: "1749 18th st",
-        address2: "apt 12",
-        city: "Des Moines",
-        stateProvinceRegion: "IA",
-        postalCode: "50266",
-        country: "US",
-      },
-    },
-    businessClassification: "9ed38155-7d6f-11e3-83c3-5404a6144203",
-    businessType: "llc",
-    businessName: "Jane Corp",
-    ein: "12-3456789",
-  };
-
-  dwolla
-    .post("customers", requestBody)
-    .then((res) => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
 </CodeGroup>
 
 ## Check the status of the business Customer
@@ -504,124 +504,125 @@ You have created a business verified Customer; however, the successful creation 
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  ...
+...
 
-  {
-      "_links": {
-          "verify-beneficial-owners": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/beneficial-owners",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-owner"
-          },
-          "beneficial-owners": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/beneficial-owners",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-owner"
-          },
-          "deactivate": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "customer"
-          },
-          "self": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "customer"
-          },
-          "receive": {
-              "href": "https://api-sandbox.dwolla.com/transfers",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "transfer"
-          },
-          "edit-form": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
-              "type": "application/vnd.dwolla.v1.hal+json; profile=\"https://github.com/dwolla/hal-forms\"",
-              "resource-type": "customer"
-          },
-          "edit": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "customer"
-          },
-          "certify-beneficial-ownership": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/beneficial-ownership",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-ownership"
-          },
-          "funding-sources": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/funding-sources",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "funding-source"
-          },
-          "transfers": {
-              "href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/transfers",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "transfer"
-          }
-      },
-      "id": "d56c07fa-3832-427d-bb88-a9eb2d375c14",
-      "firstName": "Account",
-      "lastName": "Admin",
-      "email": "accountAdmin@email.com",
-      "type": "business",
-      "status": "verified",
-      "created": "2018-04-26T19:11:41.290Z",
-      "address1": "99-99 33rd St",
-      "city": "Some City",
-      "state": "NY",
-      "postalCode": "11101",
-      "businessName": "Jane Corp",
-      "controller": {
-          "firstName": "John",
-          "lastName": "Controller",
-          "title": "CEO",
-          "address": {
-              "address1": "1749 18th st",
-              "address2": "apt 12",
-              "city": "Des Moines",
-              "stateProvinceRegion": "IA",
-              "country": "US",
-              "postalCode": "50266"
-          }
-      },
-      "businessType": "llc",
-      "businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203"
-  }
-  ```
+{
+"\_links": {
+"verify-beneficial-owners": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/beneficial-owners",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-owner"
+},
+"beneficial-owners": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/beneficial-owners",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-owner"
+},
+"deactivate": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "customer"
+},
+"self": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "customer"
+},
+"receive": {
+"href": "https://api-sandbox.dwolla.com/transfers",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "transfer"
+},
+"edit-form": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
+"type": "application/vnd.dwolla.v1.hal+json; profile=\"https://github.com/dwolla/hal-forms\"",
+"resource-type": "customer"
+},
+"edit": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "customer"
+},
+"certify-beneficial-ownership": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/beneficial-ownership",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-ownership"
+},
+"funding-sources": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/funding-sources",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "funding-source"
+},
+"transfers": {
+"href": "https://api-sandbox.dwolla.com/customers/d56c07fa-3832-427d-bb88-a9eb2d375c14/transfers",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "transfer"
+}
+},
+"id": "d56c07fa-3832-427d-bb88-a9eb2d375c14",
+"firstName": "Account",
+"lastName": "Admin",
+"email": "accountAdmin@email.com",
+"type": "business",
+"status": "verified",
+"created": "2018-04-26T19:11:41.290Z",
+"address1": "99-99 33rd St",
+"city": "Some City",
+"state": "NY",
+"postalCode": "11101",
+"businessName": "Jane Corp",
+"controller": {
+"firstName": "John",
+"lastName": "Controller",
+"title": "CEO",
+"address": {
+"address1": "1749 18th st",
+"address2": "apt 12",
+"city": "Des Moines",
+"stateProvinceRegion": "IA",
+"country": "US",
+"postalCode": "50266"
+}
+},
+"businessType": "llc",
+"businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203"
+}
 
-  ```php retrieve_customer.php
-  <?php
-  $customerUrl = 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5';
+````
 
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
+```php retrieve_customer.php
+<?php
+$customerUrl = 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5';
 
-  $customer = $customersApi->getCustomer($customerUrl);
-  $customer->status; # => "verified"
-  ?>
-  ```
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
 
-  ```ruby retrieve_customer.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  customer_url = 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+$customer = $customersApi->getCustomer($customerUrl);
+$customer->status; # => "verified"
+?>
+````
 
-  customer = app_token.get customer_url
-  customer.status # => "verified"
-  ```
+```ruby retrieve_customer.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+customer_url = 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
 
-  ```python retrieve_customer.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  customer_url = 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+customer = app_token.get customer_url
+customer.status # => "verified"
+```
 
-  customer = app_token.get(customer_url)
-  customer.body['status']
-  ```
+```python retrieve_customer.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+customer_url = 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
 
-  ```javascript retrieveCustomer.js
-  var customerUrl =
-    "https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
+customer = app_token.get(customer_url)
+customer.body['status']
+```
 
-  dwolla.get(customerUrl).then((res) => res.body.status); // => 'verified'
-  ```
+```javascript retrieveCustomer.js
+var customerUrl = "https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
+
+dwolla.get(customerUrl).then(res => res.body.status); // => 'verified'
+```
+
 </CodeGroup>
 
 You will want to ensure that both your Controller and your Business have been verified, as the Customer will be unable to send or receive funds until then. If the Customer is in `retry` or `document` status, head to the next step to learn how to handle these statuses.
@@ -638,12 +639,12 @@ You have successfully created a business verified Customer; however, there are c
 
 As a developer, you will want to handle the various Customer statuses that can be returned.
 
-| Customer status | Event Topic Name                         | Transaction restricted?            | Description                                                                                                                                                                                                                                                                                                                                                                                           |
-| --------------- | ---------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| verified        | customer\_verified                       | No                                 | The identifying information submitted was sufficient in verifying the Customer account.                                                                                                                                                                                                                                                                                                               |
-| retry           | customer\_reverification\_needed         | Yes - Cannot send funds            | The initial identity verification attempt failed because the information provided did not satisfy Dwolla's verification check. You can make one additional attempt by changing some or all the attributes of the existing Customer with a POST request. All fields are required on the retry attempt. If the additional attempt fails, the resulting status will be either `document` or `suspended`. |
-| document        | customer\_verification\_document\_needed | Yes - Cannot send funds            | Dwolla requires additional documentation to identify the Customer in the document status. Once a document is uploaded it will be reviewed for verification.                                                                                                                                                                                                                                           |
-| suspended       | customer\_suspended                      | Yes - Cannot send or receive funds | The Customer is suspended and may neither send nor receive funds. Contact Account Management for more information.                                                                                                                                                                                                                                                                                    |
+| Customer status | Event Topic Name                      | Transaction restricted?            | Description                                                                                                                                                                                                                                                                                                                                                                                           |
+| --------------- | ------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| verified        | customer_verified                     | No                                 | The identifying information submitted was sufficient in verifying the Customer account.                                                                                                                                                                                                                                                                                                               |
+| retry           | customer_reverification_needed        | Yes - Cannot send funds            | The initial identity verification attempt failed because the information provided did not satisfy Dwolla's verification check. You can make one additional attempt by changing some or all the attributes of the existing Customer with a POST request. All fields are required on the retry attempt. If the additional attempt fails, the resulting status will be either `document` or `suspended`. |
+| document        | customer_verification_document_needed | Yes - Cannot send funds            | Dwolla requires additional documentation to identify the Customer in the document status. Once a document is uploaded it will be reviewed for verification.                                                                                                                                                                                                                                           |
+| suspended       | customer_suspended                    | Yes - Cannot send or receive funds | The Customer is suspended and may neither send nor receive funds. Contact Account Management for more information.                                                                                                                                                                                                                                                                                    |
 
 ## Handling `retry` status
 
@@ -659,9 +660,9 @@ A `retry` status occurs when a Customer's identity scores are too low during a v
 
 When a business verified Customer is placed in the `retry` verification status, Dwolla will return a link in the API response after [retrieving a Customer](/docs/api-reference/customers/retrieve-a-customer). The retry link contained within the `_links` object of the response helps your application determine if a retry is needed and what type of retry is required. What data you need to request from the customer depends on the retry scenario:
 
-* **Business-only retry**: A `retry-verification` link is returned. Include all fields required during initial customer but **omit** Controller information. For business verified Customers with Controllers, different links can be returned depending on whether retry is needed for just the business, or both the Controller and business.
+- **Business-only retry**: A `retry-verification` link is returned. Include all fields required during initial customer but **omit** Controller information. For business verified Customers with Controllers, different links can be returned depending on whether retry is needed for just the business, or both the Controller and business.
 
-* **Controller and business retry**: A `retry-with-full-ssn` link is returned. If the Controller information needs to be retried, all fields that were required in the initial Customer creation attempt will be required in the retry attempt, along with **the full 9-digit SSN** of the Controller in order to give our identity vendor more information in an attempt to receive a sufficient score to approve the Customer account ([see example request below](#business-with-controller-retry-with-full-ssn---request-and-response)).
+- **Controller and business retry**: A `retry-with-full-ssn` link is returned. If the Controller information needs to be retried, all fields that were required in the initial Customer creation attempt will be required in the retry attempt, along with **the full 9-digit SSN** of the Controller in order to give our identity vendor more information in an attempt to receive a sufficient score to approve the Customer account ([see example request below](#business-with-controller-retry-with-full-ssn---request-and-response)).
 
 ##### Understanding \_embedded errors
 
@@ -754,122 +755,121 @@ Additionally, `_embedded` errors are included in the Customer resource which inc
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer 0Sn0W6kzNic+oWhDbQcVSKLRUpGjIdl/YyrHqrDDoRnQwE7Q
 
-  {
-      "firstName": "Business",
-      "lastName": "Owner",
-      "email": "solePropBusiness@email.com",
-      "ipAddress": "143.156.7.8",
-      "type": "business",
-      "dateOfBirth": "1980-01-31",
-      "ssn": "123-45-6789",
-      "address1": "99-99 33rd St",
-      "city": "Some City",
-      "state": "NY",
-      "postalCode": "11101",
-      "businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
-      "businessType": "soleProprietorship",
-      "businessName":"Jane Corp",
-      "ein":"00-0000000"
-  }
-  ```
+{
+"firstName": "Business",
+"lastName": "Owner",
+"email": "solePropBusiness@email.com",
+"ipAddress": "143.156.7.8",
+"type": "business",
+"dateOfBirth": "1980-01-31",
+"ssn": "123-45-6789",
+"address1": "99-99 33rd St",
+"city": "Some City",
+"state": "NY",
+"postalCode": "11101",
+"businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
+"businessType": "soleProprietorship",
+"businessName":"Jane Corp",
+"ein":"00-0000000"
+}
 
-  ```php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
-  $customerUrl = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5';
-  $retryCustomer = $customersApi->updateCustomer([
-      'firstName' => 'Business',
-      'lastName' => 'Owner',
-      'email' => 'solePropBusiness@email.com',
-      'ipAddress' => '143.156.7.8',
-      'type' => 'business',
-      'dateOfBirth' => '1980-01-31',
-      'ssn' => '123-45-6789',
-      'address1' => '99-99 33rd St',
-      'city' => 'Some City',
-      'state' => 'NY',
-      'postalCode' => '11101',
-      'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-      'businessType' => 'soleProprietorship',
-      'businessName' => 'Jane Corp',
-      'ein' => '00-0000000'], $customerUrl);
+````
 
-  ?>
-  ```
+```php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
+$customerUrl = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5';
+$retryCustomer = $customersApi->updateCustomer([
+    'firstName' => 'Business',
+    'lastName' => 'Owner',
+    'email' => 'solePropBusiness@email.com',
+    'ipAddress' => '143.156.7.8',
+    'type' => 'business',
+    'dateOfBirth' => '1980-01-31',
+    'ssn' => '123-45-6789',
+    'address1' => '99-99 33rd St',
+    'city' => 'Some City',
+    'state' => 'NY',
+    'postalCode' => '11101',
+    'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+    'businessType' => 'soleProprietorship',
+    'businessName' => 'Jane Corp',
+    'ein' => '00-0000000'], $customerUrl);
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  request_body = {
-      :firstName => 'Business',
-      :lastName => 'Owner',
-      :email => 'solePropBusiness@email.com',
-      :ipAddress => '143.156.7.8',
-      :type => 'business',
-      :dateOfBirth => '1980-01-31',
-      :ssn => '123-45-6789',
-      :address1 => '99-99 33rd St',
-      :city => 'Some City',
-      :state => 'NY',
-      :postalCode => '11101',
-      :businessClassification => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-      :businessType => 'soleProprietorship',
-      :businessName => 'Jane Corp',
-      :ein => '00-0000000'
-  }
+?>
+````
 
-  customer = app_token.post customer_url, request_body
-  customer.id # => "62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
-  ```
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+request_body = {
+    :firstName => 'Business',
+    :lastName => 'Owner',
+    :email => 'solePropBusiness@email.com',
+    :ipAddress => '143.156.7.8',
+    :type => 'business',
+    :dateOfBirth => '1980-01-31',
+    :ssn => '123-45-6789',
+    :address1 => '99-99 33rd St',
+    :city => 'Some City',
+    :state => 'NY',
+    :postalCode => '11101',
+    :businessClassification => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+    :businessType => 'soleProprietorship',
+    :businessName => 'Jane Corp',
+    :ein => '00-0000000'
+}
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  request_body = {
-    'firstName': 'Business',
-    'lastName': 'Owner',
-    'email': 'solePropBusiness@email.com',
-    'ipAddress': '143.156.7.8',
-    'type': 'business',
-    'dateOfBirth': '1980-01-31',
-    'ssn': '123-45-6789',
-    'address1': '99-99 33rd St',
-    'city': 'Some City',
-    'state': 'NY',
-    'postalCode': '11101',
-    'businessClassification': '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-    'businessType': 'soleProprietorship',
-    'businessName': 'Jane Corp',
-    'ein': '00-0000000'
-  }
+customer = app_token.post customer_url, request_body
+customer.id # => "62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
+```
 
-  customer = app_token.post(customer_url, request_body)
-  customer.body.id # => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+request_body = {
+  'firstName': 'Business',
+  'lastName': 'Owner',
+  'email': 'solePropBusiness@email.com',
+  'ipAddress': '143.156.7.8',
+  'type': 'business',
+  'dateOfBirth': '1980-01-31',
+  'ssn': '123-45-6789',
+  'address1': '99-99 33rd St',
+  'city': 'Some City',
+  'state': 'NY',
+  'postalCode': '11101',
+  'businessClassification': '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+  'businessType': 'soleProprietorship',
+  'businessName': 'Jane Corp',
+  'ein': '00-0000000'
+}
 
-  ```javascript
-  var customerUrl =
-    "https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
-  var requestBody = {
-    firstName: "Business",
-    lastName: "Owner",
-    email: "solePropBusiness@email.com",
-    ipAddress: "143.156.7.8",
-    type: "business",
-    dateOfBirth: "1980-01-31",
-    ssn: "123-45-6789",
-    address1: "99-99 33rd St",
-    city: "Some City",
-    state: "NY",
-    postalCode: "11101",
-    businessClassification: "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
-    businessType: "soleProprietorship",
-    businessName: "Jane Corp",
-    ein: "00-0000000",
-  };
+customer = app_token.post(customer_url, request_body)
+customer.body.id # => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
 
-  dwolla
-    .post("customers", requestBody)
-    .then((res) => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
+```javascript
+var customerUrl = "https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
+var requestBody = {
+  firstName: "Business",
+  lastName: "Owner",
+  email: "solePropBusiness@email.com",
+  ipAddress: "143.156.7.8",
+  type: "business",
+  dateOfBirth: "1980-01-31",
+  ssn: "123-45-6789",
+  address1: "99-99 33rd St",
+  city: "Some City",
+  state: "NY",
+  postalCode: "11101",
+  businessClassification: "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
+  businessType: "soleProprietorship",
+  businessName: "Jane Corp",
+  ein: "00-0000000",
+};
+
+dwolla.post("customers", requestBody).then(res => res.headers.get("location")); // => 'https://api-sandbox.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
+
 </CodeGroup>
 
 ### Business with Controller (`retry-verification`) - Request and response
@@ -881,111 +881,112 @@ Additionally, `_embedded` errors are included in the Customer resource which inc
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer 0Sn0W6kzNic+oWhDbQcVSKLRUpGjIdl/YyrHqrDDoRnQwE7Q
 
-  {
-      "firstName": "Jane",
-      "lastName": "Merchant",
-      "email": "accountAdmin@email.com",
-      "ipAddress": "143.156.7.8",
-      "type": "business",
-      "address1": "123 Corrected Address St",
-      "city": "Some City",
-      "state": "NY",
-      "postalCode": "11101",
-      "businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
-      "businessType": "llc",
-      "businessName":"Jane Corp",
-      "ein":"00-0000000"
-  }
-  ```
+{
+"firstName": "Jane",
+"lastName": "Merchant",
+"email": "accountAdmin@email.com",
+"ipAddress": "143.156.7.8",
+"type": "business",
+"address1": "123 Corrected Address St",
+"city": "Some City",
+"state": "NY",
+"postalCode": "11101",
+"businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
+"businessType": "llc",
+"businessName":"Jane Corp",
+"ein":"00-0000000"
+}
 
-  ```php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
-  $customerUrl = 'https://api-sandbox.dwolla.com/customers/b70c3194-35fa-49e8-9243-d55a30e06d1e';
-  $retryCustomer = $customersApi->updateCustomer([
-    'firstName' => 'Jane',
-    'lastName' => 'Merchant',
-    'email' => 'accountAdmin@email.com',
-    'type' => 'business',
-    'address1' => '123 Corrected Address St',
-    'city' => 'Some City',
-    'state' => 'NY',
-    'postalCode' => '11101',
-    'phone' => '5554321234',
-    'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-    'businessType' => 'llc',
-    'businessName' => 'Jane Corp',
-    'ein' => '00-0000000'], $customerUrl);
+````
 
-  ?>
-  ```
+```php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
+$customerUrl = 'https://api-sandbox.dwolla.com/customers/b70c3194-35fa-49e8-9243-d55a30e06d1e';
+$retryCustomer = $customersApi->updateCustomer([
+  'firstName' => 'Jane',
+  'lastName' => 'Merchant',
+  'email' => 'accountAdmin@email.com',
+  'type' => 'business',
+  'address1' => '123 Corrected Address St',
+  'city' => 'Some City',
+  'state' => 'NY',
+  'postalCode' => '11101',
+  'phone' => '5554321234',
+  'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+  'businessType' => 'llc',
+  'businessName' => 'Jane Corp',
+  'ein' => '00-0000000'], $customerUrl);
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  request_body = {
-    :firstName => 'Jane',
-    :lastName => 'Merchant',
-    :email => 'accountAdmin@email.com',
-    :type => 'business',
-    :address1 => '123 Corrected Address St',
-    :city => 'Some City',
-    :state => 'NY',
-    :postalCode => '11101',
-    :businessClassification => '9ed38155-7d6f-11e3-83c3-5404a6144203',
-    :businessType => 'llc',
-    :businessName => 'Jane Corp',
-    :ein => '12-3456789'
-  }
+?>
+````
 
-  customer = app_token.post customer_url, request_body
-  customer.id # => "62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
-  ```
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+request_body = {
+  :firstName => 'Jane',
+  :lastName => 'Merchant',
+  :email => 'accountAdmin@email.com',
+  :type => 'business',
+  :address1 => '123 Corrected Address St',
+  :city => 'Some City',
+  :state => 'NY',
+  :postalCode => '11101',
+  :businessClassification => '9ed38155-7d6f-11e3-83c3-5404a6144203',
+  :businessType => 'llc',
+  :businessName => 'Jane Corp',
+  :ein => '12-3456789'
+}
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  request_body = {
-    'firstName': 'Jane',
-    'lastName': 'Merchant',
-    'email': 'accountAdmin@email.com',
-    'type': 'business',
-    'address1': '123 Corrected Address St',
-    'city': 'Some City',
-    'state': 'NY',
-    'postalCode': '11101',
-    'businessClassification': '9ed38155-7d6f-11e3-83c3-5404a6144203',
-    'businessType': 'llc',
-    'businessName': 'Jane Corp',
-    'ein': '12-3456789'
-  }
+customer = app_token.post customer_url, request_body
+customer.id # => "62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
+```
 
-  customer = app_token.post(customer_url, request_body)
-  customer.body.id # => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+request_body = {
+  'firstName': 'Jane',
+  'lastName': 'Merchant',
+  'email': 'accountAdmin@email.com',
+  'type': 'business',
+  'address1': '123 Corrected Address St',
+  'city': 'Some City',
+  'state': 'NY',
+  'postalCode': '11101',
+  'businessClassification': '9ed38155-7d6f-11e3-83c3-5404a6144203',
+  'businessType': 'llc',
+  'businessName': 'Jane Corp',
+  'ein': '12-3456789'
+}
 
-  ```javascript
-  var customerUrl =
-    "https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
-  var requestBody = {
-    firstName: "Jane",
-    lastName: "Merchant",
-    email: "accountAdmin@email.com",
-    type: "business",
-    address1: "123 Corrected Address St",
-    city: "Some City",
-    state: "NY",
-    postalCode: "11101",
-    businessClassification: "9ed38155-7d6f-11e3-83c3-5404a6144203",
-    businessType: "llc",
-    businessName: "Jane Corp",
-    ein: "12-3456789",
-  };
+customer = app_token.post(customer_url, request_body)
+customer.body.id # => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
 
-  dwolla.post(customerUrl, requestBody).then(function (res) {
-    res.body.id; // => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  });
-  ```
+```javascript
+var customerUrl = "https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
+var requestBody = {
+  firstName: "Jane",
+  lastName: "Merchant",
+  email: "accountAdmin@email.com",
+  type: "business",
+  address1: "123 Corrected Address St",
+  city: "Some City",
+  state: "NY",
+  postalCode: "11101",
+  businessClassification: "9ed38155-7d6f-11e3-83c3-5404a6144203",
+  businessType: "llc",
+  businessName: "Jane Corp",
+  ein: "12-3456789",
+};
+
+dwolla.post(customerUrl, requestBody).then(function (res) {
+  res.body.id; // => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+});
+```
+
 </CodeGroup>
 
 ### Business with Controller (`retry-with-full-ssn`) - Request and response
@@ -997,188 +998,189 @@ Additionally, `_embedded` errors are included in the Customer resource which inc
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer 0Sn0W6kzNic+oWhDbQcVSKLRUpGjIdl/YyrHqrDDoRnQwE7Q
 
-  {
-      "firstName": "Jane",
-      "lastName": "Merchant",
-      "email": "accountAdmin@email.com",
-      "ipAddress": "143.156.7.8",
-      "type": "business",
-      "address1": "123 Corrected Address St",
-      "city": "Some City",
-      "state": "NY",
-      "postalCode": "11101",
-      "controller": {
-          "firstName": "John",
-          "lastName": "Controller",
-          "title": "CEO",
-          "dateOfBirth": "1980-01-01",
-          "ssn": "123-45-6789",
-          "address": {
-              "address1": "1749 18th st",
-              "address2": "apt 12",
-              "city": "Des Moines",
-              "stateProvinceRegion": "IA",
-              "postalCode": "50266",
-              "country": "US"
-          }
-      },
-      "businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
-      "businessType": "llc",
-      "businessName":"Jane Corp",
-      "ein":"00-0000000"
-  }
-  ```
+{
+"firstName": "Jane",
+"lastName": "Merchant",
+"email": "accountAdmin@email.com",
+"ipAddress": "143.156.7.8",
+"type": "business",
+"address1": "123 Corrected Address St",
+"city": "Some City",
+"state": "NY",
+"postalCode": "11101",
+"controller": {
+"firstName": "John",
+"lastName": "Controller",
+"title": "CEO",
+"dateOfBirth": "1980-01-01",
+"ssn": "123-45-6789",
+"address": {
+"address1": "1749 18th st",
+"address2": "apt 12",
+"city": "Des Moines",
+"stateProvinceRegion": "IA",
+"postalCode": "50266",
+"country": "US"
+}
+},
+"businessClassification": "9ed3f670-7d6f-11e3-b1ce-5404a6144203",
+"businessType": "llc",
+"businessName":"Jane Corp",
+"ein":"00-0000000"
+}
 
-  ```php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
-  $customerUrl = 'https://api-sandbox.dwolla.com/customers/b70c3194-35fa-49e8-9243-d55a30e06d1e';
-  $retryCustomer = $customersApi->updateCustomer([
-    'firstName' => 'Jane',
-    'lastName' => 'Merchant',
-    'email' => 'accountAdmin@email.com',
-    'type' => 'business',
-    'address1' => '123 Corrected Address St',
-    'city' => 'Some City',
-    'state' => 'NY',
-    'postalCode' => '11101',
-    'controller' =>
-    [
-        'firstName' => 'John',
-        'lastName'=> 'Controller',
-        'title' => 'CEO',
-        'dateOfBirth' => '1990-10-10',
-        'ssn' => '123-45-6789',
-        'address' =>
-        [
-            'address1' => '18749 18th st',
-            'address2' => 'apt 12',
-            'city' => 'Des Moines',
-            'stateProvinceRegion' => 'IA',
-            'postalCode' => '50265',
-            'country' => 'US'
-        ],
-    ],
-    'phone' => '5554321234',
-    'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
-    'businessType' => 'llc',
-    'businessName' => 'Jane Corp',
-    'ein' => '00-0000000'], $customerUrl);
+````
 
-  ?>
-  ```
+```php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
+$customerUrl = 'https://api-sandbox.dwolla.com/customers/b70c3194-35fa-49e8-9243-d55a30e06d1e';
+$retryCustomer = $customersApi->updateCustomer([
+  'firstName' => 'Jane',
+  'lastName' => 'Merchant',
+  'email' => 'accountAdmin@email.com',
+  'type' => 'business',
+  'address1' => '123 Corrected Address St',
+  'city' => 'Some City',
+  'state' => 'NY',
+  'postalCode' => '11101',
+  'controller' =>
+  [
+      'firstName' => 'John',
+      'lastName'=> 'Controller',
+      'title' => 'CEO',
+      'dateOfBirth' => '1990-10-10',
+      'ssn' => '123-45-6789',
+      'address' =>
+      [
+          'address1' => '18749 18th st',
+          'address2' => 'apt 12',
+          'city' => 'Des Moines',
+          'stateProvinceRegion' => 'IA',
+          'postalCode' => '50265',
+          'country' => 'US'
+      ],
+  ],
+  'phone' => '5554321234',
+  'businessClassification' => '9ed3f670-7d6f-11e3-b1ce-5404a6144203',
+  'businessType' => 'llc',
+  'businessName' => 'Jane Corp',
+  'ein' => '00-0000000'], $customerUrl);
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  request_body = {
-    :firstName => 'Jane',
-    :lastName => 'Merchant',
-    :email => 'accountAdmin@email.com',
-    :type => 'business',
-    :address1 => '123 Corrected Address St',
-    :city => 'Some City',
-    :state => 'NY',
-    :postalCode => '11101',
-    :controller => {
-        :firstName => 'John',
-        :lastName => 'Controller',
-        :title => 'CEO',
-        :dateOfBirth => '1980-01-01',
-        :ssn => '123-45-6789'
-        :address => {
-          :address1 => '1749 18th st',
-          :address2 => 'apt 12',
-          :city => 'Des Moines',
-          :stateProvinceRegion => 'IA',
-          :postalCode => '50266',
-          :country => 'US'
-        }
+?>
+````
+
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+request_body = {
+  :firstName => 'Jane',
+  :lastName => 'Merchant',
+  :email => 'accountAdmin@email.com',
+  :type => 'business',
+  :address1 => '123 Corrected Address St',
+  :city => 'Some City',
+  :state => 'NY',
+  :postalCode => '11101',
+  :controller => {
+      :firstName => 'John',
+      :lastName => 'Controller',
+      :title => 'CEO',
+      :dateOfBirth => '1980-01-01',
+      :ssn => '123-45-6789'
+      :address => {
+        :address1 => '1749 18th st',
+        :address2 => 'apt 12',
+        :city => 'Des Moines',
+        :stateProvinceRegion => 'IA',
+        :postalCode => '50266',
+        :country => 'US'
+      }
+  },
+  :businessClassification => '9ed38155-7d6f-11e3-83c3-5404a6144203',
+  :businessType => 'llc',
+  :businessName => 'Jane Corp',
+  :ein => '12-3456789'
+}
+
+customer = app_token.post customer_url, request_body
+customer.id # => "62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
+```
+
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+request_body = {
+  'firstName': 'Jane',
+  'lastName': 'Merchant',
+  'email': 'accountAdmin@email.com',
+  'type': 'business',
+  'address1': '123 Corrected Address St',
+  'city': 'Some City',
+  'state': 'NY',
+  'postalCode': '11101',
+  'controller': {
+      'firstName': 'John',
+      'lastName': 'Controller',
+      'title': 'CEO',
+      'dateOfBirth': '1980-01-01',
+      'ssn': '123-45-6789',
+      'address': {
+        'address1': '1749 18th st',
+        'address2': 'apt12',
+        'city': 'Des Moines',
+        'stateProvinceRegion': 'IA',
+        'postalCode': '50266',
+        'country': 'US'
+      }
+  },
+  'businessClassification': '9ed38155-7d6f-11e3-83c3-5404a6144203',
+  'businessType': 'llc',
+  'businessName': 'Jane Corp',
+  'ein': '12-3456789'
+}
+
+customer = app_token.post(customer_url, request_body)
+customer.body.id # => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+```
+
+```javascript
+var customerUrl = "https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
+var requestBody = {
+  firstName: "Jane",
+  lastName: "Merchant",
+  email: "accountAdmin@email.com",
+  type: "business",
+  address1: "123 Corrected Address St",
+  city: "Some City",
+  state: "NY",
+  postalCode: "11101",
+  controller: {
+    firstName: "John",
+    lastName: "Controller",
+    title: "CEO",
+    dateOfBirth: "1980-01-01",
+    ssn: "123-45-6789",
+    address: {
+      address1: "1749 18th st",
+      address2: "apt 12",
+      city: "Des Moines",
+      stateProvinceRegion: "IA",
+      postalCode: "50266",
+      country: "US",
     },
-    :businessClassification => '9ed38155-7d6f-11e3-83c3-5404a6144203',
-    :businessType => 'llc',
-    :businessName => 'Jane Corp',
-    :ein => '12-3456789'
-  }
+  },
+  businessClassification: "9ed38155-7d6f-11e3-83c3-5404a6144203",
+  businessType: "llc",
+  businessName: "Jane Corp",
+  ein: "12-3456789",
+};
 
-  customer = app_token.post customer_url, request_body
-  customer.id # => "62c3aa1b-3a1b-46d0-ae90-17304d60c3d5"
-  ```
+dwolla.post(customerUrl, requestBody).then(function (res) {
+  res.body.id; // => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
+});
+```
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  request_body = {
-    'firstName': 'Jane',
-    'lastName': 'Merchant',
-    'email': 'accountAdmin@email.com',
-    'type': 'business',
-    'address1': '123 Corrected Address St',
-    'city': 'Some City',
-    'state': 'NY',
-    'postalCode': '11101',
-    'controller': {
-        'firstName': 'John',
-        'lastName': 'Controller',
-        'title': 'CEO',
-        'dateOfBirth': '1980-01-01',
-        'ssn': '123-45-6789',
-        'address': {
-          'address1': '1749 18th st',
-          'address2': 'apt12',
-          'city': 'Des Moines',
-          'stateProvinceRegion': 'IA',
-          'postalCode': '50266',
-          'country': 'US'
-        }
-    },
-    'businessClassification': '9ed38155-7d6f-11e3-83c3-5404a6144203',
-    'businessType': 'llc',
-    'businessName': 'Jane Corp',
-    'ein': '12-3456789'
-  }
-
-  customer = app_token.post(customer_url, request_body)
-  customer.body.id # => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  ```
-
-  ```javascript
-  var customerUrl =
-    "https://api.dwolla.com/customers/62c3aa1b-3a1b-46d0-ae90-17304d60c3d5";
-  var requestBody = {
-    firstName: "Jane",
-    lastName: "Merchant",
-    email: "accountAdmin@email.com",
-    type: "business",
-    address1: "123 Corrected Address St",
-    city: "Some City",
-    state: "NY",
-    postalCode: "11101",
-    controller: {
-      firstName: "John",
-      lastName: "Controller",
-      title: "CEO",
-      dateOfBirth: "1980-01-01",
-      ssn: "123-45-6789",
-      address: {
-        address1: "1749 18th st",
-        address2: "apt 12",
-        city: "Des Moines",
-        stateProvinceRegion: "IA",
-        postalCode: "50266",
-        country: "US",
-      },
-    },
-    businessClassification: "9ed38155-7d6f-11e3-83c3-5404a6144203",
-    businessType: "llc",
-    businessName: "Jane Corp",
-    ein: "12-3456789",
-  };
-
-  dwolla.post(customerUrl, requestBody).then(function (res) {
-    res.body.id; // => '62c3aa1b-3a1b-46d0-ae90-17304d60c3d5'
-  });
-  ```
 </CodeGroup>
 
 ## Handling `document` status
@@ -1187,16 +1189,16 @@ If the Customer has a status of `document`, the Customer will need to upload add
 
 You can provide the following best practices to the Customer in order to reduce the chances of a document being rejected:
 
-* Only images of the front of an ID
-* All 4 edges of the document should be visible
-* A dark/high contrast background should be used
-* At least 90% of the image should be the document
-* Should be at least 300dpi
-* Capture image from directly above the document
-* Make sure that the image is properly aligned, not rotated, tilted or skewed
-* No flash to reduce glare
-* No black and white documents
-* No expired IDs
+- Only images of the front of an ID
+- All 4 edges of the document should be visible
+- A dark/high contrast background should be used
+- At least 90% of the image should be the document
+- Should be at least 300dpi
+- Capture image from directly above the document
+- Make sure that the image is properly aligned, not rotated, tilted or skewed
+- No flash to reduce glare
+- No black and white documents
+- No expired IDs
 
 #### Determining verification documents needed
 
@@ -1281,36 +1283,35 @@ When a business verified Customer is placed in the `document` verification statu
 
 Supported Document Examples:
 
-* Non-expired State Issued Driver's License/Identification Card
-* Non-expired US Passport
-* Federal Employment Authorization Card
-* US Visa
+- Non-expired State Issued Driver's License/Identification Card
+- Non-expired US Passport
+- Federal Employment Authorization Card
+- US Visa
 
 Unsupported Document Examples:
 
-* Military IDs
-* Expired government-issued IDs
+- Military IDs
+- Expired government-issued IDs
 
 **Non-US persons:** A colored camera captured image of the Controller's identifying document can be specified as documentType: `passport`. Examples include:
 
-* Non-expired Foreign Passport ***Note:** Foreign Passports are only accepted when the individual does not have an ITIN or SSN and the user must alternatively enter the Passport number*.
+- Non-expired Foreign Passport **\*Note:** Foreign Passports are only accepted when the individual does not have an ITIN or SSN and the user must alternatively enter the Passport number\*.
 
 ##### Businesses
 
 Documents that are used to help identify a business are specified as documentType `other`. **Note**: A DBA document should be issued by the government and should include the DBA name along with the state registered business name. Business Identifying documents we recommend uploading can include the following:
 
-* **Partnership, General Partnership**: EIN Letter (IRS-issued SS4 confirmation letter).
-* **Limited Liability Corporation (LLC), Corporation**: EIN Letter (IRS-issued SS4 confirmation letter).
-* **Sole Proprietorship**: Sole Proprietorships can be verified by uploading Business documents as well as Personal IDs. Personal IDs need to be specified as documentType `idCard`, `license` or `passport` depending on the type of the ID. Business documents need to be specified as documentType `other`. Acceptable documents include one or more of the following, as applicable to your sole proprietorship:
-
-  * Business documents (documentType `other`):
-    * Fictitious Business Name Statement,
-    * Certificate of Assumed Name; Business License,
-    * Sales/Use Tax License,
-    * Registration of Trade Name,
-    * EIN documentation (IRS-issued SS4 confirmation letter)
-  * Personal documents (documentType `license`, `passport` or `idCard`):
-    * Color copy of a valid government-issued photo ID (e.g., a driver's license, passport, or state ID card).
+- **Partnership, General Partnership**: EIN Letter (IRS-issued SS4 confirmation letter).
+- **Limited Liability Corporation (LLC), Corporation**: EIN Letter (IRS-issued SS4 confirmation letter).
+- **Sole Proprietorship**: Sole Proprietorships can be verified by uploading Business documents as well as Personal IDs. Personal IDs need to be specified as documentType `idCard`, `license` or `passport` depending on the type of the ID. Business documents need to be specified as documentType `other`. Acceptable documents include one or more of the following, as applicable to your sole proprietorship:
+  - Business documents (documentType `other`):
+    - Fictitious Business Name Statement,
+    - Certificate of Assumed Name; Business License,
+    - Sales/Use Tax License,
+    - Registration of Trade Name,
+    - EIN documentation (IRS-issued SS4 confirmation letter)
+  - Personal documents (documentType `license`, `passport` or `idCard`):
+    - Color copy of a valid government-issued photo ID (e.g., a driver's license, passport, or state ID card).
 
 <Note>
   Trusts should be created as Sole Proprietor accounts and will require signed trust documents that include the trust and username that are on file.
@@ -1318,19 +1319,19 @@ Documents that are used to help identify a business are specified as documentTyp
 
 Other business documents may be acceptable on a case by case basis with Dwolla approval. These include any US government entity (federal, state, local) issued business formation or licensing exhibiting the name of the business enrolling with Dwolla, or; Any business formation documents exhibiting the name of the business entity in addition to being filed and stamped by a US government entity. Examples include:
 
-* Filed and stamped Articles of Organization or Incorporation
-* Sales/Use Tax License
-* Business License
-* Certificate of Good Standing
+- Filed and stamped Articles of Organization or Incorporation
+- Sales/Use Tax License
+- Business License
+- Certificate of Good Standing
 
 ##### Proof of address
 
 If Dwolla's Compliance team is unable to find an external connection to confirm the user does in fact conduct business at their provided business address, a "proof of address" will be required. Proof of address are any of the following, current documents that show the address in question:
 
-* Utility Bill
-* Financial Statement
-* Tax Statement (Please note - Form W-9 is a tax form, and is not an acceptable Tax Statement)
-* Fully Executed Lease Agreement - must be valid for a minimum of the next 30 days.
+- Utility Bill
+- Financial Statement
+- Tax Statement (Please note - Form W-9 is a tax form, and is not an acceptable Tax Statement)
+- Fully Executed Lease Agreement - must be valid for a minimum of the next 30 days.
 
 ### Uploading a document
 
@@ -1352,44 +1353,44 @@ You'll also get a <Tooltip tip="A webhook is a notification sent from Dwolla to 
   \ 'https://api-sandbox.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1/documents
   ```
 
-  ```php upload_customer_document.php
-  No example for this language yet.
-  ```
+```php upload_customer_document.php
+No example for this language yet.
+```
 
-  ```ruby upload_customer_document.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
+```ruby upload_customer_document.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
 
-  file = Faraday::UploadIO.new('mclovin.jpg', 'image/jpeg')
-  document = app_token.post "#{customer_url}/documents", file: file, documentType: 'license'
-  document.response_headers[:location] # => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
-  ```
+file = Faraday::UploadIO.new('mclovin.jpg', 'image/jpeg')
+document = app_token.post "#{customer_url}/documents", file: file, documentType: 'license'
+document.response_headers[:location] # => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
+```
 
-  ```python upload_customer_document.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
+```python upload_customer_document.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+customer_url = 'https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1'
 
-  document = app_token.post('%s/documents' % customer_url, file = open('mclovin.jpg', 'rb'), documentType = 'license')
-  document.headers['location'] # => 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
-  ```
+document = app_token.post('%s/documents' % customer_url, file = open('mclovin.jpg', 'rb'), documentType = 'license')
+document.headers['location'] # => 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
+```
 
-  ```javascript uploadCustomerDocument.js
-  // Using dwolla-v2 - https://github.com/Dwolla/dwolla-v2-node
-  var customerUrl =
-    "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
+```javascript uploadCustomerDocument.js
+// Using dwolla-v2 - https://github.com/Dwolla/dwolla-v2-node
+var customerUrl = "https://api.dwolla.com/customers/132681fa-1b4d-4181-8ff2-619ca46235b1";
 
-  var requestBody = new FormData();
-  body.append("file", fs.createReadStream("mclovin.jpg"), {
-    filename: "mclovin.jpg",
-    contentType: "image/jpeg",
-    knownLength: fs.statSync("mclovin.jpg").size,
-  });
-  body.append("documentType", "license");
+var requestBody = new FormData();
+body.append("file", fs.createReadStream("mclovin.jpg"), {
+  filename: "mclovin.jpg",
+  contentType: "image/jpeg",
+  knownLength: fs.statSync("mclovin.jpg").size,
+});
+body.append("documentType", "license");
 
-  dwolla.post(`${customerUrl}/documents`, requestBody).then(function (res) {
-    res.headers.get("location"); // => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
-  });
-  ```
+dwolla.post(`${customerUrl}/documents`, requestBody).then(function (res) {
+  res.headers.get("location"); // => "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
+});
+```
+
 </CodeGroup>
 
 If the document was successfully uploaded, the response will be a HTTP 201 Created with the URL of the new document resource contained in the Location header.
@@ -1433,67 +1434,68 @@ A document can fail if, for example, the Customer uploaded the wrong type of doc
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer tJlyMNW6e3QVbzHjeJ9JvAPsRglFjwnba4NdfCzsYJm7XbckcR
 
-  ...
+...
 
-  {
-    "_links": {
-      "self": {
-        "href": "https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
-      }
-    },
-    "id": "11fe0bab-39bd-42ee-bb39-275afcc050d0",
-    "status": "reviewed",
-    "type": "license",
-    "created": "2016-01-29T21:22:22.000Z",
-    "failureReason": "ScanNotReadable",
-    "allFailureReasons": [
-        {
-            "reason": "ScanDobMismatch",
-            "description": "Date of Birth mismatch"
-        },
-        {
-            "reason": "ScanIdExpired",
-            "description": "ID is expired"
-        }
-    ]
-  }
-  ```
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0"
+}
+},
+"id": "11fe0bab-39bd-42ee-bb39-275afcc050d0",
+"status": "reviewed",
+"type": "license",
+"created": "2016-01-29T21:22:22.000Z",
+"failureReason": "ScanNotReadable",
+"allFailureReasons": [
+{
+"reason": "ScanDobMismatch",
+"description": "Date of Birth mismatch"
+},
+{
+"reason": "ScanIdExpired",
+"description": "ID is expired"
+}
+]
+}
 
-  ```php retrieve_failure_reason.php
-  <?php
-  $aDocument = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0';
+````
 
-  $documentsApi = DwollaSwagger\DocumentsApi($apiClient);
+```php retrieve_failure_reason.php
+<?php
+$aDocument = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0';
 
-  $retrieved = $documentsApi->getCustomer($aDocument);
-  print($retrieved->failureReason); # => "ScanNotReadable"
-  ?>
-  ```
+$documentsApi = DwollaSwagger\DocumentsApi($apiClient);
 
-  ```ruby retrieve_failure_reason.rb
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
-  document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
+$retrieved = $documentsApi->getCustomer($aDocument);
+print($retrieved->failureReason); # => "ScanNotReadable"
+?>
+````
 
-  document = app_token.get document_url
-  document.failureReason # => "ScanNotReadable"
-  ```
+```ruby retrieve_failure_reason.rb
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby (Recommended)
+document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
 
-  ```python retrieve_failure_reason.py
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
-  document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
+document = app_token.get document_url
+document.failureReason # => "ScanNotReadable"
+```
 
-  documents = app_token.get(document_url)
-  documents.body['failureReason'] # => 'ScanNotReadable'
-  ```
+```python retrieve_failure_reason.py
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python (Recommended)
+document_url = 'https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0'
 
-  ```javascript
-  var documentUrl =
-    "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0";
+documents = app_token.get(document_url)
+documents.body['failureReason'] # => 'ScanNotReadable'
+```
 
-  dwolla.get(document_url).then(function (res) {
-    res.body.failureReason; // => "ScanNotReadable"
-  });
-  ```
+```javascript
+var documentUrl = "https://api.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0";
+
+dwolla.get(document_url).then(function (res) {
+  res.body.failureReason; // => "ScanNotReadable"
+});
+```
+
 </CodeGroup>
 
 ## Handling status: suspended
@@ -1573,114 +1575,116 @@ As a developer, you can expect these events to be triggered when a beneficial ow
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  {
-    "firstName": "Jane",
-    "lastName": "Doe",
-    "ssn": "123-56-7890",
-    "dateOfBirth": "1960-11-30",
-    "address": {
-      "address1": "123 Main St.",
-      "address2": "Apt 12",
-      "city": "New York",
-      "stateProvinceRegion": "NY",
-      "country": "US",
-      "postalCode": "10005"
-    }
+{
+"firstName": "Jane",
+"lastName": "Doe",
+"ssn": "123-56-7890",
+"dateOfBirth": "1960-11-30",
+"address": {
+"address1": "123 Main St.",
+"address2": "Apt 12",
+"city": "New York",
+"stateProvinceRegion": "NY",
+"country": "US",
+"postalCode": "10005"
+}
+}
+
+HTTP/1.1 201 Created
+Location: https://api.dwolla.com/beneficial-owners/FC451A7A-AE30-4404-AB95-E3553FCD733F
+
+````
+
+```php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
+$verified_customer = 'https://api-sandbox.dwolla.com/customers/07d59716-ef22-4fe6-98e8-f3190233dfb8';
+
+$addOwner = $customersApi->addBeneficialOwner([
+      'firstName' => 'Jane',
+      'lastName'=> 'Doe',
+      'dateOfBirth' => '1960-11-30',
+      'ssn' => '123-56-7890',
+      'address' =>
+      [
+          'address1' => '123 Main St',
+          'address2' => 'Apt 12',
+          'city' => 'New York',
+          'stateProvinceRegion' => 'NY',
+          'postalCode' => '10005',
+          'country' => 'US'
+      ],
+  ], $verified_customer);
+?>
+````
+
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+customer_url = 'https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C'
+request_body = {
+  :firstName => 'Jane',
+  :lastName => 'Doe',
+  :ssn => '123-56-7890',
+  :dateOfBirth => '1960-11-30',
+  :address => {
+    :address1 => '123 Main St',
+    :address2 => 'Apt 12'
+    :city => 'New York',
+    :stateProvinceRegion => 'NY',
+    :country => 'US',
+    :postalCode => '10005'
   }
+}
 
-  HTTP/1.1 201 Created
-  Location: https://api.dwolla.com/beneficial-owners/FC451A7A-AE30-4404-AB95-E3553FCD733F
-  ```
+beneficial_owner = app_token.post "#{customer_url}/beneficial-owners", request_body
+beneficial_owner.response_headers[:location] # => "https://api-sandbox.dwolla.com/beneficial-owners/AB443D36-3757-44C1-A1B4-29727FB3111C"
+```
 
-  ```php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
-  $verified_customer = 'https://api-sandbox.dwolla.com/customers/07d59716-ef22-4fe6-98e8-f3190233dfb8';
-
-  $addOwner = $customersApi->addBeneficialOwner([
-        'firstName' => 'Jane',
-        'lastName'=> 'Doe',
-        'dateOfBirth' => '1960-11-30',
-        'ssn' => '123-56-7890',
-        'address' =>
-        [
-            'address1' => '123 Main St',
-            'address2' => 'Apt 12',
-            'city' => 'New York',
-            'stateProvinceRegion' => 'NY',
-            'postalCode' => '10005',
-            'country' => 'US'
-        ],
-    ], $verified_customer);
-  ?>
-  ```
-
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  customer_url = 'https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C'
-  request_body = {
-    :firstName => 'Jane',
-    :lastName => 'Doe',
-    :ssn => '123-56-7890',
-    :dateOfBirth => '1960-11-30',
-    :address => {
-      :address1 => '123 Main St',
-      :address2 => 'Apt 12'
-      :city => 'New York',
-      :stateProvinceRegion => 'NY',
-      :country => 'US',
-      :postalCode => '10005'
-    }
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+customer_url = 'https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C'
+request_body = {
+  'firstName': 'Jane',
+  'lastName': 'Doe',
+  'dateOfBirth': '1960-11-30',
+  'ssn': '123-56-7890',
+  'address': {
+    'address1': '99-99 33rd St',
+    'address2': 'Apt 12',
+    'city': 'New York',
+    'stateProvinceRegion': 'NY',
+    'country': 'US',
+    'postalCode': '10005'
   }
+}
 
-  beneficial_owner = app_token.post "#{customer_url}/beneficial-owners", request_body
-  beneficial_owner.response_headers[:location] # => "https://api-sandbox.dwolla.com/beneficial-owners/AB443D36-3757-44C1-A1B4-29727FB3111C"
-  ```
+beneficial_owner = app_token.post('%s/beneficial-owners' % customer_url, request_body)
+beneficial_owner.headers['location'] # => 'https://api-sandbox.dwolla.com/beneficial-owners/AB443D36-3757-44C1-A1B4-29727FB3111C'
+```
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  customer_url = 'https://api-sandbox.dwolla.com/customers/AB443D36-3757-44C1-A1B4-29727FB3111C'
-  request_body = {
-    'firstName': 'Jane',
-    'lastName': 'Doe',
-    'dateOfBirth': '1960-11-30',
-    'ssn': '123-56-7890',
-    'address': {
-      'address1': '99-99 33rd St',
-      'address2': 'Apt 12',
-      'city': 'New York',
-      'stateProvinceRegion': 'NY',
-      'country': 'US',
-      'postalCode': '10005'
-    }
+```javascript
+var customerUrl = 'https://api-sandbox.dwolla.com/customers/07d59716-ef22-4fe6-98e8-f3190233dfb8';
+var requestBody = {
+  firstName: 'Jane',
+  lastName: 'Doe',
+  dateOfBirth: '1960-11-30',
+  ssn: '123-56-7890',
+  address: {
+    address1: '99-99 33rd St',
+    address2: 'Apt 12',
+    city: 'Some City',
+    stateProvinceRegion: 'NY',
+    country: 'US'
+    postalCode: '10005'
   }
+};
 
-  beneficial_owner = app_token.post('%s/beneficial-owners' % customer_url, request_body)
-  beneficial_owner.headers['location'] # => 'https://api-sandbox.dwolla.com/beneficial-owners/AB443D36-3757-44C1-A1B4-29727FB3111C'
-  ```
+dwolla
+  .post(`${customerUrl}/beneficial-owners`, requestBody)
+  .then(res => res.headers.get('location')); // => 'https://api-sandbox.dwolla.com/beneficial-owners/FC451A7A-AE30-4404-AB95-E3553FCD733F'
 
-  ```javascript
-  var customerUrl = 'https://api-sandbox.dwolla.com/customers/07d59716-ef22-4fe6-98e8-f3190233dfb8';
-  var requestBody = {
-    firstName: 'Jane',
-    lastName: 'Doe',
-    dateOfBirth: '1960-11-30',
-    ssn: '123-56-7890',
-    address: {
-      address1: '99-99 33rd St',
-      address2: 'Apt 12',
-      city: 'Some City',
-      stateProvinceRegion: 'NY',
-      country: 'US'
-      postalCode: '10005'
-    }
-  };
+```
 
-  dwolla
-    .post(`${customerUrl}/beneficial-owners`, requestBody)
-    .then(res => res.headers.get('location')); // => 'https://api-sandbox.dwolla.com/beneficial-owners/FC451A7A-AE30-4404-AB95-E3553FCD733F'
-
-  ```
 </CodeGroup>
 
 ### Check the status of an individual Beneficial Owner
@@ -1691,11 +1695,11 @@ Reference the table below for more information on the events that correspond to 
 
 ##### Individual Beneficial Owner statuses and events
 
-| Individual Beneficial Owner Status | Event Topic Name                                    | Transaction Restricted? | Description                                                                                                                                                                                                                                                                                                   |
-| ---------------------------------- | --------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Verified                           | customer\_beneficial\_owner\_verified               | No                      | Beneficial owner has been identity verified.                                                                                                                                                                                                                                                                  |
-| Document                           | customer\_beneficial\_owner\_document\_needed       | Yes - Cannot send funds | Beneficial owner must upload a document in order to be verified.                                                                                                                                                                                                                                              |
-| Incomplete                         | customer\_beneficial\_owner\_reverification\_needed | Yes - Cannot send funds | The initial verification attempt failed because the information provided did not satisfy our verification check. You can make one additional attempt by changing some or all the attributes of the existing Customer with an [update request](/docs/api-reference/beneficial-owners/update-beneficial-owner). |
+| Individual Beneficial Owner Status | Event Topic Name                                | Transaction Restricted? | Description                                                                                                                                                                                                                                                                                                   |
+| ---------------------------------- | ----------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Verified                           | customer_beneficial_owner_verified              | No                      | Beneficial owner has been identity verified.                                                                                                                                                                                                                                                                  |
+| Document                           | customer_beneficial_owner_document_needed       | Yes - Cannot send funds | Beneficial owner must upload a document in order to be verified.                                                                                                                                                                                                                                              |
+| Incomplete                         | customer_beneficial_owner_reverification_needed | Yes - Cannot send funds | The initial verification attempt failed because the information provided did not satisfy our verification check. You can make one additional attempt by changing some or all the attributes of the existing Customer with an [update request](/docs/api-reference/beneficial-owners/update-beneficial-owner). |
 
 Let's check to see if the Owner was successfully verified or not. We are going to use the location of the Beneficial Owner resource that was just created.
 
@@ -1707,63 +1711,65 @@ Let's check to see if the Owner was successfully verified or not. We are going t
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  ...
+...
 
-  {
-      "_links": {
-          "self": {
-              "href": "https://api-sandbox.dwolla.com/beneficial-owners/00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-owner"
-          },
-          "retry-verification": {
-              "href": "https://api-sandbox.dwolla.com/beneficial-owners/00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-owner"
-          }
-      },
-      "id": "00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
-      "firstName": "Jane",
-      "lastName": "Owner",
-      "address": {
-          "address1": "123 Main St.",
-          "city": "New York",
-          "stateProvinceRegion": "NY",
-          "country": "US",
-          "postalCode": "10005"
-      },
-      "verificationStatus": "verified"
-  }
-  ```
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/beneficial-owners/00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-owner"
+},
+"retry-verification": {
+"href": "https://api-sandbox.dwolla.com/beneficial-owners/00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-owner"
+}
+},
+"id": "00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
+"firstName": "Jane",
+"lastName": "Owner",
+"address": {
+"address1": "123 Main St.",
+"city": "New York",
+"stateProvinceRegion": "NY",
+"country": "US",
+"postalCode": "10005"
+},
+"verificationStatus": "verified"
+}
 
-  ```php
-  $beneficialOwnersApi = new DwollaSwagger\BeneficialownersApi($apiClient);
-  $owner = 'https://api-sandbox.dwolla.com/beneficial-owners/00cb67f2-768c-4ee3-ac81-73bc4faf9c2b';
-  $ownerStatus = $beneficialOwnersApi->getById($owner);
-  ```
+````
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8'
+```php
+$beneficialOwnersApi = new DwollaSwagger\BeneficialownersApi($apiClient);
+$owner = 'https://api-sandbox.dwolla.com/beneficial-owners/00cb67f2-768c-4ee3-ac81-73bc4faf9c2b';
+$ownerStatus = $beneficialOwnersApi->getById($owner);
+````
 
-  beneficial_owner = app_token.get beneficial_owner_url
-  beneficial_owner.verificationStatus # => "verified"
-  ```
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8'
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfB8'
+beneficial_owner = app_token.get beneficial_owner_url
+beneficial_owner.verificationStatus # => "verified"
+```
 
-  beneficial_owner = app_token.get(beneficial_owner_url)
-  beneficial_owner.body['status']
-  ```
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfB8'
 
-  ```javascript
-  var beneficialOwnerUrl =
-    "https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8";
+beneficial_owner = app_token.get(beneficial_owner_url)
+beneficial_owner.body['status']
+```
 
-  dwolla.get(beneficialOwnerUrl).then((res) => res.body.verificationStatus); // => 'verified'
-  ```
+```javascript
+var beneficialOwnerUrl =
+  "https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8";
+
+dwolla.get(beneficialOwnerUrl).then(res => res.body.verificationStatus); // => 'verified'
+```
+
 </CodeGroup>
 
 ## Handling an individual beneficial owner Status
@@ -1787,133 +1793,135 @@ An `incomplete` status occurs when a beneficial owner's identity scores are too 
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  {
-    "firstName": "beneficial",
-    "lastName": "owner",
-    "ssn": "123-54-6789",
-    "dateOfBirth": "1963-11-11",
-    "address": {
-      "address1": "123 Corrected St.",
-      "address2": "Apt 123",
-      "city": "Des Moines",
-      "stateProvinceRegion": "IA",
-      "country": "US",
-      "postalCode": "50309"
-    }
+{
+"firstName": "beneficial",
+"lastName": "owner",
+"ssn": "123-54-6789",
+"dateOfBirth": "1963-11-11",
+"address": {
+"address1": "123 Corrected St.",
+"address2": "Apt 123",
+"city": "Des Moines",
+"stateProvinceRegion": "IA",
+"country": "US",
+"postalCode": "50309"
+}
+}
+
+...
+
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-owner"
+}
+},
+"id": "00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
+"firstName": "beneficial",
+"lastName": "owner",
+"address": {
+"address1": "123 Corrected St.",
+"address2": "Apt 123",
+"city": "Des Moines",
+"stateProvinceRegion": "IA",
+"country": "US",
+"postalCode": "50309"
+},
+"verificationStatus": "verified"
+}
+
+````
+
+```php
+<?php
+$beneficialOwnersApi = new DwollaSwagger\BeneficialownersApi($apiClient);
+
+$beneficialOwnerUrl = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8';
+$updateBeneficialOwner = $beneficialOwnersApi->update([
+      'firstName' => 'beneficial',
+      'lastName'=> 'owner',
+      'dateOfBirth' => '1963-11-11',
+      'ssn' => '123-54-6789',
+      'address' =>
+      [
+          'address1' => '123 Corrected St.',
+          'address2' => 'Apt 123',
+          'city' => 'Des Moines',
+          'stateProvinceRegion' => 'IA',
+          'postalCode' => '50309',
+          'country' => 'US'
+      ],
+  ], $beneficialOwnerUrl);
+
+$updateBeneficialOwner->id; # => "07d59716-ef22-4fe6-98e8-f3190233dfb"
+?>
+````
+
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8'
+request_body = {
+  :firstName => 'beneficial',
+  :lastName => 'owner',
+  :ssn => '123-54-6789',
+  :dateOfBirth => '1963-11-11',
+  :address => {
+    :address1 => '123 Corrected St',
+    :city => 'Des Moines',
+    :stateProvinceRegion => 'IA',
+    :country => 'US',
+    :postalCode => '50309'
   }
+}
 
-  ...
+update_beneficial_owner = app_token.post beneficial_owner_url, request_body
+update_beneficial_owner.id # => "07d59716-ef22-4fe6-98e8-f3190233dfb8"
+```
 
-  {
-      "_links": {
-          "self": {
-              "href": "https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-owner"
-          }
-      },
-      "id": "00cb67f2-768c-4ee3-ac81-73bc4faf9c2b",
-      "firstName": "beneficial",
-      "lastName": "owner",
-      "address": {
-          "address1": "123 Corrected St.",
-          "address2": "Apt 123",
-          "city": "Des Moines",
-          "stateProvinceRegion": "IA",
-          "country": "US",
-          "postalCode": "50309"
-      },
-      "verificationStatus": "verified"
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8'
+request_body = {
+  'firstName': 'beneficial',
+  'lastName': 'owner',
+  'dateOfBirth': '1963-11-11',
+  'ssn': '123-54-6789',
+  'address': {
+    'address1': '123 Corrected St',
+    'city': 'Des Moines',
+    'stateProvinceRegion': 'IA',
+    'country': 'US',
+    'postalCode': '50309'
   }
-  ```
+}
 
-  ```php
-  <?php
-  $beneficialOwnersApi = new DwollaSwagger\BeneficialownersApi($apiClient);
+update_beneficial_owner = app_token.post(beneficial_owner_url, request_body)
+update_beneficial_owner.body.id # => '07d59716-ef22-4fe6-98e8-f3190233dfb8'
+```
 
-  $beneficialOwnerUrl = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8';
-  $updateBeneficialOwner = $beneficialOwnersApi->update([
-        'firstName' => 'beneficial',
-        'lastName'=> 'owner',
-        'dateOfBirth' => '1963-11-11',
-        'ssn' => '123-54-6789',
-        'address' =>
-        [
-            'address1' => '123 Corrected St.',
-            'address2' => 'Apt 123',
-            'city' => 'Des Moines',
-            'stateProvinceRegion' => 'IA',
-            'postalCode' => '50309',
-            'country' => 'US'
-        ],
-    ], $beneficialOwnerUrl);
-
-  $updateBeneficialOwner->id; # => "07d59716-ef22-4fe6-98e8-f3190233dfb"
-  ?>
-  ```
-
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8'
-  request_body = {
-    :firstName => 'beneficial',
-    :lastName => 'owner',
-    :ssn => '123-54-6789',
-    :dateOfBirth => '1963-11-11',
-    :address => {
-      :address1 => '123 Corrected St',
-      :city => 'Des Moines',
-      :stateProvinceRegion => 'IA',
-      :country => 'US',
-      :postalCode => '50309'
-    }
+```javascript
+var beneficialOwnerUrl = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8';
+var requestBody = {
+  firstName: 'beneficial',
+  lastName: 'owner',
+  dateOfBirth: '1963-11-11',
+  ssn: '123-54-6789',
+  address: {
+    address1: '123 Corrected St',
+    city: 'Des Moines',
+    stateProvinceRegion: 'IA',
+    country: 'US'
+    postalCode: '50309'
   }
+};
 
-  update_beneficial_owner = app_token.post beneficial_owner_url, request_body
-  update_beneficial_owner.id # => "07d59716-ef22-4fe6-98e8-f3190233dfb8"
-  ```
+dwolla
+  .post(beneficialOwnerUrl, requestBody)
+  .then(res => res.body.id); // => '07d59716-ef22-4fe6-98e8-f3190233dfb8'
+```
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8'
-  request_body = {
-    'firstName': 'beneficial',
-    'lastName': 'owner',
-    'dateOfBirth': '1963-11-11',
-    'ssn': '123-54-6789',
-    'address': {
-      'address1': '123 Corrected St',
-      'city': 'Des Moines',
-      'stateProvinceRegion': 'IA',
-      'country': 'US',
-      'postalCode': '50309'
-    }
-  }
-
-  update_beneficial_owner = app_token.post(beneficial_owner_url, request_body)
-  update_beneficial_owner.body.id # => '07d59716-ef22-4fe6-98e8-f3190233dfb8'
-  ```
-
-  ```javascript
-  var beneficialOwnerUrl = 'https://api-sandbox.dwolla.com/beneficial-owners/07d59716-ef22-4fe6-98e8-f3190233dfb8';
-  var requestBody = {
-    firstName: 'beneficial',
-    lastName: 'owner',
-    dateOfBirth: '1963-11-11',
-    ssn: '123-54-6789',
-    address: {
-      address1: '123 Corrected St',
-      city: 'Des Moines',
-      stateProvinceRegion: 'IA',
-      country: 'US'
-      postalCode: '50309'
-    }
-  };
-
-  dwolla
-    .post(beneficialOwnerUrl, requestBody)
-    .then(res => res.body.id); // => '07d59716-ef22-4fe6-98e8-f3190233dfb8'
-  ```
 </CodeGroup>
 
 Check the beneficial owner's status again. The beneficial owner will either be in the `verified` or `document` state of verification.
@@ -1924,15 +1932,15 @@ If a beneficial owner is not verified after being placed in `incomplete` status 
 
 You can provide the following best practices to the Customer in order to reduce the chances of a document being rejected:
 
-* All 4 Edges of the document should be visible
-* A dark/high contrast background should be used
-* At least 90% of the image should be the document
-* Should be at least 300dpi
-* Capture image from directly above the document
-* Make sure that the image is properly aligned, not rotated, tilted or skewed
-* No flash to reduce glare
-* No black and white documents
-* No expired IDs
+- All 4 Edges of the document should be visible
+- A dark/high contrast background should be used
+- At least 90% of the image should be the document
+- Should be at least 300dpi
+- Capture image from directly above the document
+- Make sure that the image is properly aligned, not rotated, tilted or skewed
+- No flash to reduce glare
+- No black and white documents
+- No expired IDs
 
 #### Determining verification `documents` needed
 
@@ -1940,16 +1948,16 @@ You can provide the following best practices to the Customer in order to reduce 
 
 A colored camera captured image of the Beneficial Owner's identifying document can be specified as documentType: `license` (state issued driver's license), or `idCard` (U.S. government-issued photo id card). Examples include:
 
-* Non-expired State Issued Driver's License/Identification Card
-* Non-expired US Passport
-* Federal Employment Authorization Card
-* US Visa
+- Non-expired State Issued Driver's License/Identification Card
+- Non-expired US Passport
+- Federal Employment Authorization Card
+- US Visa
 
 ##### Non-US persons
 
 A colored camera captured image of the Beneficial Owner's identifying document can be specified as documentType: `passport`. Examples include:
 
-* Non-expired Foreign Passport ***Note:** Foreign Passports are only accepted when the individual does not have an ITIN or SSN and the user must alternatively enter the Passport number*.
+- Non-expired Foreign Passport **\*Note:** Foreign Passports are only accepted when the individual does not have an ITIN or SSN and the user must alternatively enter the Passport number\*.
 
 ### Uploading a document
 
@@ -1970,49 +1978,50 @@ You'll also get a `beneficial_owner_verification_document_uploaded` event to let
   \ -F "file=@foo.png"
   \ 'https://api-sandbox.dwolla.com/beneficial-owners/1de32ec7-ff0b-4c0c-9f09-19629e6788ce/documents'
 
-  ...
+...
 
-  HTTP/1.1 201 Created
-  Location: https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0
+HTTP/1.1 201 Created
+Location: https://api-sandbox.dwolla.com/documents/11fe0bab-39bd-42ee-bb39-275afcc050d0
 
-  ```
+````
 
-  ```php
-  No example for this language yet
-  ```
+```php
+No example for this language yet
+````
 
-  ```ruby
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/1DE32EC7-FF0B-4C0C-9F09-19629E6788CE'
+```ruby
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/1DE32EC7-FF0B-4C0C-9F09-19629E6788CE'
 
-  file = Faraday::UploadIO.new('mclovin.jpg', 'image/jpeg')
-  document = app_token.post "#{beneficial_owner_url}/documents", file: file, documentType: 'license'
-  document.response_headers[:location] # => "https://api.dwolla.com/documents/fb919e0b-ffbe-4268-b1e2-947b44328a16"
-  ```
+file = Faraday::UploadIO.new('mclovin.jpg', 'image/jpeg')
+document = app_token.post "#{beneficial_owner_url}/documents", file: file, documentType: 'license'
+document.response_headers[:location] # => "https://api.dwolla.com/documents/fb919e0b-ffbe-4268-b1e2-947b44328a16"
+```
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/1DE32EC7-FF0B-4C0C-9F09-19629E6788CE'
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/1DE32EC7-FF0B-4C0C-9F09-19629E6788CE'
 
-  document = app_token.post('%s/documents' % beneficial_owner_url, file = open('janedoe.jpg', 'rb'), documentType = 'license')
-  document.headers['location'] # => 'https://api-sandbox.dwolla.com/documents/fb919e0b-ffbe-4268-b1e2-947b44328a16'
-  ```
+document = app_token.post('%s/documents' % beneficial_owner_url, file = open('janedoe.jpg', 'rb'), documentType = 'license')
+document.headers['location'] # => 'https://api-sandbox.dwolla.com/documents/fb919e0b-ffbe-4268-b1e2-947b44328a16'
+```
 
-  ```javascript
-  var beneficialOwnerUrl =
-    "https://api-sandbox.dwolla.com/beneficial-owners/1DE32EC7-FF0B-4C0C-9F09-19629E6788CE";
+```javascript
+var beneficialOwnerUrl =
+  "https://api-sandbox.dwolla.com/beneficial-owners/1DE32EC7-FF0B-4C0C-9F09-19629E6788CE";
 
-  var requestBody = new FormData();
-  body.append("file", fs.createReadStream("mclovin.jpg"), {
-    filename: "mclovin.jpg",
-    contentType: "image/jpeg",
-    knownLength: fs.statSync("mclovin.jpg").size,
-  });
-  body.append("documentType", "license");
+var requestBody = new FormData();
+body.append("file", fs.createReadStream("mclovin.jpg"), {
+  filename: "mclovin.jpg",
+  contentType: "image/jpeg",
+  knownLength: fs.statSync("mclovin.jpg").size,
+});
+body.append("documentType", "license");
 
-  dwolla
-    .post(`${beneficialOwnerUrl}/documents`, requestBody)
-    .then((res) => res.headers.get("location")); // => "https://api-sandbox.dwolla.com/documents/fb919e0b-ffbe-4268-b1e2-947b44328a16"
-  ```
+dwolla
+  .post(`${beneficialOwnerUrl}/documents`, requestBody)
+  .then(res => res.headers.get("location")); // => "https://api-sandbox.dwolla.com/documents/fb919e0b-ffbe-4268-b1e2-947b44328a16"
+```
+
 </CodeGroup>
 
 ### Update Beneficial Owner Information
@@ -2029,62 +2038,64 @@ If an individual beneficial owner with a status of `verified` needs to update th
   Accept: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  ...
+...
 
-  {
-      "_links": {
-          "self": {
-              "href": "https://api-sandbox.dwolla.com/beneficial-owners/0f394602-d714-4d77-9d58-3a3e8394bcdd",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-owner"
-          }
-      },
-      "id": "0f394602-d714-4d77-9d58-3a3e8394bcdd",
-      "firstName": "B",
-      "lastName": "Owner",
-      "address": {
-          "address1": "123 Main St.",
-          "city": "New York",
-          "stateProvinceRegion": "NY",
-          "country": "US",
-          "postalCode": "10005"
-      },
-      "verificationStatus": "verified"
-  }
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/beneficial-owners/0f394602-d714-4d77-9d58-3a3e8394bcdd",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-owner"
+}
+},
+"id": "0f394602-d714-4d77-9d58-3a3e8394bcdd",
+"firstName": "B",
+"lastName": "Owner",
+"address": {
+"address1": "123 Main St.",
+"city": "New York",
+"stateProvinceRegion": "NY",
+"country": "US",
+"postalCode": "10005"
+},
+"verificationStatus": "verified"
+}
 
-  ...
+...
 
-  HTTP 200 OK
-  ```
+HTTP 200 OK
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c'
+````
 
-  app_token.delete beneficial_owner_url
-  ```
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c'
 
-  ```javascript
-  var beneficialOwnerUrl =
-    "https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c";
+app_token.delete beneficial_owner_url
+````
 
-  dwolla.delete(beneficialOwnerUrl);
-  ```
+```javascript
+var beneficialOwnerUrl =
+  "https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c";
 
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c'
+dwolla.delete(beneficialOwnerUrl);
+```
 
-  app_token.delete(beneficial_owner_url)
-  ```
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+beneficial_owner_url = 'https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c'
 
-  ```php
-  <?php
-  $beneficialOwnersApi = new DwollaSwagger\BeneficialownersApi($apiClient);
-  $beneficialOwner = 'https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c';
-  $deletedBeneficialOwner = $beneficialOwnersApi->deleteById($beneficialOwner);
-  ?>
-  ```
+app_token.delete(beneficial_owner_url)
+```
+
+```php
+<?php
+$beneficialOwnersApi = new DwollaSwagger\BeneficialownersApi($apiClient);
+$beneficialOwner = 'https://api-sandbox.dwolla.com/beneficial-owners/692486f8-29f6-4516-a6a5-c69fd2ce854c';
+$deletedBeneficialOwner = $beneficialOwnersApi->deleteById($beneficialOwner);
+?>
+```
+
 </CodeGroup>
 
 After removal of a Beneficial Owner, they can be re-added and go through the verification process again. You can also remove a beneficial owner if they no longer own 25% or more of the business.
@@ -2168,11 +2179,11 @@ When a business verified Customer needs to be `certified`, Dwolla will return a 
 
 #### Certification Statuses
 
-| certification\_status | Transaction Restricted? | Description                                                                                                                                                                                                            |
-| --------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| uncertified           | Yes - Cannot send funds | New business verified Customers that are not exempt are initially placed in an uncertified status.                                                                                                                     |
-| recertify             | No, for up to 30 days   | Business verified Customers that are certified and change owner information, OR Business verified Customers that Dwolla needs to obtain more information from relating to beneficial owners are placed in this status. |
-| certified             | No                      | Confirms the certification of beneficial owners.                                                                                                                                                                       |
+| certification_status | Transaction Restricted? | Description                                                                                                                                                                                                            |
+| -------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| uncertified          | Yes - Cannot send funds | New business verified Customers that are not exempt are initially placed in an uncertified status.                                                                                                                     |
+| recertify            | No, for up to 30 days   | Business verified Customers that are certified and change owner information, OR Business verified Customers that Dwolla needs to obtain more information from relating to beneficial owners are placed in this status. |
+| certified            | No                      | Confirms the certification of beneficial owners.                                                                                                                                                                       |
 
 ## Certify ownership
 
@@ -2185,61 +2196,62 @@ To change the certification status of your business verified Customer account, y
   Content-Type: application/vnd.dwolla.v1.hal+json
   Authorization: Bearer pBA9fVDBEyYZCEsLf/wKehyh1RTpzjUj5KzIRfDi0wKTii7DqY
 
-  {
+{
+"status": "certified"
+}
+
+...
+
+{
+"\_links": {
+"self": {
+"href": "https://api-sandbox.dwolla.com/customers/56502f7a-fa59-4a2f-8579-0f8bc9d7b9cc/beneficial-ownership",
+"type": "application/vnd.dwolla.v1.hal+json",
+"resource-type": "beneficial-ownership"
+}
+},
+"status": "certified"
+}
+
+````
+
+```ruby
+# Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
+customer_url = 'https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909'
+request_body = {
+  :status => "certified"
+}
+
+app_token.post "#{customer_url}/beneficial-ownership", request_body
+````
+
+```javascript
+var customerUrl = "https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909";
+var requestBody = {
+  status: "certified",
+};
+
+dwolla.post(`${customerUrl}/beneficial-ownership`, requestBody);
+```
+
+```python
+# Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
+customer_url = 'https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909'
+request_body = {
     "status": "certified"
-  }
+}
 
-  ...
+app_token.post('%s/beneficial-ownership' % customer_url, request_body)
+```
 
-  {
-      "_links": {
-          "self": {
-              "href": "https://api-sandbox.dwolla.com/customers/56502f7a-fa59-4a2f-8579-0f8bc9d7b9cc/beneficial-ownership",
-              "type": "application/vnd.dwolla.v1.hal+json",
-              "resource-type": "beneficial-ownership"
-          }
-      },
-      "status": "certified"
-  }
-  ```
+```php
+<?php
+$customersApi = new DwollaSwagger\CustomersApi($apiClient);
+$customerId = 'https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909';
+$certifyCustomer = $customersApi->changeOwnershipStatus(['status' => 'certified' ], $customerId);
+?>
+```
 
-  ```ruby
-  # Using DwollaV2 - https://github.com/Dwolla/dwolla-v2-ruby
-  customer_url = 'https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909'
-  request_body = {
-    :status => "certified"
-  }
-
-  app_token.post "#{customer_url}/beneficial-ownership", request_body
-  ```
-
-  ```javascript
-  var customerUrl =
-    "https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909";
-  var requestBody = {
-    status: "certified",
-  };
-
-  dwolla.post(`${customerUrl}/beneficial-ownership`, requestBody);
-  ```
-
-  ```python
-  # Using dwollav2 - https://github.com/Dwolla/dwolla-v2-python
-  customer_url = 'https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909'
-  request_body = {
-      "status": "certified"
-  }
-
-  app_token.post('%s/beneficial-ownership' % customer_url, request_body)
-  ```
-
-  ```php
-  <?php
-  $customersApi = new DwollaSwagger\CustomersApi($apiClient);
-  $customerId = 'https://api-sandbox.dwolla.com/customers/e52006c3-7560-4ff1-99d5-b0f3a6f4f909';
-  $certifyCustomer = $customersApi->changeOwnershipStatus(['status' => 'certified' ], $customerId);
-  ?>
-  ```
 </CodeGroup>
 
 #### Certification Text Example
@@ -2257,9 +2269,9 @@ If you are adding, removing, or updating information of beneficial owners tied t
 
 Instances that you will see your `certified` business verified Customer change to `recertify` are as follows:
 
-* Adding a beneficial owner
-* Removing a beneficial owner
-* Updating a beneficial owner in `incomplete` status
+- Adding a beneficial owner
+- Removing a beneficial owner
+- Updating a beneficial owner in `incomplete` status
 
 When a Customer has a `recertify` beneficial ownership status, they will have up to thirty days to update and verify their beneficial owners' information and update their status to `certified`. If the certification status isn't updated within this timeframe, the business verified Customer will have its `certification_status` changed to `uncertified`, leaving the Customer unable to transact.
 
@@ -2311,6 +2323,7 @@ When a Customer has a `recertify` beneficial ownership status, they will have up
     <br />
 
     <strong>Tip:</strong> You can use the MCP server to programmatically check these links via the API.
+
   </p>
 </Accordion>
 
@@ -2326,6 +2339,7 @@ When a Customer has a `recertify` beneficial ownership status, they will have up
 
     <li>Add and verify a bank funding source - Yes</li>
     <li>Add and verify a Beneficial Owner - Yes</li>
+
   </ul>
 </Accordion>
 
@@ -2341,6 +2355,7 @@ When a Customer has a `recertify` beneficial ownership status, they will have up
 
     <li>Add and verify a bank funding source - Yes</li>
     <li>Add and verify a Beneficial Owner - Yes</li>
+
   </ul>
 </Accordion>
 
@@ -2368,6 +2383,7 @@ When a Customer has a `recertify` beneficial ownership status, they will have up
 
     or by going into the
     <a href="https://www.dwolla.com/platform/dashboard">Dwolla dashboard.</a>
+
   </p>
 </Accordion>
 
@@ -2411,6 +2427,7 @@ When a Customer has a `recertify` beneficial ownership status, they will have up
     </li>
 
     <li>Add and verify a bank funding source - Yes</li>
+
   </ul>
 </Accordion>
 
@@ -2425,5 +2442,6 @@ When a Customer has a `recertify` beneficial ownership status, they will have up
       If your Beneficial Owner is a non-US individual, they will use the{" "}
       `passport` object.
     </li>
+
   </ul>
 </Accordion>
