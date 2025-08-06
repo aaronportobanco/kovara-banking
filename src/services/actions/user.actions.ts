@@ -73,7 +73,7 @@ export const signUp = async ({ password, ...userData }: SignUpSchemaType): Promi
     // 3. Create session and set cookie
     const session = await account.createEmailPasswordSession(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
+    (await cookies()).set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
@@ -166,7 +166,7 @@ export const signIn = async ({ email, password }: LoginSchemaType): Promise<User
     const { account } = await createAdminClient();
     const session = await account.createEmailPasswordSession(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
+    (await cookies()).set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
@@ -219,7 +219,7 @@ export const signOut = async (): Promise<void> => {
     // The user is already logged out on the server, which is our goal.
   } finally {
     // This block ALWAYS runs, ensuring the client-side is cleaned up.
-    cookies().delete("appwrite-session");
+    (await cookies()).delete("appwrite-session");
     redirect("/sign-in");
   }
 };
