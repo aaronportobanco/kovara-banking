@@ -9,11 +9,21 @@ import {
 import { Client } from "dwolla-v2";
 
 /**
- * Retrieves the Dwolla environment from the environment variables.
- * This function ensures that the application is configured to run in a valid Dwolla environment.
+ * Determines and validates the Dwolla environment configuration.
  *
- * @returns {"production" | "sandbox"} The Dwolla environment.
- * @throws {Error} If the DWOLLA_ENV environment variable is not set to "sandbox" or "production".
+ * This function reads the DWOLLA_ENV environment variable and ensures it's set to
+ * a valid value. The environment determines which Dwolla API endpoints are used:
+ * - "sandbox": For development and testing with simulated transactions
+ * - "production": For live transactions with real money movement
+ *
+ * @returns {"production" | "sandbox"} The validated Dwolla environment setting
+ * @throws {Error} Throws error if DWOLLA_ENV is not set to "sandbox" or "production"
+ *
+ * @example
+ * ```typescript
+ * const env = getEnvironment();
+ * console.log(`Using Dwolla ${env} environment`);
+ * ```
  */
 const getEnvironment = (): "production" | "sandbox" => {
   const environment = process.env.DWOLLA_ENV as string;
@@ -29,9 +39,13 @@ const getEnvironment = (): "production" | "sandbox" => {
 };
 
 /**
- * The Dwolla API client instance.
- * This client is configured with the environment and credentials from the environment variables.
- * It is used to make all API calls to the Dwolla service.
+ * Pre-configured Dwolla API client instance.
+ *
+ * This client is initialized with environment-specific settings and API credentials
+ * from environment variables. It serves as the primary interface for all Dwolla
+ * API operations including customer creation, funding source management, and
+ * money transfers. The client automatically handles authentication and request
+ * formatting for the Dwolla API.
  */
 const dwollaClient = new Client({
   environment: getEnvironment(),
@@ -40,19 +54,33 @@ const dwollaClient = new Client({
 });
 
 /**
- * Creates a Dwolla Funding Source using a Plaid Processor Token.
- * This function links a bank account, previously authenticated with Plaid, to a Dwolla customer.
- * The funding source is what allows money to be moved to and from the bank account.
+ * Creates a funding source in Dwolla using a Plaid processor token.
  *
- * @param {CreateFundingSourceOptions} options - The options required to create the funding source.
- * @param {string} options.customerId - The Dwolla customer ID to which the funding source will be attached.
- * @param {string} options.fundingSourceName - A descriptive name for the funding source (e.g., the bank's name).
- * @param {string} options.plaidToken - The Plaid processor token obtained after exchanging the public token.
- * @returns {Promise<string | null>} A promise that resolves to the URL of the newly created funding source.
- * The URL is extracted from the "location" header of the API response. Returns null if the header is not present.
- * @throws {Error} If the API call to create the funding source fails.
+ * This function establishes a connection between a bank account (authenticated
+ * through Plaid) and a Dwolla customer account. The funding source enables
+ * money movement to and from the linked bank account. The Plaid processor token
+ * contains the necessary bank account information and authorization to create
+ * the funding source without requiring micro-deposit verification.
+ *
+ * @param {CreateFundingSourceOptions} options - Configuration for creating the funding source
+ * @param {string} options.customerId - The Dwolla customer ID to attach the funding source to
+ * @param {string} options.fundingSourceName - Descriptive name for the funding source (typically bank name)
+ * @param {string} options.plaidToken - Plaid processor token containing bank account authorization
+ * @param {object} options._links - Dwolla authorization links from on-demand authorization
+ * @returns {Promise<string | null>} URL of the newly created funding source, or null if creation fails
+ * @throws {Error} Throws error if Dwolla API call fails or invalid parameters provided
+ *
+ * @example
+ * ```typescript
+ * const fundingSourceUrl = await createFundingSource({
+ *   customerId: "customer_123",
+ *   fundingSourceName: "Chase Checking Account",
+ *   plaidToken: "processor_token_456",
+ *   _links: authorizationLinks
+ * });
+ * console.log(`Funding source created: ${fundingSourceUrl}`);
+ * ```
  */
-// Create a Dwolla Funding Source using a Plaid Processor Token
 export const createFundingSource = async (
   options: CreateFundingSourceOptions,
 ): Promise<string | null> => {
@@ -69,14 +97,24 @@ export const createFundingSource = async (
 };
 
 /**
- * Creates an On-Demand Authorization for Dwolla.
- * On-demand authorizations are used to grant temporary permission for certain actions,
- * such as creating a funding source without requiring micro-deposit verification.
- * This is a necessary step before adding a funding source via a Plaid processor token.
+ * Creates an on-demand authorization token for Dwolla operations.
  *
- * @returns {Promise<unknown>} A promise that resolves to the _links object from the Dwolla API response,
- * which contains the authorization link needed for subsequent API calls.
- * @throws {Error} If the API call to create the on-demand authorization fails.
+ * On-demand authorizations provide temporary permission for specific Dwolla
+ * operations that require additional security verification. This is particularly
+ * necessary when creating funding sources via third-party processors like Plaid,
+ * as it bypasses the standard micro-deposit verification process. The authorization
+ * contains security links that must be included in subsequent funding source
+ * creation requests.
+ *
+ * @returns {Promise<object>} Authorization object containing _links with security tokens
+ * @throws {Error} Throws error if Dwolla API call fails or authorization cannot be created
+ *
+ * @example
+ * ```typescript
+ * const authLinks = await createOnDemandAuthorization();
+ * // Use authLinks in funding source creation
+ * console.log("Authorization created successfully");
+ * ```
  */
 export const createOnDemandAuthorization = async (): Promise<object> => {
   try {
@@ -89,15 +127,44 @@ export const createOnDemandAuthorization = async (): Promise<object> => {
 };
 
 /**
- * Creates a new customer in Dwolla.
- * A Dwolla customer represents an end-user of the application. A customer record is required
- * before you can perform actions like creating funding sources or initiating transfers for that user.
+ * Creates a new customer account in the Dwolla system.
  *
- * @param {NewDwollaCustomerParams} newCustomer - An object containing the personal information of the new customer,
- * such as first name, last name, email, address, and type (which should be "personal").
- * @returns {Promise<string | null>} A promise that resolves to the URL of the newly created Dwolla customer.
- * This URL is the unique identifier for the customer in the Dwolla system. Returns null if the location header is not present.
- * @throws {Error} If the API call to create the customer fails.
+ * This function registers a new end-user in Dwolla's platform, creating a customer
+ * profile that can hold funding sources and participate in money transfers. The
+ * customer record includes personal information required for KYC (Know Your Customer)
+ * compliance and fraud prevention. Once created, the customer can link bank accounts
+ * and send/receive money through the Dwolla network.
+ *
+ * @param {NewDwollaCustomerParams} newCustomer - Complete customer information for registration
+ * @param {string} newCustomer.firstName - Customer's legal first name
+ * @param {string} newCustomer.lastName - Customer's legal last name
+ * @param {string} newCustomer.email - Customer's email address for notifications
+ * @param {string} newCustomer.type - Customer type, should be "personal" for individual accounts
+ * @param {string} newCustomer.address1 - Primary street address
+ * @param {string} newCustomer.city - City of residence
+ * @param {string} newCustomer.state - State or province (two-letter code)
+ * @param {string} newCustomer.postalCode - ZIP or postal code
+ * @param {string} newCustomer.dateOfBirth - Date of birth in YYYY-MM-DD format
+ * @param {string} newCustomer.ssn - Social Security Number (for US customers)
+ * @returns {Promise<string | null>} URL of the newly created customer record, or null if creation fails
+ * @throws {Error} Throws error if required information is missing or Dwolla API call fails
+ *
+ * @example
+ * ```typescript
+ * const customerUrl = await createDwollaCustomer({
+ *   firstName: "John",
+ *   lastName: "Doe",
+ *   email: "john@example.com",
+ *   type: "personal",
+ *   address1: "123 Main St",
+ *   city: "New York",
+ *   state: "NY",
+ *   postalCode: "10001",
+ *   dateOfBirth: "1990-01-01",
+ *   ssn: "123-45-6789"
+ * });
+ * console.log(`Customer created: ${customerUrl}`);
+ * ```
  */
 export const createDwollaCustomer = async (
   newCustomer: NewDwollaCustomerParams,
@@ -112,16 +179,31 @@ export const createDwollaCustomer = async (
 };
 
 /**
- * Initiates a transfer of funds between two Dwolla funding sources.
- * This function constructs and sends a transfer request to the Dwolla API.
+ * Initiates a money transfer between two Dwolla funding sources.
  *
- * @param {TransferParams} params - The parameters for the transfer.
- * @param {string} params.sourceFundingSourceUrl - The URL of the funding source from which the money will be debited.
- * @param {string} params.destinationFundingSourceUrl - The URL of the funding source to which the money will be credited.
- * @param {string} params.amount - The amount of money to transfer, as a string (e.g., "100.50").
- * @returns {Promise<string | null>} A promise that resolves to the URL of the newly created transfer record.
- * This URL can be used to track the status of the transfer. Returns null if the location header is not present.
- * @throws {Error} If the API call to create the transfer fails.
+ * This function creates a transfer request in the Dwolla network to move money
+ * from one funding source to another. The transfer includes the source (sender),
+ * destination (receiver), and amount in USD. Dwolla processes the transfer
+ * according to ACH network rules, which typically take 1-3 business days to
+ * complete. The function returns a transfer URL that can be used to track
+ * the transfer status and retrieve transfer details.
+ *
+ * @param {TransferParams} params - Transfer configuration and details
+ * @param {string} params.sourceFundingSourceUrl - Dwolla URL of the sender's funding source
+ * @param {string} params.destinationFundingSourceUrl - Dwolla URL of the receiver's funding source
+ * @param {string} params.amount - Transfer amount in USD (e.g., "100.50")
+ * @returns {Promise<string | null>} URL of the created transfer record for status tracking, or null if creation fails
+ * @throws {Error} Throws error if funding source URLs are invalid or transfer cannot be created
+ *
+ * @example
+ * ```typescript
+ * const transferUrl = await createTransfer({
+ *   sourceFundingSourceUrl: "https://api.dwolla.com/funding-sources/source_123",
+ *   destinationFundingSourceUrl: "https://api.dwolla.com/funding-sources/dest_456",
+ *   amount: "250.00"
+ * });
+ * console.log(`Transfer initiated: ${transferUrl}`);
+ * ```
  */
 export const createTransfer = async ({
   sourceFundingSourceUrl,
@@ -152,17 +234,35 @@ export const createTransfer = async ({
 };
 
 /**
- * A comprehensive function to add a new funding source to a Dwolla customer.
- * This function orchestrates the necessary steps:
- * 1. Creates an on-demand authorization token.
- * 2. Uses this token along with a Plaid processor token to create and link a new funding source.
+ * Orchestrates the complete process of adding a funding source to a Dwolla customer.
  *
- * @param {AddFundingSourceParams} params - The parameters required to add the funding source.
- * @param {string} params.dwollaCustomerId - The ID of the Dwolla customer.
- * @param {string} params.processorToken - The processor token obtained from Plaid.
- * @param {string} params.bankName - The name of the bank, used as the funding source name.
- * @returns {Promise<string | null>} A promise that resolves to the URL of the newly created funding source.
- * @throws {Error} If any step in the process (creating authorization or the funding source) fails.
+ * This comprehensive function handles the multi-step process required to link
+ * a bank account (authenticated via Plaid) to a Dwolla customer. The process
+ * involves creating the necessary authorization tokens and then establishing
+ * the funding source connection. This enables the customer to send and receive
+ * money through their linked bank account within the Dwolla network.
+ *
+ * The function performs these operations:
+ * 1. Creates an on-demand authorization for secure funding source creation
+ * 2. Uses the authorization and Plaid processor token to create the funding source
+ * 3. Returns the funding source URL for future money transfer operations
+ *
+ * @param {AddFundingSourceParams} params - Complete funding source configuration
+ * @param {string} params.dwollaCustomerId - The Dwolla customer ID to add the funding source to
+ * @param {string} params.processorToken - Plaid processor token containing bank account authorization
+ * @param {string} params.bankName - Name of the bank for display and identification purposes
+ * @returns {Promise<string | null>} URL of the newly created funding source, or null if any step fails
+ * @throws {Error} Throws error if authorization creation or funding source creation fails
+ *
+ * @example
+ * ```typescript
+ * const fundingSourceUrl = await addFundingSource({
+ *   dwollaCustomerId: "customer_123",
+ *   processorToken: "processor_sandbox_abc123",
+ *   bankName: "Chase Bank"
+ * });
+ * console.log(`Bank account linked: ${fundingSourceUrl}`);
+ * ```
  */
 export const addFundingSource = async ({
   dwollaCustomerId,
