@@ -10,6 +10,7 @@ import {
 } from "plaid";
 
 import { plaidClient } from "../server/plaid";
+import * as Sentry from "@sentry/nextjs";
 import { parseStringify } from "@/lib/utils";
 //import { getTransactionsByBankId } from "./transaction.actions";
 import {
@@ -141,7 +142,7 @@ export const getAccount = async ({
 }: GetAccountProps): Promise<GetAccountResponse> => {
   try {
     // get bank from db
-    const bank = (await getBank({ documentId: appwriteItemId })) as Bank;
+    const bank = (await getBank({ documentId: [appwriteItemId] })) as Bank;
 
     // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
@@ -204,6 +205,7 @@ export const getAccount = async ({
       transactions: allTransactions,
     });
   } catch (error) {
+    Sentry.captureException(error);
     throw new Error("An error occurred while getting the account: " + error);
   }
 };
@@ -355,7 +357,7 @@ export const getBank = async ({ documentId }: GetBankProps): Promise<unknown> =>
     const { database } = await createAdminClient();
 
     const bank = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_BANK_COLLECTION_ID!, [
-      Query.equal("$id", [documentId[0]]),
+      Query.equal("$id", documentId),
     ]);
 
     return parseStringify(bank.documents);
