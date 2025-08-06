@@ -26,6 +26,32 @@ import { createAdminClient } from "../server/appwrite";
 import { Query } from "node-appwrite";
 import { getTransactionsByBankId } from "./transactions.actions";
 
+// Add proper return type interfaces
+interface Account {
+  id: string;
+  availableBalance: number;
+  currentBalance: number;
+  institutionId: string;
+  name: string;
+  officialName: string | null;
+  mask: string;
+  type: string;
+  subtype: string;
+  appwriteItemId: string;
+  sharableId?: string;
+}
+
+interface GetAccountsResponse {
+  data: Account[];
+  totalBanks: number;
+  totalCurrentBalance: number;
+}
+
+interface GetAccountResponse {
+  data: Account;
+  transactions: Transaction[];
+}
+
 // Destructuring environment variables to access Appwrite database and collection IDs.
 const { APPWRITE_DATABASE_ID, APPWRITE_BANK_COLLECTION_ID } = process.env;
 
@@ -39,7 +65,7 @@ const { APPWRITE_DATABASE_ID, APPWRITE_BANK_COLLECTION_ID } = process.env;
  *
  * @param {GetAccountsProps} params - Object containing user identification
  * @param {string} params.userId - The unique identifier of the user whose accounts to fetch
- * @returns {Promise<{ data: Account[]; totalBanks: number; totalCurrentBalance: number; }>}
+ * @returns {Promise<GetAccountsResponse>}
  *   Object containing array of account details, total number of linked banks, and sum of all current balances
  * @throws {Error} Throws error if database query fails or Plaid API calls encounter issues
  *
@@ -49,7 +75,7 @@ const { APPWRITE_DATABASE_ID, APPWRITE_BANK_COLLECTION_ID } = process.env;
  * console.log(`User has ${userAccounts.totalBanks} banks with total balance: $${userAccounts.totalCurrentBalance}`);
  * ```
  */
-export const getAccounts = async ({ userId }: GetAccountsProps): Promise<unknown> => {
+export const getAccounts = async ({ userId }: GetAccountsProps): Promise<GetAccountsResponse> => {
   try {
     // get banks from db
     const banks = await getBanks({ userId });
@@ -71,7 +97,7 @@ export const getAccounts = async ({ userId }: GetAccountsProps): Promise<unknown
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const institutionData = institution as { institution_id: string };
 
-        const account = {
+        const account: Account = {
           id: accountData.account_id,
           availableBalance: accountData.balances.available!,
           currentBalance: accountData.balances.current!,
@@ -112,7 +138,7 @@ export const getAccounts = async ({ userId }: GetAccountsProps): Promise<unknown
  *
  * @param {GetAccountProps} params - Object containing account identification
  * @param {string} params.appwriteItemId - The Appwrite document ID of the bank record to fetch
- * @returns {Promise<{ data: Account; transactions: Transaction[]; }>}
+ * @returns {Promise<GetAccountResponse>}
  *   Object containing detailed account information and chronologically sorted transaction history
  * @throws {Error} Throws error if bank record not found, Plaid API fails, or transaction retrieval fails
  *
@@ -123,7 +149,9 @@ export const getAccounts = async ({ userId }: GetAccountsProps): Promise<unknown
  * console.log(`Total transactions: ${accountDetails.transactions.length}`);
  * ```
  */
-export const getAccount = async ({ appwriteItemId }: GetAccountProps): Promise<unknown> => {
+export const getAccount = async ({
+  appwriteItemId,
+}: GetAccountProps): Promise<GetAccountResponse> => {
   try {
     // get bank from db
     const bank = (await getBank({ documentId: appwriteItemId })) as Bank;
@@ -165,7 +193,7 @@ export const getAccount = async ({ appwriteItemId }: GetAccountProps): Promise<u
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const institutionData = institution as { institution_id: string };
 
-    const account = {
+    const account: Account = {
       id: accountData.account_id,
       availableBalance: accountData.balances.available!,
       currentBalance: accountData.balances.current!,
