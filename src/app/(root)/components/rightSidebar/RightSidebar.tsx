@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { RightSidebarProps } from "#/types";
 
-const RightSidebar = ({ user, banks }: RightSidebarProps) => {
+const RightSidebar = ({ user, banks }: RightSidebarProps): React.JSX.Element => {
   const name = `${user.firstName} ${user.lastName}`;
 
   return (
