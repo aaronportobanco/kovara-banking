@@ -252,7 +252,7 @@ export const signIn = async ({ email, password }: LoginSchemaType): Promise<User
       secure: true,
     });
 
-    const user = await getLoggedInUser();
+    const user = await getUserInfo({ userId: session.userId });
 
     if (!user) {
       // This case should ideally not happen if session creation succeeds.
