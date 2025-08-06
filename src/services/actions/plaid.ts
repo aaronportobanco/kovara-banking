@@ -15,22 +15,32 @@ import { addFundingSource } from "./dwolla.actions";
 import { createAdminClient } from "../server/appwrite";
 import { ID } from "node-appwrite";
 
-const {
-  APPWRITE_DATABASE_ID: DATABASE_ID,
-  // APPWRITE_USER_COLLECTION_ID: USER_COLLECTION_ID,
-  APPWRITE_BANK_COLLECTION_ID: BANK_COLLECTION_ID,
-} = process.env;
+// Destructuring environment variables to access Appwrite database and transactions IDs.
+const { APPWRITE_DATABASE_ID, APPWRITE_BANK_COLLECTION_ID } = process.env;
 
 /**
- * Creates a Plaid Link token for a given user.
- * This token is used by the Plaid Link front-end component to initialize the linking process.
- * It is short-lived and user-specific.
+ * Creates a Plaid Link token for user bank account connection initialization.
  *
- * @param {User} user - The user object for whom the link token is being created.
- *                      The user's ID is used to associate the Plaid Item with the user.
- * @returns {Promise<{ linkToken: string }>} A promise that resolves to an object containing the `link_token`.
- *                         Note: The function signature is `Promise<void>`, but it actually returns a value.
- * @throws {Error} If the Plaid API call to create the link token fails.
+ * This function generates a short-lived, user-specific token that enables the
+ * Plaid Link frontend component to securely initialize the bank account linking
+ * process. The token contains user identification and configuration settings
+ * that determine which financial institutions and account types are available
+ * during the linking flow. The token is configured for US-based institutions
+ * and authentication-only access.
+ *
+ * @param {User} user - Complete user object containing identification and profile data
+ * @param {string} user.$id - The Appwrite user ID used as the unique client identifier
+ * @param {string} user.firstName - User's first name for display in Link flow
+ * @param {string} user.lastName - User's last name for display in Link flow
+ * @returns {Promise<{ linkToken: string }>} Object containing the Link token for frontend initialization
+ * @throws {Error} Throws error if Plaid API call fails or user information is invalid
+ *
+ * @example
+ * ```typescript
+ * const tokenResponse = await createLinkToken(currentUser);
+ * console.log(`Link token: ${tokenResponse.linkToken}`);
+ * // Use token in Plaid Link component initialization
+ * ```
  */
 export const createLinkToken = async (user: User): Promise<{ linkToken: string }> => {
   try {
@@ -55,19 +65,37 @@ export const createLinkToken = async (user: User): Promise<{ linkToken: string }
 };
 
 /**
- * Creates a bank account document in the Appwrite database.
- * This function saves the bank's metadata, linking it to a user in our system.
+ * Creates a bank account record in the Appwrite database.
  *
- * @param {CreateBankAccountProps} props - An object containing the necessary details for the bank account.
- * @param {string} props.bank_user_id - The Appwrite user ID of the account owner.
- * @param {string} props.bank_id - The Plaid Item ID, representing the connection to the financial institution.
- * @param {string} props.bank_account_id - The Plaid Account ID, representing the specific account.
- * @param {string} props.bank_access_token - The Plaid access token for this item.
- * @param {string} props.bank_funding_source_url - The Dwolla funding source URL.
- * @param {string} props.bank_sharable_id - A sharable ID for the bank account.
- * @returns {Promise<any>} A promise that resolves to a stringified version of the newly created bank account document.
- *                         Note: The function signature is `Promise<void>`, but it actually returns a value.
- * @throws {Error} If the database operation to create the document fails.
+ * This function persists bank account metadata to the Kovara Banking database,
+ * establishing the relationship between a user and their connected financial
+ * institution. The record includes all necessary identifiers and tokens required
+ * for future account operations, transaction retrieval, and money transfers.
+ * This data serves as the bridge between Plaid account information and Dwolla
+ * funding sources within the application's ecosystem.
+ *
+ * @param {CreateBankAccountProps} params - Complete bank account information for database storage
+ * @param {string} params.userId - The Appwrite user ID of the account owner
+ * @param {string} params.bankId - The Plaid Item ID representing the bank connection
+ * @param {string} params.accountId - The Plaid Account ID for the specific bank account
+ * @param {string} params.accessToken - The Plaid access token for API operations
+ * @param {string} params.fundingSourceUrl - The Dwolla funding source URL for transfers
+ * @param {string} params.shareableId - Encrypted shareable identifier for the account
+ * @returns {Promise<string>} Stringified bank account document with Appwrite metadata
+ * @throws {Error} Throws error if database operation fails or required parameters are missing
+ *
+ * @example
+ * ```typescript
+ * const bankAccount = await createBankAccount({
+ *   userId: "user_123",
+ *   bankId: "item_456",
+ *   accountId: "account_789",
+ *   accessToken: "access_token_abc",
+ *   fundingSourceUrl: "https://api.dwolla.com/funding-sources/xyz",
+ *   shareableId: "encrypted_id_def"
+ * });
+ * console.log(`Bank account created: ${bankAccount}`);
+ * ```
  */
 export const createBankAccount = async ({
   userId,
@@ -81,8 +109,8 @@ export const createBankAccount = async ({
     const { database } = await createAdminClient();
 
     const bankAccount = await database.createDocument(
-      DATABASE_ID!,
-      BANK_COLLECTION_ID!,
+      APPWRITE_DATABASE_ID!,
+      APPWRITE_BANK_COLLECTION_ID!,
       ID.unique(),
       {
         userId,
@@ -101,21 +129,39 @@ export const createBankAccount = async ({
 };
 
 /**
- * Exchanges a Plaid public token for an access token and performs the full bank linking process.
- * This is a multi-step server action that:
- * 1. Exchanges the short-lived `publicToken` (from Plaid Link) for a long-lived `access_token`.
- * 2. Fetches account details from Plaid using the `access_token`.
- * 3. Creates a Plaid processor token for Dwolla integration.
- * 4. Creates a Dwolla funding source URL using the processor token.
- * 5. Persists the new bank account information (including tokens and IDs) to the Appwrite database.
- * 6. Revalidates the home page path to show the newly added bank account.
+ * Orchestrates the complete bank account linking process from Plaid public token.
  *
- * @param {ExchangePublicTokenProps} props - The properties needed for the exchange.
- * @param {string} props.publicToken - The public token obtained from the Plaid Link on-success callback.
- * @param {User} props.user - The logged-in user object, containing their Dwolla customer ID.
- * @returns {Promise<{ publicTokenExchange: string }>} A promise that resolves to a stringified object indicating the process is complete.
- *                         Note: The function signature is `Promise<void>`, but it actually returns a value.
- * @throws {Error} If any step in the process fails (token exchange, Dwolla integration, database write).
+ * This comprehensive function handles the entire flow of connecting a user's bank
+ * account to the Kovara Banking system. It coordinates multiple APIs and services
+ * to establish a complete banking integration. The process involves exchanging
+ * tokens, retrieving account details, creating payment processing capabilities,
+ * and persisting all necessary data for future operations.
+ *
+ * The multi-step process includes:
+ * 1. Exchanging the temporary public token for a permanent access token
+ * 2. Retrieving detailed account information from Plaid
+ * 3. Creating a processor token for Dwolla integration
+ * 4. Establishing a Dwolla funding source for money transfers
+ * 5. Persisting the complete bank account record in the database
+ * 6. Refreshing the application state to reflect the new account
+ *
+ * @param {ExchangePublicTokenProps} params - Token exchange and user information
+ * @param {string} params.publicToken - The public token from Plaid Link success callback
+ * @param {User} params.user - Complete user object with Dwolla customer information
+ * @param {string} params.user.dwollaCustomerId - Dwolla customer ID for funding source creation
+ * @param {string} params.user.$id - Appwrite user ID for database association
+ * @returns {Promise<string>} Stringified success object indicating completion
+ * @throws {Error} Throws error if any step fails: token exchange, API calls, or database operations
+ *
+ * @example
+ * ```typescript
+ * const result = await exchangePublicToken({
+ *   publicToken: "public_token_from_link",
+ *   user: currentUser
+ * });
+ * console.log("Bank account successfully linked:", result);
+ * // User can now view their account and make transfers
+ * ```
  */
 export const exchangePublicToken = async ({
   publicToken,
