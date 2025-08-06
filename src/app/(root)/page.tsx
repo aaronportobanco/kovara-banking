@@ -5,7 +5,7 @@ import RightSidebar from "./components/rightSidebar/RightSidebar";
 import React from "react";
 import { redirect } from "next/navigation";
 
-const Home = async () => {
+const Home: () => Promise<JSX.Element> = async () => {
   const loggedIn = await getLoggedInUser();
 
   // If the user is not logged in, redirect to the sign-in page
