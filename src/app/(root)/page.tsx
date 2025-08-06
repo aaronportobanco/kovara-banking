@@ -2,7 +2,7 @@ import { getLoggedInUser } from "@/services/actions/user.actions";
 import HeaderBox from "./components/HeaderBox";
 import TotalBalanceBox from "./components/TotalBalanceBox";
 import RightSidebar from "./components/rightSidebar/RightSidebar";
-import React from "react";
+import React, { JSX } from "react";
 import { redirect } from "next/navigation";
 
 const Home: () => Promise<JSX.Element> = async () => {
