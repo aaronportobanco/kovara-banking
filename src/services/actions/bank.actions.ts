@@ -13,6 +13,7 @@ import { plaidClient } from "../server/plaid";
 import { parseStringify } from "@/lib/utils";
 //import { getTransactionsByBankId } from "./transaction.actions";
 import {
+  Account,
   Bank,
   GetAccountProps,
   GetAccountsProps,
@@ -27,20 +28,6 @@ import { Query } from "node-appwrite";
 import { getTransactionsByBankId } from "./transactions.actions";
 
 // Add proper return type interfaces
-interface Account {
-  id: string;
-  availableBalance: number;
-  currentBalance: number;
-  institutionId: string;
-  name: string;
-  officialName: string | null;
-  mask: string;
-  type: string;
-  subtype: string;
-  appwriteItemId: string;
-  sharableId?: string;
-}
-
 interface GetAccountsResponse {
   data: Account[];
   totalBanks: number;
@@ -103,12 +90,12 @@ export const getAccounts = async ({ userId }: GetAccountsProps): Promise<GetAcco
           currentBalance: accountData.balances.current!,
           institutionId: institutionData.institution_id,
           name: accountData.name,
-          officialName: accountData.official_name,
+          officialName: accountData.official_name || accountData.name,
           mask: accountData.mask!,
           type: accountData.type as string,
           subtype: accountData.subtype! as string,
           appwriteItemId: bank.$id,
-          sharableId: bank.sharableId,
+          sharableId: bank.sharableId || bank.$id, // Ensure sharableId is always a string
         };
 
         return account;
@@ -199,11 +186,12 @@ export const getAccount = async ({
       currentBalance: accountData.balances.current!,
       institutionId: institutionData.institution_id,
       name: accountData.name,
-      officialName: accountData.official_name,
+      officialName: accountData.official_name || accountData.name,
       mask: accountData.mask!,
       type: accountData.type as string,
       subtype: accountData.subtype! as string,
       appwriteItemId: bank.$id,
+      sharableId: bank.sharableId || bank.$id, // Ensure sharableId is always a string
     };
 
     // sort transactions by date such that the most recent transaction is first
