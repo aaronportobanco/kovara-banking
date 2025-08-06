@@ -15,16 +15,46 @@ import { SignUpSchemaType } from "@/schemas/signUpSchema";
 const { APPWRITE_DATABASE_ID, APPWRITE_USER_COLLECTION_ID } = process.env;
 
 /**
- * Registers a new user.
- * This server action handles the complete sign-up process including:
- * 1. Creating a Dwolla customer for payment processing.
- * 2. Creating an Appwrite authentication user.
- * 3. Storing user details in the Appwrite database.
- * 4. Creating and setting a session cookie to log the user in.
+ * Registers a new user in the Kovara Banking system.
  *
- * @param {SignUpSchemaType} { password, ...userData } - The user's data for registration.
- * @returns {Promise<User>} A promise that resolves with the newly created user object.
- * @throws {Error} Throws a user-friendly error if any step of the sign-up process fails.
+ * This function handles the complete user registration process by orchestrating
+ * multiple services and database operations. It creates accounts across different
+ * platforms and establishes user authentication. The process includes:
+ * - Creating a Dwolla customer account for payment processing capabilities
+ * - Setting up Appwrite authentication account with secure credentials
+ * - Storing comprehensive user profile data in the database
+ * - Establishing an authenticated session with secure cookie management
+ *
+ * @param {SignUpSchemaType} userData - Complete user registration data validated by Zod schema
+ * @param {string} userData.password - User's chosen password for authentication
+ * @param {string} userData.email - User's email address (must be unique)
+ * @param {string} userData.firstName - User's first name
+ * @param {string} userData.lastName - User's last name
+ * @param {string} userData.address1 - Primary address line
+ * @param {string} userData.city - City of residence
+ * @param {string} userData.state - State or province
+ * @param {string} userData.postalCode - ZIP or postal code
+ * @param {string} userData.dateOfBirth - Date of birth in YYYY-MM-DD format
+ * @param {string} userData.ssn - Social Security Number (encrypted/secured)
+ * @returns {Promise<User>} Newly created user object with all profile data and system IDs
+ * @throws {Error} Throws specific error messages for duplicate accounts, Dwolla failures, or system issues
+ *
+ * @example
+ * ```typescript
+ * const newUser = await signUp({
+ *   email: "john@example.com",
+ *   password: "securePassword123",
+ *   firstName: "John",
+ *   lastName: "Doe",
+ *   address1: "123 Main St",
+ *   city: "New York",
+ *   state: "NY",
+ *   postalCode: "10001",
+ *   dateOfBirth: "1990-01-01",
+ *   ssn: "123-45-6789"
+ * });
+ * console.log(`User created with ID: ${newUser.$id}`);
+ * ```
  */
 export const signUp = async ({ password, ...userData }: SignUpSchemaType): Promise<User> => {
   const { email, firstName, lastName } = userData;
@@ -91,16 +121,31 @@ export const signUp = async ({ password, ...userData }: SignUpSchemaType): Promi
     Sentry.captureException(error);
 
     // Provide a generic, user-friendly error message.
-    throw new Error("An unexpected error occurred during sign-up. Please try again.");
+    throw new Error("An unexpected error occurred during sign-up. Please try again." + error);
   }
 };
 
 /**
- * Retrieves the currently logged-in user's data from the database.
- * It verifies the active session and fetches the corresponding user document.
+ * Retrieves the currently authenticated user's complete profile data.
  *
- * @returns {Promise<User | null>} The full user object if a session is active, otherwise `null`.
- * @throws {Error} Throws an error for unexpected issues like data integrity problems or server errors.
+ * This function verifies the active session using the session cookie and fetches
+ * the corresponding user document from the database. It handles both the authentication
+ * verification and data retrieval in a single operation. The function is designed
+ * to handle cases where the session exists but the user document might be missing
+ * (indicating a data integrity issue).
+ *
+ * @returns {Promise<User | null>} Complete user profile object if authenticated, null if no active session
+ * @throws {Error} Throws error for data integrity issues or unexpected system failures
+ *
+ * @example
+ * ```typescript
+ * const currentUser = await getLoggedInUser();
+ * if (currentUser) {
+ *   console.log(`Welcome back, ${currentUser.firstName}!`);
+ * } else {
+ *   console.log("No user is currently logged in");
+ * }
+ * ```
  */
 export async function getLoggedInUser(): Promise<User | null> {
   try {
@@ -125,11 +170,25 @@ export async function getLoggedInUser(): Promise<User | null> {
 }
 
 /**
- * Fetches user information from the Appwrite database collection.
- * Queries the user collection for a document matching the provided userId.
+ * Fetches user profile information from the Appwrite database by user ID.
  *
- * @param {GetUserInfoProps} { userId } - The user's ID from Appwrite Authentication.
- * @returns {Promise<User | null>} A promise that resolves with the user document from the database.
+ * This function queries the user collection to retrieve a complete user document
+ * based on the Appwrite Authentication user ID. It's primarily used as a helper
+ * function by other authentication-related operations. The function handles cases
+ * where no user document exists for a given authentication ID.
+ *
+ * @param {GetUserInfoProps} params - Object containing user identification
+ * @param {string} params.userId - The Appwrite Authentication user ID to look up
+ * @returns {Promise<User | null>} User document with profile data, or null if not found
+ * @throws {Error} Throws error for database connection issues or query failures
+ *
+ * @example
+ * ```typescript
+ * const userProfile = await getUserInfo({ userId: "auth_user_123" });
+ * if (userProfile) {
+ *   console.log(`User: ${userProfile.firstName} ${userProfile.lastName}`);
+ * }
+ * ```
  */
 export const getUserInfo = async ({ userId }: GetUserInfoProps): Promise<User | null> => {
   try {
@@ -149,17 +208,37 @@ export const getUserInfo = async ({ userId }: GetUserInfoProps): Promise<User | 
     // This is an unexpected error (e.g., Appwrite is down, network issue).
     // We log it to Sentry and re-throw so the calling function knows something went wrong.
     Sentry.captureException(error);
-    throw new Error("Failed to retrieve user information from the database.");
+    throw new Error("Failed to retrieve user information from the database." + error);
   }
 };
 
 /**
- * Signs in a user.
- * Verifies credentials, creates a session, sets a session cookie, and returns the user data.
+ * Authenticates a user and establishes a secure session.
  *
- * @param {LoginSchemaType} { email, password } - The user's login credentials.
- * @returns {Promise<User>} A promise that resolves with the logged-in user's data.
- * @throws {Error} Throws an error for invalid credentials or other sign-in failures.
+ * This function handles the complete sign-in process by verifying user credentials
+ * against Appwrite's authentication system and creating a secure session. Upon
+ * successful authentication, it sets an HTTP-only session cookie and retrieves
+ * the user's profile data. The function includes comprehensive error handling
+ * for both expected authentication failures and unexpected system errors.
+ *
+ * @param {LoginSchemaType} credentials - User login credentials validated by Zod schema
+ * @param {string} credentials.email - User's registered email address
+ * @param {string} credentials.password - User's password for authentication
+ * @returns {Promise<User>} Complete user profile data upon successful authentication
+ * @throws {Error} Throws specific errors for invalid credentials or system failures
+ *
+ * @example
+ * ```typescript
+ * try {
+ *   const user = await signIn({
+ *     email: "john@example.com",
+ *     password: "userPassword123"
+ *   });
+ *   console.log(`Successfully logged in: ${user.firstName}`);
+ * } catch (error) {
+ *   console.error("Login failed:", error.message);
+ * }
+ * ```
  */
 export const signIn = async ({ email, password }: LoginSchemaType): Promise<User> => {
   try {
@@ -192,16 +271,29 @@ export const signIn = async ({ email, password }: LoginSchemaType): Promise<User
 
     // For all other errors, it's an UNEXPECTED problem.
     Sentry.captureException(error);
-    throw new Error("An unexpected error occurred during sign-in. Please try again.");
+    throw new Error("An unexpected error occurred during sign-in. Please try again." + error);
   }
 };
 
 /**
- * Signs out the current user.
- * Deletes the Appwrite session and removes the client-side session cookie.
+ * Signs out the current user and cleans up session data.
  *
- * @returns {Promise<void>} Redirects the user upon completion.
- * @throws {Error} Throws an error if sign-out fails unexpectedly.
+ * This function handles the complete logout process by terminating the server-side
+ * session in Appwrite and removing the client-side session cookie. It includes
+ * robust error handling to ensure client-side cleanup occurs even if server-side
+ * session deletion fails. Upon completion, the user is automatically redirected
+ * to the sign-in page. The function is designed to be fail-safe, prioritizing
+ * user security by always clearing client-side state.
+ *
+ * @returns {Promise<void>} Redirects to sign-in page upon completion, never returns normally
+ * @throws {Error} Logs unexpected errors to Sentry but continues with logout process
+ *
+ * @example
+ * ```typescript
+ * // User will be redirected after this call
+ * await signOut();
+ * // This code will not execute due to redirect
+ * ```
  */
 export const signOut = async (): Promise<void> => {
   try {
