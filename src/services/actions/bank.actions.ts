@@ -142,7 +142,18 @@ export const getAccount = async ({
 }: GetAccountProps): Promise<GetAccountResponse> => {
   try {
     // get bank from db
-    const bank = (await getBank({ documentId: [appwriteItemId] })) as Bank;
+    const bankData = (await getBank({ documentId: [appwriteItemId] })) as Bank[];
+
+    if (!bankData || bankData.length === 0) {
+      throw new Error("Bank not found");
+    }
+
+    const bank = bankData[0];
+
+    // Validate access token exists
+    if (!bank.accessToken) {
+      throw new Error("Bank access token not found");
+    }
 
     // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
@@ -173,10 +184,17 @@ export const getAccount = async ({
       institutionId: accountsResponse.data.item.institution_id!,
     });
 
-    // Get the latest transactions from Plaid
-    const transactions = (await getTransactions({
-      accessToken: bank?.accessToken,
-    })) as Transaction[];
+    // Get the latest transactions from Plaid with error handling
+    let transactions: Transaction[] = [];
+    try {
+      transactions = (await getTransactions({
+        accessToken: bank.accessToken,
+      })) as Transaction[];
+    } catch (transactionError) {
+      console.error("Failed to fetch Plaid transactions:", transactionError);
+      Sentry.captureException(transactionError);
+      // Continue without Plaid transactions - we still have transfer transactions
+    }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const institutionData = institution as { institution_id: string };
@@ -192,7 +210,7 @@ export const getAccount = async ({
       type: accountData.type as string,
       subtype: accountData.subtype! as string,
       appwriteItemId: bank.$id,
-      sharableId: bank.sharableId || bank.$id, // Ensure sharableId is always a string
+      sharableId: bank.sharableId || bank.$id,
     };
 
     // sort transactions by date such that the most recent transaction is first
@@ -269,6 +287,11 @@ export const getTransactions = async ({ accessToken }: GetTransactionsProps): Pr
   let transactions: unknown = [];
 
   try {
+    // Validate access token
+    if (!accessToken) {
+      throw new Error("Access token is required");
+    }
+
     // Iterate through each page of new transaction updates for item
     while (hasMore) {
       const response = await plaidClient.transactionsSync({
@@ -296,6 +319,23 @@ export const getTransactions = async ({ accessToken }: GetTransactionsProps): Pr
 
     return parseStringify(transactions);
   } catch (error) {
+    // Log more detailed error information
+    console.error("Plaid transactions error:", {
+      error: error,
+      accessToken: accessToken ? "***exists***" : "missing",
+    });
+
+    Sentry.captureException(error, {
+      tags: {
+        function: "getTransactions",
+        service: "plaid",
+      },
+      extra: {
+        hasAccessToken: !!accessToken,
+        errorMessage: error instanceof Error ? error.message : String(error),
+      },
+    });
+
     throw new Error("An error occurred while getting the transactions: " + error);
   }
 };
@@ -343,16 +383,17 @@ export const getBanks = async ({ userId }: GetBanksProps): Promise<Bank[]> => {
  *
  * @param {GetBankProps} params - Object containing bank identification
  * @param {string[]} params.documentId - Array containing the Appwrite document ID of the bank to fetch
- * @returns {Promise<Bank>} Bank record containing access token, user ID, shareable ID, and other metadata
+ * @returns {Promise<Bank[]>} Array of bank records (typically containing one element)
  * @throws {Error} Throws error if document ID is invalid or database query fails
  *
  * @example
  * ```typescript
- * const bank = await getBank({ documentId: ["bank_doc_123"] });
+ * const banks = await getBank({ documentId: ["bank_doc_123"] });
+ * const bank = banks[0];
  * console.log(`Bank access token: ${bank.accessToken}`);
  * ```
  */
-export const getBank = async ({ documentId }: GetBankProps): Promise<unknown> => {
+export const getBank = async ({ documentId }: GetBankProps): Promise<Bank[]> => {
   try {
     const { database } = await createAdminClient();
 
