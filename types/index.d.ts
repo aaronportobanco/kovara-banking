@@ -312,7 +312,7 @@ declare interface GetBanksProps {
 }
 
 declare interface GetBankProps {
-  documentId: string;
+  documentId: string[];
 }
 
 declare interface GetBankByAccountIdProps {
