@@ -184,7 +184,7 @@
   }
 
   .home-content {
-    @apply no-scrollbar flex w-full flex-1 flex-col gap-8 py-7 lg:py-9 pr-4 xl:max-h-screen xl:overflow-y-scroll;
+    @apply no-scrollbar flex w-full flex-1 flex-col gap-8 py-5 lg:py-6 pr-4 xl:max-h-screen xl:overflow-y-scroll;
   }
 
   .home-header {
@@ -220,7 +220,7 @@
   }
 
   .recent-transactions-label {
-    @apply text-20 md:text-24 font-semibold text-gray-900;
+    @apply text-sm md:text-lg font-semibold text-gray-900;
   }
 
   .recent-transactions-tablist {
