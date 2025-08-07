@@ -7,6 +7,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { cn, formUrlQuery, formatAmount, getAccountTypeColors } from "@/lib/utils";
 import { AccountTypes, BankInfoProps } from "#/types";
 import { JSX } from "react";
+import { Button } from "@/components/ui/button";
 
 const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps): JSX.Element => {
   const router = useRouter();
@@ -26,9 +27,10 @@ const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps): JSX.Element
   const colors = getAccountTypeColors(account?.type as AccountTypes);
 
   return (
-    <button
+    <Button
       onClick={handleBankChange}
-      className={cn(`bank-info ${colors.bg}`, {
+      variant="outline"
+      className={cn(`bank-info hover:bg-blue-100 ${colors.bg} gap-4`, {
         "shadow-sm border-blue-700": type === "card" && isActive,
         "rounded-xl": type === "card",
         "hover:shadow-sm cursor-pointer": type === "card",
@@ -37,15 +39,15 @@ const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps): JSX.Element
       <figure className={`flex-center h-fit rounded-full bg-blue-100 ${colors.lightBg}`}>
         <Image
           src="/icons/connect-bank.svg"
-          width={20}
-          height={20}
+          width={30}
+          height={30}
           alt={account.subtype}
           className="m-2 min-w-5"
         />
       </figure>
-      <div className="flex w-full flex-1 flex-col justify-center gap-1">
-        <div className="bank-info_content">
-          <h2 className={`text-16 line-clamp-1 flex-1 font-bold text-blue-900 ${colors.title}`}>
+      <div className="flex w-full flex-1 flex-col justify-start gap-2">
+        <div className="flex flex-row items-center justify-between w-full">
+          <h2 className={`text-16 line-clamp-1 font-bold text-blue-900 ${colors.title}`}>
             {account.name}
           </h2>
           {type === "full" && (
@@ -56,12 +58,11 @@ const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps): JSX.Element
             </p>
           )}
         </div>
-
-        <p className={`text-16 font-medium text-blue-700 ${colors.subText}`}>
+        <p className={`text-16 font-medium text-blue-700 ${colors.subText} text-left`}>
           {formatAmount(account.currentBalance)}
         </p>
       </div>
-    </button>
+    </Button>
   );
 };
 
