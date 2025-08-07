@@ -6,9 +6,11 @@ import React, { JSX } from "react";
 import { redirect } from "next/navigation";
 import { Account, Bank, SearchParamProps } from "#/types";
 import { getAccount, getAccounts } from "@/services/actions/bank.actions";
+import RecentTransactions from "./components/RecentTransactions";
 
-const Home = async ({ searchParams: { id, _page } }: SearchParamProps): Promise<JSX.Element> => {
+const Home = async ({ searchParams: { id, page } }: SearchParamProps): Promise<JSX.Element> => {
   const loggedIn = await getLoggedInUser();
+  const currentPage = Number(page as string) || 1;
 
   // If the user is not logged in, redirect to the sign-in page
   if (!loggedIn) {
@@ -52,6 +54,12 @@ const Home = async ({ searchParams: { id, _page } }: SearchParamProps): Promise<
           accounts={accountsData}
           totalBanks={accounts.totalBanks}
           totalCurrentBalance={accounts.totalCurrentBalance}
+        />
+        <RecentTransactions
+          accounts={accountsData}
+          transactions={account.transactions}
+          appwriteItemId={appwriteItemId}
+          page={currentPage}
         />
       </div>
       <RightSidebar
