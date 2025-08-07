@@ -319,6 +319,17 @@ declare interface GetBankByAccountIdProps {
   accountId: string;
 }
 
+declare interface GetAccountsResponse {
+  data: Account[];
+  totalBanks: number;
+  totalCurrentBalance: number;
+}
+
+declare interface GetAccountResponse {
+  data: Account;
+  transactions: Transaction[];
+}
+
 import { Control, FieldValues, FieldPath } from "react-hook-form";
 import { ZodEmail } from "zod";
 declare interface FormFieldProps<T extends FieldValues> {
