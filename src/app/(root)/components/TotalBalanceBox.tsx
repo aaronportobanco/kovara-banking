@@ -1,17 +1,17 @@
 import ChartPie from "./charts/PieChart";
 import AnimatedCounter from "../../../components/animation/AnimatedCounter";
 import React from "react";
-import { accounts as accountsData } from "../../../../constants"; // importa la data
 import { TotalBalanceBoxProps } from "#/types";
 
 const TotalBalanceBox = ({
   totalBanks,
   totalCurrentBalance,
+  accounts,
 }: TotalBalanceBoxProps): React.JSX.Element => {
   return (
     <section className="total-balance">
       <div className="total-balance-chart">
-        <ChartPie accounts={accountsData} /> {/* usa la data importada */}
+        <ChartPie accounts={accounts} />
       </div>
       <div className="flex flex-col gap-6">
         <h2 className="header-2"> Bank Accounts: {totalBanks}</h2>
