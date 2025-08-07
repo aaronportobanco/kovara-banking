@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { Account, Bank, SearchParamProps } from "#/types";
 import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 
-const Home = async ({ searchParams: { id, page } }: SearchParamProps): Promise<JSX.Element> => {
+const Home = async ({ searchParams: { id, _page } }: SearchParamProps): Promise<JSX.Element> => {
   const loggedIn = await getLoggedInUser();
 
   // If the user is not logged in, redirect to the sign-in page
