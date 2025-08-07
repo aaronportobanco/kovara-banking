@@ -1,22 +1,12 @@
 "use client";
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import React from "react";
+import React, { JSX } from "react";
+import { ChartPieProps } from "#/types";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#845EC2"];
 
-// Define el tipo de props si no existe
-type Account = {
-  id: string;
-  name: string;
-  currentBalance: number;
-};
-
-type ChartPieProps = {
-  accounts: Account[];
-};
-
-const ChartPie = ({ accounts }: ChartPieProps) => {
+const ChartPie = ({ accounts }: ChartPieProps): JSX.Element => {
   // Maneja el caso en que accounts sea undefined o vacío
   if (!accounts || accounts.length === 0) {
     return (
@@ -36,7 +26,7 @@ const ChartPie = ({ accounts }: ChartPieProps) => {
 
   const chartData = accounts.map(account => ({
     name: account.name,
-    value: account.currentBalance,
+    value: account.currentBalance || 0, // Asegúrate de que currentBalance sea un número
   }));
 
   return (
