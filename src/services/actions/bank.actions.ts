@@ -17,7 +17,9 @@ import {
   Account,
   Bank,
   GetAccountProps,
+  GetAccountResponse,
   GetAccountsProps,
+  GetAccountsResponse,
   GetBankProps,
   GetBanksProps,
   GetInstitutionProps,
@@ -27,18 +29,6 @@ import {
 import { createAdminClient } from "../server/appwrite";
 import { Query } from "node-appwrite";
 import { getTransactionsByBankId } from "./transactions.actions";
-
-// Add proper return type interfaces
-interface GetAccountsResponse {
-  data: Account[];
-  totalBanks: number;
-  totalCurrentBalance: number;
-}
-
-interface GetAccountResponse {
-  data: Account;
-  transactions: Transaction[];
-}
 
 // Destructuring environment variables to access Appwrite database and collection IDs.
 const { APPWRITE_DATABASE_ID, APPWRITE_BANK_COLLECTION_ID } = process.env;
