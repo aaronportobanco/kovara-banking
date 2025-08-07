@@ -4,8 +4,10 @@ import TotalBalanceBox from "./components/TotalBalanceBox";
 import RightSidebar from "./components/rightSidebar/RightSidebar";
 import React, { JSX } from "react";
 import { redirect } from "next/navigation";
+import { Account, Bank, SearchParamProps } from "#/types";
+import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 
-const Home: () => Promise<JSX.Element> = async () => {
+const Home = async ({ searchParams: { id, page } }: SearchParamProps): Promise<JSX.Element> => {
   const loggedIn = await getLoggedInUser();
 
   // If the user is not logged in, redirect to the sign-in page
@@ -13,23 +15,49 @@ const Home: () => Promise<JSX.Element> = async () => {
     redirect("/sign-in");
   }
 
+  // Fetch accounts for the logged-in user
+  const accounts = await getAccounts({ userId: loggedIn.$id });
+  if (!accounts) {
+    redirect("/sign-in");
+  }
+
+  const accountsData = accounts.data;
+
+  // Check if user has any accounts
+  if (!accountsData || accountsData.length === 0) {
+    redirect("/connect-bank");
+  }
+
+  const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
+
+  // Ensure we have a valid appwriteItemId
+  if (!appwriteItemId) {
+    redirect("/connect-bank");
+  }
+
+  const account = await getAccount({ appwriteItemId });
+
   return (
     <section className="home">
       <div className="home-content">
         <header className="home-header">
           <HeaderBox
-            type="greeting" // type can be "title" or "greeting"
+            type="greeting"
             title="Welcome back,"
-            subtext="Acces and manage your bank account easily and securely."
-            user={loggedIn?.firstName || "Guest"} // Fallback to "Guest" if firstName is not available
+            subtext="Access and manage your bank account easily and securely."
+            user={loggedIn?.firstName || "Guest"}
           />
         </header>
-        <TotalBalanceBox accounts={[]} totalBanks={2} totalCurrentBalance={1243.45} />
+        <TotalBalanceBox
+          accounts={accountsData}
+          totalBanks={accounts.totalBanks}
+          totalCurrentBalance={accounts.totalCurrentBalance}
+        />
       </div>
       <RightSidebar
         user={loggedIn}
-        transactions={[]}
-        banks={[{ currentBalance: 1000 }, { currentBalance: 2000 }]}
+        transactions={account?.transactions || []}
+        banks={accountsData.slice(0, 2) as (Bank & Account)[]}
       />
     </section>
   );
