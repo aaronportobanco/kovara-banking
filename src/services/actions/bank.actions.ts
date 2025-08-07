@@ -150,11 +150,6 @@ export const getAccount = async ({
 
     const bank = bankData[0];
 
-    // Validate access token exists
-    if (!bank.accessToken) {
-      throw new Error("Bank access token not found");
-    }
-
     // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
       // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -184,16 +179,23 @@ export const getAccount = async ({
       institutionId: accountsResponse.data.item.institution_id!,
     });
 
-    // Get the latest transactions from Plaid with error handling
+    // Get Plaid transactions with graceful error handling
     let transactions: Transaction[] = [];
     try {
       transactions = (await getTransactions({
         accessToken: bank.accessToken,
       })) as Transaction[];
-    } catch (transactionError) {
-      console.error("Failed to fetch Plaid transactions:", transactionError);
-      Sentry.captureException(transactionError);
-      // Continue without Plaid transactions - we still have transfer transactions
+    } catch (transactionError: unknown) {
+      // Silently handle Plaid consent errors - continue with only transfer transactions
+      if (
+        !(
+          transactionError instanceof Error &&
+          (transactionError.message.includes("ADDITIONAL_CONSENT_REQUIRED") ||
+            transactionError.message.includes("PRODUCT_TRANSACTIONS"))
+        )
+      ) {
+        Sentry.captureException(transactionError);
+      }
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -213,7 +215,7 @@ export const getAccount = async ({
       sharableId: bank.sharableId || bank.$id,
     };
 
-    // sort transactions by date such that the most recent transaction is first
+    // sort transactions by date (most recent first)
     const allTransactions = [...transactions, ...transferTransactions].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
@@ -319,12 +321,17 @@ export const getTransactions = async ({ accessToken }: GetTransactionsProps): Pr
 
     return parseStringify(transactions);
   } catch (error) {
-    // Log more detailed error information
-    console.error("Plaid transactions error:", {
-      error: error,
-      accessToken: accessToken ? "***exists***" : "missing",
-    });
+    // Handle specific Plaid consent errors gracefully
+    if (
+      error instanceof Error &&
+      (error.message.includes("ADDITIONAL_CONSENT_REQUIRED") ||
+        error.message.includes("PRODUCT_TRANSACTIONS"))
+    ) {
+      // Return empty transactions array for consent issues
+      return parseStringify([]);
+    }
 
+    // Log unexpected errors to Sentry
     Sentry.captureException(error, {
       tags: {
         function: "getTransactions",
@@ -332,7 +339,6 @@ export const getTransactions = async ({ accessToken }: GetTransactionsProps): Pr
       },
       extra: {
         hasAccessToken: !!accessToken,
-        errorMessage: error instanceof Error ? error.message : String(error),
       },
     });
 
