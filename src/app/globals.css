@@ -224,7 +224,7 @@
   }
 
   .recent-transactions-tablist {
-    @apply custom-scrollbar mb-8 flex w-full flex-nowrap bg-transparent;
+    @apply custom-scrollbar mb-8 flex flex-nowrap bg-transparent;
   }
 
   /* Right sidebar */
@@ -318,7 +318,7 @@
   }
 
   .banktab-item {
-    @apply gap-[18px] border-b-2 flex px-2 sm:px-4 py-2 transition-all;
+    @apply gap-5 border-b-2 rounded-tr-lg rounded-tl-lg flex px-2 sm:px-4 py-2 transition-all hover:bg-blue-25;
   }
 
   /* Mobile nav */
