@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { JSX } from "react";
 import BankTabItem from "./BankTabItem";
 import BankInfo from "./BankInfo";
+import TransactionsTable from "./TransactionsTable";
 
 const RecentTransactions = ({
   accounts,
@@ -15,7 +16,7 @@ const RecentTransactions = ({
   return (
     <section className="recent-transactions">
       <header className="flex items-center justify-between">
-        <h4 className="recent-transactions-label">Recent Transactions</h4>
+        <h3 className="recent-transactions-label">Recent Transactions</h3>
         <Button variant="outline">
           <Link
             href={`/transactions-history/?id=${appwriteItemId}`}
@@ -25,7 +26,7 @@ const RecentTransactions = ({
           </Link>
         </Button>
       </header>
-      <Tabs defaultValue={appwriteItemId} className="w-full">
+      <Tabs defaultValue={appwriteItemId}>
         <TabsList className="recent-transactions-tablist">
           {accounts.map((account: Account) => (
             <TabsTrigger key={account.id} value={account.appwriteItemId} asChild>
@@ -36,6 +37,7 @@ const RecentTransactions = ({
         {accounts.map((account: Account) => (
           <TabsContent key={account.id} value={account.appwriteItemId} className="space-y-4">
             <BankInfo account={account} appwriteItemId={appwriteItemId} type="full" />
+            <TransactionsTable transactions={transactions} />
           </TabsContent>
         ))}
       </Tabs>
