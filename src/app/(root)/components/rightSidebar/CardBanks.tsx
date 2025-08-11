@@ -3,16 +3,13 @@ import Link from "next/link";
 import { formatAmount } from "@/lib/utils";
 import Image from "next/image";
 import { CreditCardProps } from "#/types";
+import Copy from "../Copy";
 
-const CardBanks: React.FC<CreditCardProps> = ({
-  account,
-  userName,
-  //showBalance = true,
-}) => {
+const CardBanks: React.FC<CreditCardProps> = ({ account, userName, showBalance = true }) => {
   return (
     <div>
       <Link
-        href={`transaction-history/?id=${account.appwriteItemId}`}
+        href={`transactions-history/?id=${account.appwriteItemId}`}
         className="bank-card min-w-80"
       >
         <div className="bank-card_content">
@@ -52,6 +49,7 @@ const CardBanks: React.FC<CreditCardProps> = ({
       </Link>
 
       {/* COPY CARD NUMBERS */}
+      {showBalance && <Copy title={account.sharableId} />}
     </div>
   );
 };
