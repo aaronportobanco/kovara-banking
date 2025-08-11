@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { JSX } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -20,7 +20,7 @@ import { NavUser } from "./NavUser";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 
-const AppSidebar = () => {
+const AppSidebar = (): JSX.Element => {
   const pathname = usePathname();
   // Suponiendo que Sidebar maneja internamente el estado de colapsado, pero para aplicar la clase necesitamos forzarla.
   // Si Sidebar expone el estado, úsalo aquí. Si no, simplemente añade la clase para la variante "icon".
