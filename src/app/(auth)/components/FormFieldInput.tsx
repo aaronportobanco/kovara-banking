@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import { FormFieldProps } from "#/types";
+import { JSX } from "react";
 
 const FormFieldInput = <T extends FieldValues>({
   control,
@@ -21,7 +22,7 @@ const FormFieldInput = <T extends FieldValues>({
   minLength,
   maxLength,
   pattern,
-}: FormFieldProps<T>) => {
+}: FormFieldProps<T>): JSX.Element => {
   return (
     <FormField
       control={control}
