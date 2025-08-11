@@ -224,7 +224,7 @@
   }
 
   .recent-transactions-tablist {
-    @apply custom-scrollbar mb-8 flex flex-nowrap bg-transparent;
+    @apply custom-scrollbar mb-8 flex flex-nowrap bg-transparent !justify-start;
   }
 
   /* Right sidebar */
