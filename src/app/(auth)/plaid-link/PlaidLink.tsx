@@ -6,7 +6,9 @@ import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from "react-plaid-
 import { Button } from "@/components/ui/button";
 import { createLinkToken, exchangePublicToken } from "@/services/actions/plaid";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { CreditCard } from "lucide-react";
+import { SidebarMenuButton } from "@/components/ui/sidebar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const PlaidLink: React.FC<PlaidLinkProps> = ({ user, variant }) => {
   const router = useRouter();
@@ -40,18 +42,29 @@ const PlaidLink: React.FC<PlaidLinkProps> = ({ user, variant }) => {
     <>
       {variant === "primary" ? (
         <Button className="plaidlink-primary" onClick={() => open()} disabled={!ready}>
+          <CreditCard />
           Connect Bank
         </Button>
       ) : variant === "ghost" ? (
         <Button onClick={() => open()} variant="ghost" className="plaidlink-ghost">
-          <Image src="/icons/connect-bank.svg" alt="Connect Bank" width={24} height={24} />
+          <CreditCard />
           <p className=" hidden text-base font-semibold text-black-2 xl:block">Connect bank</p>
         </Button>
+      ) : variant === "sidebar" ? (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <SidebarMenuButton onClick={() => open()} disabled={!ready}>
+              <CreditCard />
+              <span>Connect Bank Account</span>
+            </SidebarMenuButton>
+          </TooltipTrigger>
+          <TooltipContent side="right">Connect Bank Account</TooltipContent>
+        </Tooltip>
       ) : (
-        <Button onClick={() => open()} className="plaidlink-default">
-          <Image src="/icons/connect-bank.svg" alt="Connect Bank" width={24} height={24} />
-          <p className="text-base font-semibold text-black-2 ">Connect bank</p>
-        </Button>
+        <SidebarMenuButton onClick={() => open()}>
+          <CreditCard />
+          <p>Connect bank account</p>
+        </SidebarMenuButton>
       )}
     </>
   );
