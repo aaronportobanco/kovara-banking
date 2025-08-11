@@ -12,16 +12,17 @@ export const transferSchema = z.object({
   sourceAccount: z
     .string({ error: "Source account must be a string" })
     .nonempty({ error: "Source account is required" })
-    .min(1, { error: "Source account must be at least 1 character long" })
+    .min(4, { error: "Source account must be at least 4 characters long" })
     .trim(),
   recipientAccount: z
     .string({ error: "Recipient account must be a string" })
     .nonempty({ error: "Recipient account is required" })
-    .min(1, { error: "Recipient account must be at least 1 character long" })
+    .min(8, { error: "Recipient account must be at least 8 characters long" })
     .trim(),
   note: z
     .string({ error: "Note must be a string" })
     .max(200, { error: "Note must be at most 200 characters long" })
+    .trim()
     .optional(),
   amount: z
     .number({
@@ -30,7 +31,7 @@ export const transferSchema = z.object({
           ? "Amount is required"
           : "Amount must be a integer number",
     })
-    .min(0, { error: "Amount must be positive" }),
+    .min(4, { error: "Amount must be at least 4 digits long" }),
 });
 
 // Export the type for use in the form
