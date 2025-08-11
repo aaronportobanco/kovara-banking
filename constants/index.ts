@@ -1,4 +1,4 @@
-import { Landmark, Home, ScrollText, CreditCard, ArrowLeftRight } from "lucide-react";
+import { Landmark, Home, ScrollText, ArrowLeftRight } from "lucide-react";
 
 export const sidebarLinks = [
   {
@@ -44,11 +44,6 @@ export const items = [
     title: "Payment Transfer",
     url: "/payment-transfer",
     icon: ArrowLeftRight,
-  },
-  {
-    title: "Connect Bank Account",
-    url: "/connect-account",
-    icon: CreditCard,
   },
 ];
 
@@ -118,7 +113,7 @@ export const topCategoryStyles = {
 };
 
 export const transactionCategoryStyles = {
-  "default": {
+  default: {
     borderColor: "border-gray-400",
     backgroundColor: "bg-gray-500",
     textColor: "text-gray-700",
@@ -130,7 +125,7 @@ export const transactionCategoryStyles = {
     textColor: "text-pink-700",
     chipBackgroundColor: "bg-inherit",
   },
-  "transfer": {
+  transfer: {
     borderColor: "border-blue-600",
     backgroundColor: "bg-blue-600",
     textColor: "text-blue-700",
