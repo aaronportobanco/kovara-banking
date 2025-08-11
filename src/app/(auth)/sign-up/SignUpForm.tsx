@@ -191,7 +191,7 @@ const SignUpForm: React.FC = () => {
               className="form-btn"
             >
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-              {isLoading ? "Submitting" : "Create account"}
+              {isLoading ? "Loading..." : "Create account"}
             </Button>
             <footer className="text-center text-sm">
               Already have an account?{" "}
