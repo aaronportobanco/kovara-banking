@@ -29,7 +29,7 @@ const FormFieldInput = <T extends FieldValues>({
       name={name}
       render={({ field }: { field: ControllerRenderProps<T, FieldPath<T>> }) => (
         <FormItem className="form-item">
-          <FormLabel className="form-label">{label}</FormLabel>
+          {label && <FormLabel className="form-label">{label}</FormLabel>}
           <div className="flex flex-col w-full">
             <FormControl>
               <Input
