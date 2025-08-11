@@ -11,7 +11,10 @@ const CardBanks: React.FC<CreditCardProps> = ({
 }) => {
   return (
     <div>
-      <Link href="/" className="bank-card">
+      <Link
+        href={`transaction-history/?id=${account.appwriteItemId}`}
+        className="bank-card min-w-80"
+      >
         <div className="bank-card_content">
           <div>
             <h1 className="text-16 font-semibold text-white">{userName}</h1>
