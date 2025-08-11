@@ -20,6 +20,7 @@ import {
   GetAccountResponse,
   GetAccountsProps,
   GetAccountsResponse,
+  GetBankByAccountIdProps,
   GetBankProps,
   GetBanksProps,
   GetInstitutionProps,
@@ -400,5 +401,47 @@ export const getBank = async ({ documentId }: GetBankProps): Promise<Bank[]> => 
     return parseStringify(bank.documents);
   } catch (error) {
     throw new Error("An error occurred while getting the bank: " + error);
+  }
+};
+
+/**
+ * Retrieves a specific bank record from Appwrite database by account ID.
+ *
+ * This function searches for a bank record using the Plaid account ID as the filter.
+ * It's useful when you need to find the bank document associated with a specific
+ * account, typically for operations that require both account and bank information.
+ * The function ensures that exactly one bank record is found for the given account ID.
+ *
+ * @param {GetBankByAccountIdProps} params - Object containing account identification
+ * @param {string} params.accountId - The Plaid account ID used to find the associated bank record
+ * @returns {Promise<Bank | null>}
+ *   Bank record if exactly one match is found, null if no match or multiple matches exist
+ * @throws {Error} Throws error if database query fails or encounters connection issues
+ *
+ * @example
+ * ```typescript
+ * const bank = await getBankByAccountId({ accountId: "account_123" });
+ * if (bank) {
+ *   console.log(`Found bank: ${bank.name} with access token available`);
+ * } else {
+ *   console.log("No unique bank found for this account ID");
+ * }
+ * ```
+ */
+export const getBankByAccountId = async ({
+  accountId,
+}: GetBankByAccountIdProps): Promise<Bank | null> => {
+  try {
+    const { database } = await createAdminClient();
+
+    const bank = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_BANK_COLLECTION_ID!, [
+      Query.equal("accountId", [accountId]),
+    ]);
+
+    if (bank.total !== 1) return null;
+
+    return parseStringify(bank.documents[0]);
+  } catch (error) {
+    throw new Error("An error occurred while getting the bank account by its ID: " + error);
   }
 };
