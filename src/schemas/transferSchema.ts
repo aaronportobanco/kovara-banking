@@ -9,15 +9,15 @@ export const transferSchema = z.object({
           : "Invalid email format",
     })
     .trim(),
-  sourceAccount: z
-    .string({ error: "Source account must be a string" })
-    .nonempty({ error: "Source account is required" })
-    .min(4, { error: "Source account must be at least 4 characters long" })
+  senderBank: z
+    .string({ error: "Sender bank must be a string" })
+    .nonempty({ error: "Sender bank is required" })
+    .min(4, { error: "Sender bank must be at least 4 characters long" })
     .trim(),
-  recipientAccount: z
-    .string({ error: "Recipient account must be a string" })
-    .nonempty({ error: "Recipient account is required" })
-    .min(8, { error: "Recipient account must be at least 8 characters long" })
+  sharableId: z
+    .string({ error: "Sharable ID must be a string" })
+    .nonempty({ error: "Sharable ID is required" })
+    .min(8, { error: "Sharable ID must be at least 8 characters long" })
     .trim(),
   note: z
     .string({ error: "Note must be a string" })
