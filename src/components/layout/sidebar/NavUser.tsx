@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import {
   BellIcon,
   CreditCardIcon,
@@ -29,7 +29,7 @@ import { getLoggedInUser, signOut } from "@/services/actions/user.actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "#/types";
 
-export const NavUser = () => {
+export const NavUser = (): JSX.Element => {
   const { isMobile } = useSidebar();
   const [user, setUser] = useState<User | null>(null);
 
@@ -112,7 +112,7 @@ export const NavUser = () => {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <BellIcon />
-                Notifications
+                Plaid Link
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
