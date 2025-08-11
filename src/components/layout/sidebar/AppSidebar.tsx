@@ -1,6 +1,6 @@
 "use client";
 
-import React, { JSX } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -19,12 +19,25 @@ import { usePathname } from "next/navigation";
 import { NavUser } from "./NavUser";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
+import PlaidLink from "@/app/(auth)/plaid-link/PlaidLink";
+import { getLoggedInUser } from "@/services/actions/user.actions";
+import { User } from "#/types";
 
 const AppSidebar = (): JSX.Element => {
   const pathname = usePathname();
+  const [user, setUser] = useState<User | null>(null);
+
   // Suponiendo que Sidebar maneja internamente el estado de colapsado, pero para aplicar la clase necesitamos forzarla.
   // Si Sidebar expone el estado, úsalo aquí. Si no, simplemente añade la clase para la variante "icon".
   const isCollapsed = true; // Forzamos para la variante "icon", ajusta si tienes un estado real
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const loggedInUser = await getLoggedInUser();
+      setUser(loggedInUser);
+    };
+    fetchUser();
+  }, []);
 
   return (
     <section>
@@ -70,6 +83,11 @@ const AppSidebar = (): JSX.Element => {
                     </SidebarMenuItem>
                   );
                 })}
+                {user && (
+                  <SidebarMenuItem className="w-full">
+                    <PlaidLink user={user} variant="sidebar" />
+                  </SidebarMenuItem>
+                )}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
