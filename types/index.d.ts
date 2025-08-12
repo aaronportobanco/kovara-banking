@@ -345,6 +345,19 @@ declare interface FormFieldProps<T extends FieldValues> {
   pattern?: RegExp;
 }
 
+declare interface TextAreaInputProps<T extends FieldValues> {
+  control: Control<T>;
+  name: FieldPath<T>;
+  label?: string;
+  placeholder?: string;
+  type?: string;
+  description?: string;
+  minLength?: number;
+  maxLength?: number;
+  autoComplete?: string;
+  rows?: number;
+}
+
 interface StateItem {
   code: string;
   name: string;
