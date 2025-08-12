@@ -312,7 +312,7 @@ declare interface GetBanksProps {
 }
 
 declare interface GetBankProps {
-  documentId: string[];
+  documentId: string;
 }
 
 declare interface GetBankByAccountIdProps {
@@ -335,7 +335,7 @@ import { ZodEmail } from "zod";
 declare interface FormFieldProps<T extends FieldValues> {
   control: Control<T>;
   name: FieldPath<T>;
-  label: string;
+  label?: string;
   placeholder?: string;
   type?: string;
   description?: string;
