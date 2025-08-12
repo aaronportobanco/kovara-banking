@@ -19,18 +19,10 @@ export const transferSchema = z.object({
     .nonempty({ error: "Sharable ID is required" })
     .min(8, { error: "Sharable ID must be at least 8 characters long" })
     .trim(),
-  note: z
-    .string({ error: "Note must be a string" })
-    .max(200, { error: "Note must be at most 200 characters long" })
-    .trim()
-    .optional(),
+  note: z.string().max(200, { error: "Note must be at most 200 characters long" }).trim(),
   amount: z
-    .number({
-      error: issue =>
-        issue.input === undefined || issue.input === null
-          ? "Amount is required"
-          : "Amount must be a integer number",
-    })
+    .string()
+    .nonempty({ error: "Amount is required" })
     .min(4, { error: "Amount must be at least 4 digits long" }),
 });
 
