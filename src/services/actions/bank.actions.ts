@@ -133,13 +133,11 @@ export const getAccount = async ({
 }: GetAccountProps): Promise<GetAccountResponse> => {
   try {
     // get bank from db
-    const bankData = (await getBank({ documentId: [appwriteItemId] })) as Bank[];
+    const bank = await getBank({ documentId: appwriteItemId });
 
-    if (!bankData || bankData.length === 0) {
+    if (!bank) {
       throw new Error("Bank not found");
     }
-
-    const bank = bankData[0];
 
     // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
@@ -379,26 +377,29 @@ export const getBanks = async ({ userId }: GetBanksProps): Promise<Bank[]> => {
  * the access token required for Plaid API calls.
  *
  * @param {GetBankProps} params - Object containing bank identification
- * @param {string[]} params.documentId - Array containing the Appwrite document ID of the bank to fetch
- * @returns {Promise<Bank[]>} Array of bank records (typically containing one element)
+ * @param {string} params.documentId - The Appwrite document ID of the bank to fetch
+ * @returns {Promise<Bank>} Bank record with access token and other details
  * @throws {Error} Throws error if document ID is invalid or database query fails
  *
  * @example
  * ```typescript
- * const banks = await getBank({ documentId: ["bank_doc_123"] });
- * const bank = banks[0];
+ * const bank = await getBank({ documentId: "bank_doc_123" });
  * console.log(`Bank access token: ${bank.accessToken}`);
  * ```
  */
-export const getBank = async ({ documentId }: GetBankProps): Promise<Bank[]> => {
+export const getBank = async ({ documentId }: GetBankProps): Promise<Bank> => {
   try {
     const { database } = await createAdminClient();
 
     const bank = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_BANK_COLLECTION_ID!, [
-      Query.equal("$id", documentId),
+      Query.equal("$id", [documentId]),
     ]);
 
-    return parseStringify(bank.documents);
+    if (!bank.documents || bank.documents.length === 0) {
+      throw new Error("Bank not found");
+    }
+
+    return parseStringify(bank.documents[0]);
   } catch (error) {
     throw new Error("An error occurred while getting the bank: " + error);
   }
