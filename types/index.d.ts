@@ -271,7 +271,7 @@ declare interface CreateFundingSourceOptions {
 }
 
 declare interface CreateTransactionProps {
-  name: string;
+  note?: string;
   amount: string;
   senderId: string;
   senderBankId: string;
@@ -304,7 +304,7 @@ declare interface CreateBankAccountProps {
   accountId: string;
   bankId: string;
   fundingSourceUrl: string;
-  shareableId: string;
+  sharableId: string;
 }
 
 declare interface GetBanksProps {

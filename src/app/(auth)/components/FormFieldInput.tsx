@@ -22,6 +22,7 @@ const FormFieldInput = <T extends FieldValues>({
   minLength,
   maxLength,
   pattern,
+  className,
 }: FormFieldProps<T>): JSX.Element => {
   return (
     <FormField
@@ -29,14 +30,14 @@ const FormFieldInput = <T extends FieldValues>({
       name={name}
       render={({ field }: { field: ControllerRenderProps<T, FieldPath<T>> }) => (
         <FormItem className="form-item">
-          <FormLabel className="form-label">{label}</FormLabel>
+          {label && <FormLabel className="form-label">{label}</FormLabel>}
           <div className="flex flex-col w-full">
             <FormControl>
               <Input
                 placeholder={placeholder}
                 type={type}
                 {...field}
-                className="input-class"
+                className={`input-class ${className || ""}`}
                 autoComplete={autoComplete}
                 min={minLength}
                 max={maxLength}

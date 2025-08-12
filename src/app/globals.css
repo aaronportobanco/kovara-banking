@@ -135,7 +135,7 @@
   }
 
   .header-2 {
-    @apply text-18 font-semibold text-gray-900;
+    @apply text-base font-medium text-gray-900;
   }
 
   .text-10 {

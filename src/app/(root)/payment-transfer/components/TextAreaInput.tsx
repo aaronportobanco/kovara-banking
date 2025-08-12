@@ -21,6 +21,7 @@ const TextAreaInput = <T extends FieldValues>({
   minLength,
   maxLength,
   rows,
+  className,
 }: TextAreaInputProps<T>): JSX.Element => {
   return (
     <FormField
@@ -28,13 +29,13 @@ const TextAreaInput = <T extends FieldValues>({
       name={name}
       render={({ field }: { field: ControllerRenderProps<T, FieldPath<T>> }) => (
         <FormItem className="form-item">
-          <FormLabel className="form-label">{label}</FormLabel>
+          {label && <FormLabel className="form-label">{label}</FormLabel>}
           <div className="flex flex-col w-full">
             <FormControl>
               <Textarea
                 placeholder={placeholder}
                 {...field}
-                className="input-class"
+                className={`input-class ${className || ""}`}
                 autoComplete={autoComplete}
                 minLength={minLength}
                 maxLength={maxLength}

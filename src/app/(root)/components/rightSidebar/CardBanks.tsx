@@ -8,10 +8,7 @@ import Copy from "../Copy";
 const CardBanks: React.FC<CreditCardProps> = ({ account, userName, showBalance = true }) => {
   return (
     <div>
-      <Link
-        href={`transactions-history/?id=${account.appwriteItemId}`}
-        className="bank-card min-w-80"
-      >
+      <Link href={`transactions-history/?id=${account.appwriteItemId}`} className="bank-card">
         <div className="bank-card_content">
           <div>
             <h1 className="text-16 font-semibold text-white">{userName}</h1>

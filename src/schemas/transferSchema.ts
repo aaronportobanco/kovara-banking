@@ -23,7 +23,7 @@ export const transferSchema = z.object({
   amount: z
     .string()
     .nonempty({ error: "Amount is required" })
-    .min(4, { error: "Amount must be at least 4 digits long" }),
+    .min(1, { error: "Amount must be at least 1 digits long" }),
 });
 
 // Export the type for use in the form

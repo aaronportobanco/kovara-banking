@@ -433,11 +433,17 @@ export const getBankByAccountId = async ({
   accountId,
 }: GetBankByAccountIdProps): Promise<Bank | null> => {
   try {
+    // eslint-disable-next-line no-console
+    console.log("🔍 DEBUG - Searching for bank with accountId:", accountId);
+
     const { database } = await createAdminClient();
 
     const bank = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_BANK_COLLECTION_ID!, [
       Query.equal("accountId", [accountId]),
     ]);
+
+    // eslint-disable-next-line no-console
+    console.log("🔍 DEBUG - Query result:", { total: bank.total, documents: bank.documents });
 
     if (bank.total !== 1) return null;
 
