@@ -342,6 +342,7 @@ declare interface FormFieldProps<T extends FieldValues> {
   minLength?: number;
   maxLength?: number;
   autoComplete?: string;
+  className?: string;
   pattern?: RegExp;
 }
 
@@ -355,6 +356,7 @@ declare interface TextAreaInputProps<T extends FieldValues> {
   minLength?: number;
   maxLength?: number;
   autoComplete?: string;
+  className?: string;
   rows?: number;
 }
 
