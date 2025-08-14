@@ -6,6 +6,7 @@ import React, { JSX } from "react";
 import BankTabItem from "./BankTabItem";
 import BankInfo from "./BankInfo";
 import TransactionsTable from "./TransactionsTable";
+import Pagination from "./Pagination";
 
 const RecentTransactions = ({
   accounts,
@@ -13,6 +14,12 @@ const RecentTransactions = ({
   transactions,
   appwriteItemId,
 }: RecentTransactionsProps): JSX.Element => {
+  const rowsPerPage = 10;
+  const totalPages = Math.ceil(transactions.length / rowsPerPage);
+  const indexLastTransaction = page * rowsPerPage;
+  const indexFirstTransaction = indexLastTransaction - rowsPerPage;
+
+  const currentTransactions = transactions.slice(indexFirstTransaction, indexLastTransaction);
   return (
     <section className="recent-transactions">
       <header className="flex items-center justify-between">
@@ -37,7 +44,12 @@ const RecentTransactions = ({
         {accounts.map((account: Account) => (
           <TabsContent key={account.id} value={account.appwriteItemId} className="space-y-4">
             <BankInfo account={account} appwriteItemId={appwriteItemId} type="full" />
-            <TransactionsTable transactions={transactions} />
+            <TransactionsTable transactions={currentTransactions} />
+            {totalPages > 1 && (
+              <div className="my-4 w-full">
+                <Pagination page={page} totalPages={totalPages} />
+              </div>
+            )}
           </TabsContent>
         ))}
       </Tabs>

@@ -6,13 +6,12 @@ import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { formatAmount } from "@/lib/utils";
 import TransactionsTable from "../components/TransactionsTable";
+import Pagination from "../components/Pagination";
 
 const TransactionsHistoryPage = async ({
   searchParams: { id, page },
 }: SearchParamProps): Promise<JSX.Element> => {
   const loggedIn = await getLoggedInUser();
-  const currentPage = Number(page as string) || 1;
-
   // If the user is not logged in, redirect to the sign-in page
   if (!loggedIn) {
     redirect("/sign-in");
@@ -39,6 +38,22 @@ const TransactionsHistoryPage = async ({
   }
 
   const account = await getAccount({ appwriteItemId });
+  if (!account) {
+    redirect("/connect-bank");
+  }
+
+  // Parse page parameter and provide default value
+  const currentPage = parseInt(Array.isArray(page) ? page[0] : page || "1", 10) || 1;
+
+  const rowsPerPage = 10;
+  const totalPages = Math.ceil(account?.transactions.length / rowsPerPage);
+  const indexLastTransaction = currentPage * rowsPerPage;
+  const indexFirstTransaction = indexLastTransaction - rowsPerPage;
+
+  const currentTransactions = account?.transactions.slice(
+    indexFirstTransaction,
+    indexLastTransaction,
+  );
 
   return (
     <section className="transactions">
@@ -64,7 +79,12 @@ const TransactionsHistoryPage = async ({
         </div>
 
         <section className="flex w-full flex-col gap-6">
-          <TransactionsTable transactions={account.transactions} />
+          <TransactionsTable transactions={currentTransactions} />
+          {totalPages > 1 && (
+            <div className="my-4 w-full">
+              <Pagination page={currentPage} totalPages={totalPages} />
+            </div>
+          )}{" "}
         </section>
       </div>
     </section>
