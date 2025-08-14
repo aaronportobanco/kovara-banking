@@ -3,7 +3,6 @@ import React, { JSX } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -20,7 +19,6 @@ const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element
   return (
     <section>
       <Table>
-        <TableCaption>A list of your recent transactions.</TableCaption>
         <TableHeader className="bg-[#f9fafb]">
           <TableRow>
             <TableHead className="px-2">Transaction</TableHead>
