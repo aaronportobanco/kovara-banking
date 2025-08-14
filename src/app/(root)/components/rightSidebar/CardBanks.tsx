@@ -11,7 +11,7 @@ const CardBanks: React.FC<CreditCardProps> = ({ account, userName, showBalance =
       <Link href={`transactions-history/?id=${account.appwriteItemId}`} className="bank-card">
         <div className="bank-card_content">
           <div>
-            <h1 className="text-16 font-semibold text-white">{userName}</h1>
+            <h1 className="text-16 font-semibold text-white">{account.name}</h1>
             <p className="font-black text-white font-ibm-plex-serif">
               {formatAmount(account.currentBalance || 0)}
             </p>
