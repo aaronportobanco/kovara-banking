@@ -38,6 +38,25 @@ const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element
             const isDebitCard = t.type === "debit";
             const isCreditCard = t.type === "credit";
 
+            // Generate display name for transaction
+            const getTransactionDisplayName = (transaction: Transaction): string => {
+              // If transaction has a name (from Plaid), use it
+              if (transaction.name && transaction.name.trim()) {
+                return removeSpecialCharacters(transaction.name);
+              }
+
+              // For internal transfers, create a descriptive name
+              if (transaction.category === "transfer") {
+                if (transaction.note && transaction.note.trim()) {
+                  return `Transfer: ${transaction.note}`;
+                }
+                return `Transfer to ${transaction.email || "recipient"}`;
+              }
+
+              // Fallback for other transactions
+              return "Transaction";
+            };
+
             return (
               <TableRow
                 key={t.id}
@@ -46,7 +65,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element
                 <TableCell className="max-w-[250px] pl-2 pr-10">
                   <div className="flex items-center gap-3">
                     <h1 className="text-14 truncate font-semibold text-[#344054]">
-                      {removeSpecialCharacters(t.name)}
+                      {getTransactionDisplayName(t)}
                     </h1>
                   </div>
                 </TableCell>
