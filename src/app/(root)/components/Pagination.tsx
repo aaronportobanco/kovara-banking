@@ -24,7 +24,7 @@ const Pagination = ({ page, totalPages }: PaginationProps): JSX.Element => {
   };
 
   return (
-    <div className="flex justify-between gap-3">
+    <div className="flex justify-between gap-3 bg-secondary rounded-lg px-2">
       <Button
         size="lg"
         variant="ghost"
@@ -36,7 +36,7 @@ const Pagination = ({ page, totalPages }: PaginationProps): JSX.Element => {
         Prev
       </Button>
       <p className="text-14 flex items-center px-2">
-        {page} / {totalPages}
+        page&nbsp;{page}&nbsp;of&nbsp;{totalPages}
       </p>
       <Button
         size="lg"
