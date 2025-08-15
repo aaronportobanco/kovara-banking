@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Landmark, Home, ScrollText, ArrowLeftRight } from "lucide-react";
 
 export const sidebarLinks = [
@@ -71,7 +72,7 @@ export const accounts = [
 ];
 
 export const topCategoryStyles = {
-  foodAndDrink: {
+  "Food and Drink": {
     bg: "bg-blue-25",
     circleBg: "bg-blue-100",
     text: {
@@ -84,7 +85,7 @@ export const topCategoryStyles = {
     },
     icon: "/icons/monitor.svg",
   },
-  travel: {
+  Travel: {
     bg: "bg-success-25",
     circleBg: "bg-success-100",
     text: {
@@ -96,6 +97,19 @@ export const topCategoryStyles = {
       indicator: "bg-success-700",
     },
     icon: "/icons/coins.svg",
+  },
+  transfer: {
+    bg: "bg-success-25",
+    circleBg: "bg-success-100",
+    text: {
+      main: "text-success-900",
+      count: "text-success-700",
+    },
+    progress: {
+      bg: "bg-success-100",
+      indicator: "bg-success-700",
+    },
+    icon: "/icons/arrow-up.svg",
   },
   default: {
     bg: "bg-pink-25",
