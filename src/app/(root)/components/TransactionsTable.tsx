@@ -21,12 +21,12 @@ const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element
       <Table>
         <TableHeader className="bg-[#f9fafb]">
           <TableRow>
-            <TableHead className="px-2">Transaction</TableHead>
-            <TableHead className="px-2">Amount</TableHead>
-            <TableHead className="px-2">Status</TableHead>
-            <TableHead className="px-2">Date</TableHead>
-            <TableHead className="px-2 max-md:hidden">Channel</TableHead>
-            <TableHead className="px-2 max-md:hidden">Category</TableHead>
+            <TableHead className="px-2 font-bold">Transaction</TableHead>
+            <TableHead className="px-2 font-bold">Amount</TableHead>
+            <TableHead className="px-2 font-bold">Status</TableHead>
+            <TableHead className="px-2 font-bold">Date</TableHead>
+            <TableHead className="px-2 max-md:hidden font-bold">Channel</TableHead>
+            <TableHead className="px-2 max-md:hidden font-bold">Category</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -60,18 +60,18 @@ const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element
             return (
               <TableRow
                 key={t.id}
-                className={`${isDebitCard || amount[0] === "-" ? "bg-[#FFFBFA]" : "bg-[#F6FEF9]"} hover:bg-none border-b-inherit`}
+                className={`${isDebitCard || amount[0] === "-" ? "bg-red-50" : "bg-success-50"} hover:bg-none border-b-inherit`}
               >
                 <TableCell className="max-w-[250px] pl-2 pr-10">
                   <div className="flex items-center gap-3">
-                    <h1 className="text-14 truncate font-semibold text-[#344054]">
+                    <h1 className="text-xs truncate font-semibold text-[#344054]">
                       {getTransactionDisplayName(t)}
                     </h1>
                   </div>
                 </TableCell>
 
                 <TableCell
-                  className={`pl-2 pr-10 font-semibold ${
+                  className={`pl-2 text-xs pr-10 font-semibold ${
                     isDebitCard || amount[0] === "-" ? "text-[#f04438]" : "text-[#039855]"
                   }`}
                 >
@@ -82,11 +82,13 @@ const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element
                   <CategoryBadge category={status} />
                 </TableCell>
 
-                <TableCell className="min-w-32 pl-2 pr-10">
+                <TableCell className="min-w-32 text-xs pl-2 pr-10">
                   {formatDateTime(new Date(t.date)).dateTime}
                 </TableCell>
 
-                <TableCell className="pl-2 pr-10 capitalize min-w-24">{t.paymentChannel}</TableCell>
+                <TableCell className="pl-2 pr-10 text-xs capitalize min-w-20">
+                  {t.paymentChannel}
+                </TableCell>
 
                 <TableCell className="pl-2 pr-10 max-md:hidden">
                   <CategoryBadge category={t.category || "default"} />
