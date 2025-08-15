@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { JSX } from "react";
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
   return (
     <div className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">
@@ -10,7 +11,7 @@ const NotFound = () => {
           Page not found
         </h1>
         <p className="mt-6 text-pretty text-lg font-medium sm:text-xl/8">
-          Sorry, we couldn't find the page you're looking for.
+          Sorry, we couldn&apos;t find the page you&apos;re looking for.
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link href="/">
