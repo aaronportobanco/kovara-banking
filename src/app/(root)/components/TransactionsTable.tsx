@@ -18,8 +18,8 @@ import CategoryBadge from "./CategoryBadge";
 const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element => {
   return (
     <section>
-      <Table>
-        <TableHeader className="bg-[#f9fafb]">
+      <Table >
+        <TableHeader className="bg-secondary">
           <TableRow>
             <TableHead className="px-2 font-bold">Transaction</TableHead>
             <TableHead className="px-2 font-bold">Amount</TableHead>
@@ -60,7 +60,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element
             return (
               <TableRow
                 key={t.id}
-                className={`${isDebitCard || amount[0] === "-" ? "bg-red-50" : "bg-success-50"} hover:bg-none border-b-inherit`}
+                className={`${isDebitCard || amount[0] === "-" ? "bg-red-25" : "bg-success-25"} hover:bg-none border-b-inherit`}
               >
                 <TableCell className="max-w-[250px] pl-2 pr-10">
                   <div className="flex items-center gap-3">
