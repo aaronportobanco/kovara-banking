@@ -140,6 +140,8 @@ declare type NewDwollaCustomerParams = {
 };
 
 declare interface CreditCardProps {
+  userId?: string;
+  showSpendingProgress?: boolean;
   account: Account;
   userName: string;
   showBalance?: boolean;
@@ -322,10 +324,49 @@ declare interface GetBankByAccountIdProps {
   accountId: string;
 }
 
+declare interface GetCurrentMonthFinancialsProps {
+  userId: string;
+}
+
+declare interface CurrentMonthFinancials {
+  totalIncome: number;
+  totalExpenses: number;
+  netAmount: number;
+  transactionCount: {
+    income: number;
+    expenses: number;
+    total: number;
+  };
+  period: {
+    startDate: string;
+    endDate: string;
+    month: string;
+    year: number;
+  };
+}
+declare interface SpendingProgressProps {
+  monthlySpending: number;
+  cardLimit: number;
+  loading: boolean;
+  error: string | null;
+}
+
 declare interface GetAccountsResponse {
   data: Account[];
   totalBanks: number;
   totalCurrentBalance: number;
+}
+
+declare interface UseMonthlySpendingProps {
+  userId: string;
+  enabled?: boolean;
+}
+
+declare interface UseMonthlySpendingReturn {
+  monthlyFinancials: CurrentMonthFinancials | null;
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
 }
 
 declare interface GetAccountResponse {
