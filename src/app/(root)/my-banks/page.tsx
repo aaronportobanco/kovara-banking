@@ -39,6 +39,8 @@ const MyBanksPage = async (): Promise<JSX.Element> => {
                   key={a.id}
                   account={a}
                   userName={`${loggedIn.firstName} ${loggedIn.lastName}`}
+                  userId={loggedIn.$id}
+                  showSpendingProgress={true}
                 />
               ))}
           </div>
