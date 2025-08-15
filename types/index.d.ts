@@ -85,6 +85,8 @@ declare type Transaction = {
   channel: string;
   senderBankId: string;
   receiverBankId: string;
+  note?: string; // Added for transfer transactions
+  email?: string; // Added for transfer transactions
 };
 
 declare type Bank = {
