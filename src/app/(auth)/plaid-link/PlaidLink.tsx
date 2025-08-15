@@ -6,7 +6,7 @@ import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from "react-plaid-
 import { Button } from "@/components/ui/button";
 import { createLinkToken, exchangePublicToken } from "@/services/actions/plaid";
 import { useRouter } from "next/navigation";
-import { CreditCard } from "lucide-react";
+import { CreditCard, Plus } from "lucide-react";
 import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -46,9 +46,19 @@ const PlaidLink: React.FC<PlaidLinkProps> = ({ user, variant }) => {
           Connect Bank
         </Button>
       ) : variant === "ghost" ? (
-        <Button onClick={() => open()} variant="ghost" className="plaidlink-ghost">
+        <Button
+          onClick={() => open()}
+          disabled={!ready}
+          variant="ghost"
+          className="plaidlink-ghost"
+        >
           <CreditCard />
           <p className=" hidden text-base font-semibold text-black-2 xl:block">Connect bank</p>
+        </Button>
+      ) : variant === "rightSidebar" ? (
+        <Button variant="ghost" onClick={() => open()} disabled={!ready}>
+          <Plus />
+          Add Bank
         </Button>
       ) : variant === "sidebar" ? (
         <Tooltip>
