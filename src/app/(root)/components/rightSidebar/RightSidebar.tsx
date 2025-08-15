@@ -1,11 +1,9 @@
 import React from "react";
-import Link from "next/link";
 import CardBanks from "./CardBanks";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { CategoryCount, RightSidebarProps } from "#/types";
 import { countTransactionCategories } from "@/lib/utils";
 import Category from "../Category";
+import PlaidLink from "@/app/(auth)/plaid-link/PlaidLink";
 
 const RightSidebar = ({ user, banks, transactions }: RightSidebarProps): React.JSX.Element => {
   const name = `${user.firstName} ${user.lastName}`;
@@ -29,10 +27,7 @@ const RightSidebar = ({ user, banks, transactions }: RightSidebarProps): React.J
       <section className="banks">
         <div className="flex w-full justify-between items-center">
           <h2 className="font-semibold text-gray-900 text-base">My Banks</h2>
-          <Button variant="ghost">
-            <Plus />
-            <Link href="#">Add Bank</Link>
-          </Button>
+          <PlaidLink user={user} variant="rightSidebar" />
         </div>
         {/* BANK CARDS */}
         {banks?.length > 0 && (
