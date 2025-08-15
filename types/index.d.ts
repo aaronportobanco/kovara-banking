@@ -200,7 +200,7 @@ declare interface TotalBalanceBoxProps {
   user: User;
   accounts: Account[];
   totalBanks: number;
-  totalCurrentBalance: number;
+  totalCurrentBalance: string;
 }
 
 declare interface FooterProps {
