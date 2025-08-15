@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="./public/logo/favicon-dark.svg" alt="Kovara Banking Logo" width="120" />
+	<img src="./public/logo/favicon-light.svg" alt="Kovara Banking Logo" width="120" />
 </p>
 
 # Kovara Banking
