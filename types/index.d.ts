@@ -177,7 +177,7 @@ declare interface PaginationProps {
 
 declare interface PlaidLinkProps {
   user: User;
-  variant?: "primary" | "ghost" | "sidebar" | "rightSidebar";
+  variant?: "primary" | "ghost" | "sidebar" | "rightSidebar" | "totalBalanceBox";
   dwollaCustomerId?: string;
 }
 
@@ -197,6 +197,7 @@ declare interface BankTabItemProps {
 }
 
 declare interface TotalBalanceBoxProps {
+  user: User;
   accounts: Account[];
   totalBanks: number;
   totalCurrentBalance: number;
