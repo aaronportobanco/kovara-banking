@@ -54,6 +54,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps): Promise<J
           accounts={accountsData}
           totalBanks={accounts.totalBanks}
           totalCurrentBalance={accounts.totalCurrentBalance}
+          user={loggedIn}
         />
         <RecentTransactions
           accounts={accountsData}
