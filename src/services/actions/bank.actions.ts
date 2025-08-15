@@ -275,7 +275,7 @@ export const getInstitution = async ({ institutionId }: GetInstitutionProps): Pr
  */
 export const getTransactions = async ({ accessToken }: GetTransactionsProps): Promise<unknown> => {
   let hasMore = true;
-  let transactions: unknown = [];
+  let allTransactions: unknown[] = [];
 
   try {
     // Validate access token
@@ -292,7 +292,7 @@ export const getTransactions = async ({ accessToken }: GetTransactionsProps): Pr
 
       const data = response.data;
 
-      transactions = response.data.added.map(transaction => ({
+      const pageTransactions = response.data.added.map(transaction => ({
         id: transaction.transaction_id,
         name: transaction.name,
         paymentChannel: transaction.payment_channel,
@@ -305,10 +305,13 @@ export const getTransactions = async ({ accessToken }: GetTransactionsProps): Pr
         image: transaction.logo_url,
       }));
 
+      // Accumulate transactions instead of overwriting
+      allTransactions = [...allTransactions, ...pageTransactions];
+
       hasMore = data.has_more;
     }
 
-    return parseStringify(transactions);
+    return parseStringify(allTransactions);
   } catch (error) {
     // Handle specific Plaid consent errors gracefully
     if (
