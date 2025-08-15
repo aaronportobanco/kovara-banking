@@ -1,9 +1,16 @@
 "use server";
 
 import { ID, Query } from "node-appwrite";
-import { CreateTransactionProps, GetTransactionsByBankIdProps } from "#/types";
+import {
+  CreateTransactionProps,
+  GetTransactionsByBankIdProps,
+  GetCurrentMonthFinancialsProps,
+  CurrentMonthFinancials,
+  Transaction,
+} from "#/types";
 import { createAdminClient } from "../server/appwrite";
-import { parseStringify } from "@/lib/utils";
+import { parseStringify, getCurrentMonthDateRange, isTransactionInCurrentMonth } from "@/lib/utils";
+import { getBanks } from "./bank.actions";
 
 // Destructuring environment variables to access Appwrite database and transactions IDs.
 const { APPWRITE_DATABASE_ID, APPWRITE_TRANSACTION_COLLECTION_ID } = process.env;
@@ -108,5 +115,111 @@ export const getTransactionsByBankId = async ({
     return parseStringify(transactions);
   } catch (error) {
     throw new Error("An error occurred while getting transactions: " + error);
+  }
+};
+
+/**
+ * Calculates the total income and expenses for a user in the current month.
+ *
+ * This function retrieves all bank accounts associated with a user and analyzes
+ * their transactions to calculate comprehensive financial metrics for the current
+ * calendar month. It processes both internal transfers (between user accounts)
+ * and external transactions to provide accurate income and expense totals.
+ *
+ * The function categorizes transactions based on the user's perspective:
+ * - **Income**: Money received by the user (appears as receiver in transactions)
+ * - **Expenses**: Money sent by the user (appears as sender in transactions)
+ *
+ * @param {GetCurrentMonthFinancialsProps} params - Object containing user identification
+ * @param {string} params.userId - The unique identifier of the user whose financial data to calculate
+ * @returns {Promise<CurrentMonthFinancials>} Comprehensive financial summary for the current month including:
+ *   - `totalIncome`: Sum of all money received (positive number)
+ *   - `totalExpenses`: Sum of all money sent (positive number)
+ *   - `netAmount`: Net financial position (income - expenses)
+ *   - `transactionCount`: Breakdown of transaction counts by type
+ *   - `period`: Date range and period information for the calculation
+ * @throws {Error} Throws error if user has no bank accounts, database queries fail, or access permissions are insufficient
+ *
+ * @example
+ * ```typescript
+ * const monthlyFinancials = await getCurrentMonthFinancials({ userId: "user123" });
+ * console.log(`Current month summary for ${monthlyFinancials.period.month} ${monthlyFinancials.period.year}:`);
+ * console.log(`Total Income: $${monthlyFinancials.totalIncome.toFixed(2)}`);
+ * console.log(`Total Expenses: $${monthlyFinancials.totalExpenses.toFixed(2)}`);
+ * console.log(`Net Amount: $${monthlyFinancials.netAmount.toFixed(2)}`);
+ * console.log(`Transactions: ${monthlyFinancials.transactionCount.total} total`);
+ * ```
+ */
+export const getCurrentMonthFinancials = async ({
+  userId,
+}: GetCurrentMonthFinancialsProps): Promise<CurrentMonthFinancials> => {
+  try {
+    // Get user's bank accounts
+    const userBanks = await getBanks({ userId });
+
+    if (!userBanks || userBanks.length === 0) {
+      throw new Error("User has no connected bank accounts");
+    }
+
+    // Get current month date range
+    const monthPeriod = getCurrentMonthDateRange();
+
+    // Initialize totals
+    let totalIncome = 0;
+    let totalExpenses = 0;
+    let incomeTransactionCount = 0;
+    let expenseTransactionCount = 0;
+
+    // Process transactions for each bank account
+    for (const bank of userBanks) {
+      const bankTransactionsResult = (await getTransactionsByBankId({
+        bankId: bank.$id,
+      })) as { total: number; documents: Transaction[] };
+
+      const transactions = bankTransactionsResult.documents;
+
+      // Filter transactions for current month and categorize
+      for (const transaction of transactions) {
+        // Check if transaction is in current month
+        const transactionDate = transaction.date || transaction.$createdAt;
+        if (!isTransactionInCurrentMonth(transactionDate)) {
+          continue;
+        }
+
+        const amount = Math.abs(Number(transaction.amount) || 0);
+
+        // Determine if this is income or expense from user's perspective
+        // If user's bank is the receiver, it's income
+        // If user's bank is the sender, it's expense
+        if (transaction.receiverBankId === bank.$id) {
+          totalIncome += amount;
+          incomeTransactionCount++;
+        } else if (transaction.senderBankId === bank.$id) {
+          totalExpenses += amount;
+          expenseTransactionCount++;
+        }
+      }
+    }
+
+    const result: CurrentMonthFinancials = {
+      totalIncome,
+      totalExpenses,
+      netAmount: totalIncome - totalExpenses,
+      transactionCount: {
+        income: incomeTransactionCount,
+        expenses: expenseTransactionCount,
+        total: incomeTransactionCount + expenseTransactionCount,
+      },
+      period: {
+        startDate: monthPeriod.startDate,
+        endDate: monthPeriod.endDate,
+        month: monthPeriod.month,
+        year: monthPeriod.year,
+      },
+    };
+
+    return parseStringify(result);
+  } catch (error) {
+    throw new Error("An error occurred while calculating current month financials: " + error);
   }
 };
