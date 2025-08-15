@@ -1,11 +1,32 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { formatAmount } from "@/lib/utils";
 import Image from "next/image";
 import { CreditCardProps } from "#/types";
 import Copy from "../Copy";
+import { useMonthlySpending } from "@/hooks/useMonthlySpending";
+import SpendingProgress from "../SpendingProgress";
 
-const CardBanks: React.FC<CreditCardProps> = ({ account, userName, showBalance = true }) => {
+const CardBanks: React.FC<CreditCardProps> = ({
+  account,
+  userName,
+  showBalance = true,
+  userId,
+  showSpendingProgress = true,
+}) => {
+  const { monthlyFinancials, loading, error } = useMonthlySpending({
+    userId: userId || "",
+    enabled: showSpendingProgress && !!userId,
+  });
+
+  // Calculate spending for this specific account
+  const monthlySpending = monthlyFinancials?.totalExpenses || 0;
+
+  // Use current balance - spending as the "limit" for demonstration
+  const cardLimit = account.currentBalance - monthlySpending;
+
   return (
     <div>
       <Link href={`transactions-history/?id=${account.appwriteItemId}`} className="bank-card">
@@ -47,6 +68,18 @@ const CardBanks: React.FC<CreditCardProps> = ({ account, userName, showBalance =
 
       {/* COPY CARD NUMBERS */}
       {showBalance && <Copy title={account.sharableId} />}
+
+      {/* SPENDING PROGRESS BAR */}
+      {showSpendingProgress && userId && (
+        <div className="mt-3 max-w-[320px]">
+          <SpendingProgress
+            monthlySpending={monthlySpending}
+            cardLimit={cardLimit}
+            loading={loading}
+            error={error}
+          />
+        </div>
+      )}
     </div>
   );
 };
