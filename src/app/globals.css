@@ -330,7 +330,7 @@
   }
 
   .banktab-item-text {
-    @apply text-[16px] font-semibold leading-[20px] transition-colors pr-2 py-1;
+    @apply text-sm font-semibold leading-[20px] transition-colors pr-2 py-1;
   }
 
   .banktab-item-text-active {
