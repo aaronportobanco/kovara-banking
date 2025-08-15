@@ -123,10 +123,10 @@ export function countTransactionCategories(transactions: Transaction[]): Categor
   let totalCount = 0;
 
   // Iterate over each transaction
-  if (transactions) {
+  if (transactions && transactions.length > 0) {
     transactions.forEach(transaction => {
       // Extract the category from the transaction
-      const category = transaction.category;
+      const category = transaction.category || "Other";
 
       // If the category exists in the categoryCounts object, increment its count
       if (categoryCounts.hasOwnProperty(category)) {
