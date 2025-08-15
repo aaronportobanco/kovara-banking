@@ -224,7 +224,7 @@
   }
 
   .recent-transactions-tablist {
-    @apply custom-scrollbar mb-8 flex flex-nowrap bg-transparent !justify-start;
+    @apply custom-scrollbar mb-8 flex flex-nowrap bg-transparent !justify-start border-b border-[#eaecf0] relative gap-6;
   }
 
   /* Right sidebar */
@@ -318,7 +318,30 @@
   }
 
   .banktab-item {
-    @apply gap-5 border-b-2 rounded-tr-lg rounded-tl-lg flex px-2 sm:px-4 py-2 transition-all hover:bg-blue-25;
+    @apply relative flex items-center justify-center gap-2 pb-3 px-2 pt-1 transition-all cursor-pointer;
+  }
+
+  .banktab-item-active {
+    @apply relative;
+  }
+
+  .banktab-item-active::after {
+    @apply absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#0179fe] to-[#4893ff] content-[''];
+  }
+
+  .banktab-item-text {
+    @apply text-[16px] font-semibold leading-[20px] transition-colors pr-2 py-1;
+  }
+
+  .banktab-item-text-active {
+    @apply bg-gradient-to-r from-[#0179fe] to-[#4893ff] bg-clip-text text-transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .banktab-item-text-inactive {
+    @apply text-[#667085];
   }
 
   /* Mobile nav */
