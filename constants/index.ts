@@ -99,7 +99,7 @@ export const topCategoryStyles = {
     icon: "/icons/coins.svg",
   },
   transfer: {
-    bg: "bg-success-25",
+    bg: "bg-success-50",
     circleBg: "bg-success-100",
     text: {
       main: "text-success-900",
