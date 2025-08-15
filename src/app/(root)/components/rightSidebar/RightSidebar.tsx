@@ -3,11 +3,13 @@ import Link from "next/link";
 import CardBanks from "./CardBanks";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { RightSidebarProps } from "#/types";
+import { CategoryCount, RightSidebarProps } from "#/types";
+import { countTransactionCategories } from "@/lib/utils";
+import Category from "../Category";
 
-const RightSidebar = ({ user, banks }: RightSidebarProps): React.JSX.Element => {
+const RightSidebar = ({ user, banks, transactions }: RightSidebarProps): React.JSX.Element => {
   const name = `${user.firstName} ${user.lastName}`;
-
+  const categories: CategoryCount[] = countTransactionCategories(transactions);
   return (
     <aside className="right-sidebar">
       {/* FIRST SECTION */}
@@ -55,6 +57,14 @@ const RightSidebar = ({ user, banks }: RightSidebarProps): React.JSX.Element => 
             )}
           </div>
         )}
+        <div className="mt-10 flex flex-col gap-6">
+          <h2 className="header-2">Top Categories</h2>
+          <div className="space-y-5">
+            {categories.map((category, index) => (
+              <Category key={category.name} category={category} />
+            ))}
+          </div>
+        </div>
       </section>
     </aside>
   );
