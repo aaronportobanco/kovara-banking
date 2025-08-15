@@ -32,7 +32,7 @@ const Pagination = ({ page, totalPages }: PaginationProps): JSX.Element => {
         onClick={() => handleNavigation("prev")}
         disabled={Number(page) <= 1}
       >
-        <ChevronLeft className="mr-2" />
+        <ChevronLeft />
         Prev
       </Button>
       <p className="text-14 flex items-center px-2">
@@ -46,7 +46,7 @@ const Pagination = ({ page, totalPages }: PaginationProps): JSX.Element => {
         disabled={Number(page) >= totalPages}
       >
         Next
-        <ChevronRight className="ml-2" />
+        <ChevronRight />
       </Button>
     </div>
   );
