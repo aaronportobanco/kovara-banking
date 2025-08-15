@@ -70,6 +70,16 @@ const PlaidLink: React.FC<PlaidLinkProps> = ({ user, variant }) => {
           </TooltipTrigger>
           <TooltipContent side="right">Connect Bank Account</TooltipContent>
         </Tooltip>
+      ) : variant === "totalBalanceBox" ? (
+        <Button
+          variant="ghost"
+          className="text-blue-700 hover:bg-blue-100 hover:text-blue-700"
+          onClick={() => open()}
+          disabled={!ready}
+        >
+          <Plus />
+          Add Bank
+        </Button>
       ) : (
         <SidebarMenuButton onClick={() => open()}>
           <CreditCard />
