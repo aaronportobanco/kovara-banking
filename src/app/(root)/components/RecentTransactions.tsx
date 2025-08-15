@@ -7,6 +7,7 @@ import BankTabItem from "./BankTabItem";
 import BankInfo from "./BankInfo";
 import TransactionsTable from "./TransactionsTable";
 import Pagination from "./Pagination";
+import { ChevronRight } from "lucide-react";
 
 const RecentTransactions = ({
   accounts,
@@ -24,13 +25,14 @@ const RecentTransactions = ({
     <section className="recent-transactions">
       <header className="flex items-center justify-between">
         <h3 className="recent-transactions-label">Recent Transactions</h3>
-        <Button variant="outline">
+        <Button variant="ghost">
           <Link
             href={`/transactions-history/?id=${appwriteItemId}`}
             className="text-xs text-gray-500 hover:text-gray-700"
           >
             View All
           </Link>
+          <ChevronRight />
         </Button>
       </header>
       <Tabs defaultValue={appwriteItemId}>
