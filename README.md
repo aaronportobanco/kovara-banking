@@ -1,36 +1,147 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+	<img src="./public/logo/favicon-dark.svg" alt="Kovara Banking Logo" width="120" />
+</p>
 
-## Getting Started
+# Kovara Banking
 
-First, run the development server:
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen) ![Version](https://img.shields.io/badge/version-0.1.0-blue) ![License](https://img.shields.io/badge/license-MIT-yellow)
+
+---
+
+## 🚀 Descripción
+
+Kovara Banking es una aplicación web de banca en línea moderna, desarrollada con Next.js y TypeScript. Permite a los usuarios gestionar cuentas bancarias, visualizar transacciones y realizar transferencias, integrando servicios como Appwrite, Plaid y Dwolla (en modo Sandbox). La interfaz es responsiva y accesible, construida con shadcn/ui y Tailwind CSS, y cuenta con validación robusta de formularios y monitoreo de errores con Sentry.
+
+### ⚙️ Características principales
+
+- Autenticación y registro de usuarios
+- Vinculación de cuentas bancarias (Plaid Sandbox)
+- Transferencias simuladas (Dwolla Sandbox)
+- Visualización de bancos, cuentas y transacciones
+- Interfaz moderna y responsiva
+- Validación de formularios con Zod y React Hook Form
+- Monitoreo de errores con Sentry
+
+### 🏷️ Tecnologías clave
+
+`Next.js` `TypeScript` `Appwrite` `Plaid` `Dwolla` `shadcn/ui` `Tailwind CSS` `React Hook Form` `Zod` `Sentry`
+
+---
+
+## 🛠️ Instalación
+
+### Requisitos previos
+
+- Node.js >= 18.x
+- npm >= 9.x
+
+### Pasos
 
 ```bash
+git clone https://github.com/aaronportobanco/kovara-banking.git
+cd kovara-banking
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Variables de entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Configura los siguientes valores en un archivo `.env.local`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+APPWRITE_ENDPOINT=your_appwrite_endpoint
+APPWRITE_PROJECT_ID=your_appwrite_project_id
+PLAID_CLIENT_ID=your_plaid_client_id
+PLAID_SECRET=your_plaid_secret
+DWOLLA_KEY=your_dwolla_key
+DWOLLA_SECRET=your_dwolla_secret
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📖 Uso
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+2. Accede a [http://localhost:3000](http://localhost:3000) en tu navegador.
+3. Regístrate y vincula una cuenta bancaria de prueba (Sandbox).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Ejemplo de registro
 
-## Deploy on Vercel
+```tsx
+import { SignUpForm } from "@/app/(auth)/sign-up/SignUpForm";
+// ...
+<SignUpForm />;
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Placeholder de screenshot
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Demo UI](./docs/screenshot-placeholder.png)
+
+#### Flujo de trabajo típico
+
+- Registro → Vinculación bancaria (Plaid Sandbox) → Visualización de cuentas → Transferencias simuladas
+
+> **Nota:** Los servicios bancarios funcionan en modo Sandbox y no están listos para usuarios finales ni operaciones reales.
+
+---
+
+## ⚙️ Configuración
+
+- Archivos principales: `next.config.ts`, `tailwind.config.ts`, `src/app/layout.tsx`, `.env.local`
+- Personaliza los estilos en `src/app/globals.css` y componentes en `src/components/ui/`
+
+---
+
+## 🤝 Contribución
+
+¡Las contribuciones son bienvenidas!
+
+1. Haz un fork del repositorio
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
+3. Realiza tus cambios siguiendo los estándares de código (Prettier, ESLint)
+4. Abre un Pull Request con una descripción clara
+
+### Estándares de código
+
+- Usa TypeScript y sigue las convenciones de Next.js
+- Ejecuta `npm run lint` y `npm run format` antes de enviar PRs
+
+### Sistema de issues
+
+- Usa las plantillas de issues para reportar bugs o sugerir mejoras
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Autenticación y registro
+- [x] Vinculación bancaria (Sandbox)
+- [x] Visualización de cuentas y transacciones
+- [ ] Transferencias reales
+- [ ] Integración con bancos adicionales
+- [ ] Mejoras de seguridad y auditoría
+- [ ] Internacionalización
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia [MIT](./LICENSE).
+
+---
+
+## 📬 Contacto
+
+| Mantenedor       | Email                     | GitHub                                                 |
+| ---------------- | ------------------------- | ------------------------------------------------------ |
+| Aaron Portobanco | aaronportobanco@gmail.com | [@aaronportobanco](https://github.com/aaronportobanco) |
+
+Síguenos en [Twitter](https://twitter.com/kovara_banking) <!-- Placeholder -->
+
+---
+
+> [!WARNING] 
+> Esta app utiliza servicios bancarios en modo Sandbox y no está lista para usuarios finales ni operaciones reales.
