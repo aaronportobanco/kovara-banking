@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { Account, Bank, SearchParamProps } from "#/types";
 import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 import RecentTransactions from "./components/RecentTransactions";
+import { formatAmount } from "@/lib/utils";
 
 const Home = async ({ searchParams: { id, page } }: SearchParamProps): Promise<JSX.Element> => {
   const loggedIn = await getLoggedInUser();
@@ -53,7 +54,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps): Promise<J
         <TotalBalanceBox
           accounts={accountsData}
           totalBanks={accounts.totalBanks}
-          totalCurrentBalance={accounts.totalCurrentBalance}
+          totalCurrentBalance={formatAmount(accounts.totalCurrentBalance || 0)}
           user={loggedIn}
         />
         <RecentTransactions
