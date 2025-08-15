@@ -18,7 +18,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavUser } from "./NavUser";
 import { Separator } from "@/components/ui/separator";
-import { Tooltip } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import PlaidLink from "@/app/(auth)/plaid-link/PlaidLink";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { User } from "#/types";
@@ -67,18 +67,21 @@ const AppSidebar = (): JSX.Element => {
                   const isActive = pathname === item.url;
                   return (
                     <SidebarMenuItem key={item.title} className="w-full">
-                      <Tooltip>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={isActive}
-                          className={isActive ? "sidebar-link-active" : undefined}
-                        >
-                          {/* Using `asChild` to allow custom components like Link */}
-                          <Link href={item.url}>
-                            <item.icon />
-                            <span>{item.title}</span>
-                          </Link>
-                        </SidebarMenuButton>
+                      <Tooltip delayDuration={1000}>
+                        <TooltipTrigger asChild>
+                          <SidebarMenuButton
+                            asChild
+                            isActive={isActive}
+                            className={isActive ? "sidebar-link-active" : undefined}
+                          >
+                            {/* Using `asChild` to allow custom components like Link */}
+                            <Link href={item.url}>
+                              <item.icon />
+                              <span>{item.title}</span>
+                            </Link>
+                          </SidebarMenuButton>
+                        </TooltipTrigger>
+                        <TooltipContent side="right">{item.title}</TooltipContent>
                       </Tooltip>
                     </SidebarMenuItem>
                   );
