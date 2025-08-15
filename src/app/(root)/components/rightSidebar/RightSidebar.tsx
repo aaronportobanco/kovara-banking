@@ -60,7 +60,7 @@ const RightSidebar = ({ user, banks, transactions }: RightSidebarProps): React.J
         <div className="mt-10 flex flex-col gap-6">
           <h2 className="header-2">Top Categories</h2>
           <div className="space-y-5">
-            {categories.map((category, index) => (
+            {categories.map((category, _index) => (
               <Category key={category.name} category={category} />
             ))}
           </div>
