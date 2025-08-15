@@ -24,13 +24,14 @@ const BankTabItem = ({ account, appwriteItemId }: BankTabItemProps): JSX.Element
   return (
     <button
       onClick={handleBankChange}
-      className={cn(`banktab-item`, {
-        "border-blue-600": isActive,
+      className={cn("banktab-item", {
+        "banktab-item-active": isActive,
       })}
     >
       <p
-        className={cn(`text-base line-clamp-1 flex-1 font-medium text-gray-500`, {
-          "text-blue-600": isActive,
+        className={cn("banktab-item-text line-clamp-1 flex-1", {
+          "banktab-item-text-active": isActive,
+          "banktab-item-text-inactive": !isActive,
         })}
       >
         {account.name}
