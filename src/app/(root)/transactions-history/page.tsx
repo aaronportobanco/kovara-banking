@@ -8,9 +8,7 @@ import { formatAmount } from "@/lib/utils";
 import TransactionsTable from "../components/TransactionsTable";
 import Pagination from "../components/Pagination";
 
-const TransactionsHistoryPage = async ({
-  searchParams,
-}: PageProps): Promise<JSX.Element> => {
+const TransactionsHistoryPage = async ({ searchParams }: PageProps): Promise<JSX.Element> => {
   const id = searchParams?.id;
   const page = searchParams?.page;
 

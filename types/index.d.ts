@@ -1,6 +1,6 @@
 interface PageProps {
   searchParams?: { [key: string]: string | undefined };
-  params?: { [key: string]: string | undefined };
+  params?: { [key: string]: string | undefined } | undefined;
 }
 // ========================================
 
