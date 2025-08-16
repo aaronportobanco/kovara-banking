@@ -1,6 +1,6 @@
 import React, { JSX } from "react";
 import HeaderBox from "../components/HeaderBox";
-import { PageProps } from "#/types";
+import { SearchParamProps } from "#/types";
 import { redirect } from "next/navigation";
 import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 import { getLoggedInUser } from "@/services/actions/user.actions";
@@ -8,10 +8,9 @@ import { formatAmount } from "@/lib/utils";
 import TransactionsTable from "../components/TransactionsTable";
 import Pagination from "../components/Pagination";
 
-const TransactionsHistoryPage = async ({ searchParams }: PageProps): Promise<JSX.Element> => {
-  const id = searchParams?.id;
-  const page = searchParams?.page;
-
+const TransactionsHistoryPage = async ({
+  searchParams: { id, page },
+}: SearchParamProps): Promise<JSX.Element> => {
   const loggedIn = await getLoggedInUser();
   // If the user is not logged in, redirect to the sign-in page
   if (!loggedIn) {
