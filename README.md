@@ -143,5 +143,5 @@ Síguenos en [Twitter](https://twitter.com/kovara_banking) <!-- Placeholder -->
 
 ---
 
-> [!WARNING] 
+> [!WARNING]
 > Esta app utiliza servicios bancarios en modo Sandbox y no está lista para usuarios finales ni operaciones reales.
