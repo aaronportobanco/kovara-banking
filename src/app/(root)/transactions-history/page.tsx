@@ -9,8 +9,11 @@ import TransactionsTable from "../components/TransactionsTable";
 import Pagination from "../components/Pagination";
 
 const TransactionsHistoryPage = async ({
-  searchParams: { id, page },
+  searchParams,
 }: SearchParamProps): Promise<JSX.Element> => {
+  const id = searchParams?.id;
+  const page = searchParams?.page;
+
   const loggedIn = await getLoggedInUser();
   // If the user is not logged in, redirect to the sign-in page
   if (!loggedIn) {
