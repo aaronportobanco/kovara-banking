@@ -9,7 +9,11 @@ import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 import RecentTransactions from "./components/RecentTransactions";
 import { formatAmount } from "@/lib/utils";
 
-const Home = async ({ searchParams: { id, page } }: SearchParamProps): Promise<JSX.Element> => {
+const Home = async ({ searchParams }: SearchParamProps): Promise<JSX.Element> => {
+  const params = (await searchParams) as Record<string, string | string[] | undefined>;
+  const id = params?.id;
+  const page = params?.page;
+
   const loggedIn = await getLoggedInUser();
   const currentPage = Number(page as string) || 1;
 

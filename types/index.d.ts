@@ -1,7 +1,9 @@
-declare type SearchParamProps = {
-  params: { [key: string]: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+// types/page.ts
+type SearchParamProps = {
+  params?: Promise<Record<string, string>>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
+
 // ========================================
 
 declare type SignUpParams = {
