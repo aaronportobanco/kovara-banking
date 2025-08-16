@@ -1,5 +1,6 @@
 "use client";
 
+import React, { JSX } from "react";
 import { useMemo, useState } from "react";
 import { FieldPath, FieldValues, useWatch } from "react-hook-form";
 import {
@@ -10,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { FormFieldProps } from "#/types";
+import { FormFieldProps, StateItem } from "#/types";
 import { SelectSearchInput } from "./SelectSearchInput";
 import statesAndCitiesData from "#/US_States_and_Cities.json";
 

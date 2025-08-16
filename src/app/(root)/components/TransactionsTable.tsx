@@ -18,7 +18,7 @@ import CategoryBadge from "./CategoryBadge";
 const TransactionsTable = ({ transactions }: TransactionTableProps): JSX.Element => {
   return (
     <section>
-      <Table >
+      <Table>
         <TableHeader className="bg-secondary">
           <TableRow>
             <TableHead className="px-2 font-bold">Transaction</TableHead>

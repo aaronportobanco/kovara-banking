@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { JSX } from "react";
 
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";

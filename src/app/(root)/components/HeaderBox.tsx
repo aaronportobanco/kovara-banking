@@ -1,7 +1,7 @@
 import { HeaderBoxProps } from "#/types";
-import React from "react";
+import React, { JSX } from "react";
 
-const HeaderBox = ({ type = "title", title, subtext, user }: HeaderBoxProps) => {
+const HeaderBox = ({ type = "title", title, subtext, user }: HeaderBoxProps): JSX.Element => {
   return (
     <div className={`header-box ${type}`}>
       <h1 className="header-box-title">

@@ -1,4 +1,4 @@
-interface PageProps {
+interface SearchParamProps {
   searchParams?: { [key: string]: string | undefined };
   params?: { [key: string]: string | undefined };
 }
