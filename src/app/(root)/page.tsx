@@ -4,12 +4,12 @@ import TotalBalanceBox from "./components/TotalBalanceBox";
 import RightSidebar from "./components/rightSidebar/RightSidebar";
 import React, { JSX } from "react";
 import { redirect } from "next/navigation";
-import { Account, Bank, SearchParamProps } from "#/types";
+import { Account, Bank, PageProps } from "#/types";
 import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 import RecentTransactions from "./components/RecentTransactions";
 import { formatAmount } from "@/lib/utils";
 
-const Home = async ({ searchParams }: SearchParamProps): Promise<JSX.Element> => {
+const Home = async ({ searchParams }: PageProps): Promise<JSX.Element> => {
   const id = searchParams?.id;
   const page = searchParams?.page;
 

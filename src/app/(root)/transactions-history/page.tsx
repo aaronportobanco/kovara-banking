@@ -1,6 +1,6 @@
 import React, { JSX } from "react";
 import HeaderBox from "../components/HeaderBox";
-import { SearchParamProps } from "#/types";
+import { PageProps } from "#/types";
 import { redirect } from "next/navigation";
 import { getAccount, getAccounts } from "@/services/actions/bank.actions";
 import { getLoggedInUser } from "@/services/actions/user.actions";
@@ -10,7 +10,7 @@ import Pagination from "../components/Pagination";
 
 const TransactionsHistoryPage = async ({
   searchParams,
-}: SearchParamProps): Promise<JSX.Element> => {
+}: PageProps): Promise<JSX.Element> => {
   const id = searchParams?.id;
   const page = searchParams?.page;
 
