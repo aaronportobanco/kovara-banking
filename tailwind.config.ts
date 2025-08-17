@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -8,6 +9,14 @@ const config = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./constants/**/*.{ts,tsx}",
+  ],
+  safelist: [
+    "recent-transactions-tablist",
+    "banktab-item",
+    "banktab-item-active",
+    "banktab-item-text",
+    "banktab-item-text-active",
+    "banktab-item-text-inactive",
   ],
   theme: {
     container: {
