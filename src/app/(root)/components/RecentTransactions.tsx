@@ -1,3 +1,5 @@
+"use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
 import { Account, RecentTransactionsProps } from "#/types";
 import { Button } from "@/app/components/ui/button";
@@ -21,6 +23,9 @@ const RecentTransactions = ({
   const indexFirstTransaction = indexLastTransaction - rowsPerPage;
 
   const currentTransactions = transactions.slice(indexFirstTransaction, indexLastTransaction);
+  const tabValues = accounts.map((account: Account) => account.appwriteItemId);
+  const isValidTab = tabValues.includes(appwriteItemId);
+
   return (
     <section className="recent-transactions">
       <header className="flex items-center justify-between">
@@ -35,7 +40,7 @@ const RecentTransactions = ({
           <ChevronRight />
         </Button>
       </header>
-      <Tabs defaultValue={appwriteItemId}>
+      <Tabs defaultValue={isValidTab ? appwriteItemId : tabValues[0] || ""}>
         <TabsList className="recent-transactions-tablist">
           {accounts.map((account: Account) => (
             <TabsTrigger key={account.id} value={account.appwriteItemId} asChild>
