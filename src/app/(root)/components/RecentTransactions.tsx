@@ -25,6 +25,7 @@ const RecentTransactions = ({
   const isValidTab = tabValues.includes(appwriteItemId);
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log("accounts en RecentTransactions:", accounts);
   }, [accounts]);
 
