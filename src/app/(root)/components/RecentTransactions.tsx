@@ -39,40 +39,8 @@ const RecentTransactions = ({
           <ChevronRight />
         </Button>
       </header>
-      {/* Debug siempre visible debajo del título */}
-      <div className="p-4 border-2 border-blue-500 bg-blue-50 text-blue-700 rounded-md my-4">
-        <strong>DEBUG INFO:</strong>
-        <div>
-          <b>accounts.length:</b> {accounts.length}
-        </div>
-        <div>
-          <b>accounts:</b> <code>{JSON.stringify(accounts)}</code>
-        </div>
-        <div>
-          <b>appwriteItemId:</b> <code>{String(appwriteItemId)}</code>
-        </div>
-        <div>
-          <b>tabValues:</b> <code>{JSON.stringify(tabValues)}</code>
-        </div>
-        <div>
-          <b>isValidTab:</b> <code>{String(isValidTab)}</code>
-        </div>
-      </div>
-      {/* Fallback visual para debug */}
-      {!accounts.length && (
-        <div className="p-4 border-2 border-red-500 bg-red-50 text-red-700 rounded-md my-4">
-          No hay cuentas disponibles (accounts.length === 0)
-        </div>
-      )}
-      {!isValidTab && (
-        <div className="p-4 border-2 border-yellow-500 bg-yellow-50 text-yellow-700 rounded-md my-4">
-          El appwriteItemId <b>{appwriteItemId}</b> no coincide con ningún tab.
-          <br />
-          Valores válidos: <code>{JSON.stringify(tabValues)}</code>
-        </div>
-      )}
       <Tabs defaultValue={isValidTab ? appwriteItemId : tabValues[0] || ""}>
-        <TabsList className="recent-transactions-tablist border-2 border-red-500">
+        <TabsList className="recent-transactions-tablist">
           {accounts.map((account: Account) => (
             <TabsTrigger key={account.id} value={account.appwriteItemId} asChild>
               <BankTabItem key={account.id} account={account} appwriteItemId={appwriteItemId} />
