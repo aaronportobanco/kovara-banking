@@ -21,6 +21,10 @@ const RecentTransactions = ({
   const indexFirstTransaction = indexLastTransaction - rowsPerPage;
 
   const currentTransactions = transactions.slice(indexFirstTransaction, indexLastTransaction);
+  // Fallback visual y de datos para debug
+  const tabValues = accounts.map((account: Account) => account.appwriteItemId);
+  const isValidTab = tabValues.includes(appwriteItemId);
+
   return (
     <section className="recent-transactions">
       <header className="flex items-center justify-between">
@@ -35,8 +39,21 @@ const RecentTransactions = ({
           <ChevronRight />
         </Button>
       </header>
-      <Tabs defaultValue={appwriteItemId}>
-        <TabsList className="recent-transactions-tablist">
+      {/* Fallback visual para debug */}
+      {!accounts.length && (
+        <div className="p-4 border-2 border-red-500 bg-red-50 text-red-700 rounded-md my-4">
+          No hay cuentas disponibles (accounts.length === 0)
+        </div>
+      )}
+      {!isValidTab && (
+        <div className="p-4 border-2 border-yellow-500 bg-yellow-50 text-yellow-700 rounded-md my-4">
+          El appwriteItemId <b>{appwriteItemId}</b> no coincide con ningún tab.
+          <br />
+          Valores válidos: <code>{JSON.stringify(tabValues)}</code>
+        </div>
+      )}
+      <Tabs defaultValue={isValidTab ? appwriteItemId : tabValues[0] || ""}>
+        <TabsList className="recent-transactions-tablist border-2 border-red-500">
           {accounts.map((account: Account) => (
             <TabsTrigger key={account.id} value={account.appwriteItemId} asChild>
               <BankTabItem key={account.id} account={account} appwriteItemId={appwriteItemId} />
