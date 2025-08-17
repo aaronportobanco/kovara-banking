@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/ta
 import { Account, RecentTransactionsProps } from "#/types";
 import { Button } from "@/app/components/ui/button";
 import Link from "next/link";
-import React, { JSX, useEffect } from "react";
+import React, { JSX } from "react";
 import BankTabItem from "./BankTabItem";
 import BankInfo from "./BankInfo";
 import TransactionsTable from "./TransactionsTable";
@@ -26,11 +26,6 @@ const RecentTransactions = ({
   const tabValues = accounts.map((account: Account) => account.appwriteItemId);
   const isValidTab = tabValues.includes(appwriteItemId);
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log("accounts en RecentTransactions:", accounts);
-  }, [accounts]);
-
   return (
     <section className="recent-transactions">
       <header className="flex items-center justify-between">
@@ -46,16 +41,12 @@ const RecentTransactions = ({
         </Button>
       </header>
       <Tabs defaultValue={isValidTab ? appwriteItemId : tabValues[0] || ""}>
-        <TabsList className="recent-transactions-tablist border-2 border-red-500">
-          {accounts.length > 0 ? (
-            accounts.map((account: Account) => (
-              <TabsTrigger key={account.id} value={account.appwriteItemId} asChild>
-                <BankTabItem key={account.id} account={account} appwriteItemId={appwriteItemId} />
-              </TabsTrigger>
-            ))
-          ) : (
-            <span className="text-red-500 px-2">No hay tabs disponibles</span>
-          )}
+        <TabsList className="recent-transactions-tablist">
+          {accounts.map((account: Account) => (
+            <TabsTrigger key={account.id} value={account.appwriteItemId} asChild>
+              <BankTabItem key={account.id} account={account} appwriteItemId={appwriteItemId} />
+            </TabsTrigger>
+          ))}
         </TabsList>
         {accounts.map((account: Account) => (
           <TabsContent key={account.id} value={account.appwriteItemId} className="space-y-4">
