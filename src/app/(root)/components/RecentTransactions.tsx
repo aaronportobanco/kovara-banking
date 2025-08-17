@@ -1,3 +1,5 @@
+"use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
 import { Account, RecentTransactionsProps } from "#/types";
 import { Button } from "@/app/components/ui/button";
