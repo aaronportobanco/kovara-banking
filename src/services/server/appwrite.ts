@@ -10,7 +10,7 @@ import { cookies } from "next/headers";
  * If the session is invalid, it will throw an error.
  */
 
-export async function createSessionClient() {
+export async function createSessionClient(): Promise<{ account: Account }> {
   // Create a new Appwrite client instance with the endpoint and project ID
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
@@ -37,7 +37,11 @@ export async function createSessionClient() {
  * This is useful for administrative tasks such as user management, database operations, etc.
  */
 
-export async function createAdminClient() {
+export async function createAdminClient(): Promise<{
+  account: Account;
+  database: Databases;
+  users: Users;
+}> {
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!)

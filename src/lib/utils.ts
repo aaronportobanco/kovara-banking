@@ -109,7 +109,8 @@ export function formatAmount(amount: number): string {
  * @example
  * parseStringify({ a: 1 }); // { a: 1 }
  */
-export const parseStringify = (value: unknown) => JSON.parse(JSON.stringify(value));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const parseStringify = (value: unknown): any => JSON.parse(JSON.stringify(value));
 
 /**
  * Removes special characters from a string, leaving only alphanumeric and spaces.
@@ -140,7 +141,7 @@ interface UrlQueryParams {
  * @example
  * formUrlQuery({ params: "?a=1", key: "b", value: "2" });
  */
-export function formUrlQuery({ params, key, value }: UrlQueryParams) {
+export function formUrlQuery({ params, key, value }: UrlQueryParams): string {
   const currentUrl = qs.parse(params);
 
   currentUrl[key] = value;
@@ -163,7 +164,12 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams) {
  * @example
  * getAccountTypeColors("depository");
  */
-export function getAccountTypeColors(type: AccountTypes) {
+export function getAccountTypeColors(type: AccountTypes): {
+  bg: string;
+  lightBg: string;
+  title: string;
+  subText: string;
+} {
   switch (type) {
     case "depository":
       return {
@@ -245,7 +251,7 @@ export function countTransactionCategories(transactions: Transaction[]): Categor
  * @example
  * extractCustomerIdFromUrl("/customers/12345"); // "12345"
  */
-export function extractCustomerIdFromUrl(url: string) {
+export function extractCustomerIdFromUrl(url: string): string {
   // Split the URL string by '/'
   const parts = url.split("/");
 
@@ -264,7 +270,7 @@ export function extractCustomerIdFromUrl(url: string) {
  * @example
  * encryptId("abc123");
  */
-export function encryptId(id: string) {
+export function encryptId(id: string): string {
   return btoa(id);
 }
 
@@ -277,7 +283,7 @@ export function encryptId(id: string) {
  * @example
  * decryptId("YWJjMTIz"); // "abc123"
  */
-export function decryptId(id: string) {
+export function decryptId(id: string): string {
   return atob(id);
 }
 
@@ -290,7 +296,7 @@ export function decryptId(id: string) {
  * @example
  * getTransactionStatus(new Date());
  */
-export const getTransactionStatus = (date: Date) => {
+export const getTransactionStatus = (date: Date): string => {
   const today = new Date();
   const twoDaysAgo = new Date(today);
   twoDaysAgo.setDate(today.getDate() - 2);

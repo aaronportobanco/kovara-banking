@@ -3,8 +3,8 @@
 import React, { JSX } from "react";
 
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/app/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/ui/popover";
 import { FormFieldProps } from "#/types";
 import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import {
@@ -14,8 +14,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/app/components/ui/form";
+import { Input } from "@/app/components/ui/input";
 import { MAX_AGE, MIN_AGE } from "#/constants";
 import { formatDateTime } from "@/lib/utils";
 
