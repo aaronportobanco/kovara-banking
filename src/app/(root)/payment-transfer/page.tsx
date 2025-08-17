@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderBox from "../components/HeaderBox";
+import HeaderBox from "../transactions-history/components/HeaderBox";
 import PaymentTransferForm from "./PaymentTransferForm";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { getAccounts } from "@/services/actions/bank.actions";

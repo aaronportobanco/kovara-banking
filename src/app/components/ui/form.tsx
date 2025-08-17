@@ -13,7 +13,7 @@ import {
 } from "react-hook-form";
 
 import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
+import { Label } from "./label";
 
 const Form = FormProvider;
 
@@ -31,7 +31,7 @@ const FormField = <
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
-}: ControllerProps<TFieldValues, TName>) => {
+}: ControllerProps<TFieldValues, TName>): React.ReactElement => {
   return (
     <FormFieldContext.Provider value={{ name: props.name }}>
       <Controller {...props} />
@@ -39,7 +39,17 @@ const FormField = <
   );
 };
 
-const useFormField = () => {
+const useFormField = (): {
+  id: string;
+  name: string;
+  formItemId: string;
+  formDescriptionId: string;
+  formMessageId: string;
+  error?: unknown;
+  isTouched?: boolean;
+  isDirty?: boolean;
+  invalid?: boolean;
+} => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState } = useFormContext();
@@ -90,7 +100,7 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(!!error && "text-destructive", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -138,7 +148,12 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message ?? "") : children;
+  const body =
+    error && typeof error === "object" && "message" in error
+      ? String((error as { message?: string }).message ?? "")
+      : error
+        ? String(error)
+        : children;
 
   if (!body) {
     return null;

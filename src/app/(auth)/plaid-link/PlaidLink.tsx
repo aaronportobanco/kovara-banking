@@ -3,12 +3,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { PlaidLinkProps } from "#/types";
 import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from "react-plaid-link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { createLinkToken, exchangePublicToken } from "@/services/actions/plaid";
 import { useRouter } from "next/navigation";
 import { CreditCard, Plus } from "lucide-react";
-import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { SidebarMenuButton } from "@/app/components/ui/sidebar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/components/ui/tooltip";
 
 const PlaidLink: React.FC<PlaidLinkProps> = ({ user, variant }) => {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import ChartPie from "./charts/PieChart";
-import AnimatedCounter from "../../../components/animation/AnimatedCounter";
+import AnimatedCounter from "../../components/animation/AnimatedCounter";
 import React from "react";
 import { TotalBalanceBoxProps } from "#/types";
 import PlaidLink from "@/app/(auth)/plaid-link/PlaidLink";

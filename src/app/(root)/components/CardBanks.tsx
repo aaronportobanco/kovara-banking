@@ -5,9 +5,9 @@ import Link from "next/link";
 import { formatAmount } from "@/lib/utils";
 import Image from "next/image";
 import { CreditCardProps } from "#/types";
-import Copy from "../Copy";
+import Copy from "./Copy";
 import { useMonthlySpending } from "@/hooks/useMonthlySpending";
-import SpendingProgress from "../SpendingProgress";
+import SpendingProgress from "../my-banks/components/SpendingProgress";
 
 const CardBanks: React.FC<CreditCardProps> = ({
   account,

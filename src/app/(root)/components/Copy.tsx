@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { JSX, useState } from "react";
 
 const Copy = ({ title }: { title: string }): JSX.Element => {

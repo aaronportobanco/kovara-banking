@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-} from "@/components/ui/select";
+} from "@/app/components/ui/select";
 import { formUrlQuery, formatAmount } from "@/lib/utils";
 import { Account, BankDropdownProps } from "#/types";
 

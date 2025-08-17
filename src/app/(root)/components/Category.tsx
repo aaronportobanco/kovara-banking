@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { CategoryProps } from "#/types";
 import { JSX } from "react";
 import { topCategoryStyles } from "#/constants";
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@/app/components/ui/progress";
 
 const Category = ({ category }: CategoryProps): JSX.Element => {
   const {

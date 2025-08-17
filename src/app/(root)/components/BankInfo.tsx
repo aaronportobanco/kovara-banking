@@ -7,7 +7,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { cn, formUrlQuery, formatAmount, getAccountTypeColors } from "@/lib/utils";
 import { AccountTypes, BankInfoProps } from "#/types";
 import { JSX } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps): JSX.Element => {
   const router = useRouter();

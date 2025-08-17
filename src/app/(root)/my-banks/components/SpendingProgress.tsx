@@ -2,7 +2,7 @@
 
 import React from "react";
 import { formatAmount } from "@/lib/utils";
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@/app/components/ui/progress";
 import { SpendingProgressProps } from "#/types";
 
 const SpendingProgress: React.FC<SpendingProgressProps> = ({

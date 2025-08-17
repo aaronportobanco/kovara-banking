@@ -9,8 +9,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+} from "@/app/components/ui/select";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/app/components/ui/form";
 import { FormFieldProps, StateItem } from "#/types";
 import { SelectSearchInput } from "./SelectSearchInput";
 import statesAndCitiesData from "#/US_States_and_Cities.json";

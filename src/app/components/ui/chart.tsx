@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 "use client";
 
 import * as React from "react";
@@ -63,7 +64,13 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = "Chart";
 
-const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
+const ChartStyle = ({
+  id,
+  config,
+}: {
+  id: string;
+  config: ChartConfig;
+}): React.ReactElement | null => {
   const colorConfig = Object.entries(config).filter(([, config]) => config.theme || config.color);
 
   if (!colorConfig.length) {

@@ -1,5 +1,5 @@
-import AppSidebar from "@/components/layout/sidebar/AppSidebar";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import AppSidebar from "@/app/components/sidebar/AppSidebar";
+import { SidebarProvider, SidebarInset } from "@/app/components/ui/sidebar";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

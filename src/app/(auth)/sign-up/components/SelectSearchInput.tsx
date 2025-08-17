@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/app/components/ui/input";
 import type { InputHTMLAttributes } from "react";
 const SelectSearchInput = React.forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
   ({ className, ...props }, ref) => {

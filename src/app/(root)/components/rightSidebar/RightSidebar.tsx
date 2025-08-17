@@ -1,5 +1,5 @@
 import React from "react";
-import CardBanks from "./CardBanks";
+import CardBanks from "../CardBanks";
 import { CategoryCount, RightSidebarProps } from "#/types";
 import { countTransactionCategories } from "@/lib/utils";
 import Category from "../Category";

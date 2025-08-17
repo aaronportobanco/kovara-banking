@@ -1,6 +1,6 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
 import { Account, RecentTransactionsProps } from "#/types";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import Link from "next/link";
 import React, { JSX } from "react";
 import BankTabItem from "./BankTabItem";

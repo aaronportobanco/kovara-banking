@@ -1,5 +1,5 @@
 import { getLoggedInUser } from "@/services/actions/user.actions";
-import HeaderBox from "./components/HeaderBox";
+import HeaderBox from "./transactions-history/components/HeaderBox";
 import TotalBalanceBox from "./components/TotalBalanceBox";
 import RightSidebar from "./components/rightSidebar/RightSidebar";
 import React, { JSX } from "react";

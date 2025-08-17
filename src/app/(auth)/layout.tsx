@@ -1,4 +1,4 @@
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/app/components/ui/sonner";
 import Image from "next/image";
 
 export default function RootLayout({

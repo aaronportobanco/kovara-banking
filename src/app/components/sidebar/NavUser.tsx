@@ -3,10 +3,10 @@
 import { JSX, useEffect, useState } from "react";
 import { LogOutIcon } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import { getLoggedInUser, signOut } from "@/services/actions/user.actions";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 import { User } from "#/types";
 
 export const NavUser = (): JSX.Element => {

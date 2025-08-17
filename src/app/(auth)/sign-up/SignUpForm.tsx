@@ -3,11 +3,11 @@
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, SignUpSchemaType } from "@/schemas/signUpSchema";
-import { Form } from "@/components/ui/form";
+import { Form } from "@/app/components/ui/form";
 import { useForm } from "react-hook-form";
 import FormFieldInput from "../components/FormFieldInput";
 import FormDatePicker from "./components/FormDatePicker";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FormCountrySelect } from "./components/FormSelectState";

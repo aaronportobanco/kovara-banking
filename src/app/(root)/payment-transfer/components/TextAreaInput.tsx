@@ -5,11 +5,11 @@ import {
   FormLabel,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
+} from "@/app/components/ui/form";
 import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import { TextAreaInputProps } from "#/types";
 import { JSX } from "react";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/app/components/ui/textarea";
 
 const TextAreaInput = <T extends FieldValues>({
   control,

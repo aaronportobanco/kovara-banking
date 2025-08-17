@@ -1,8 +1,8 @@
 "use client";
 
 import FormFieldInput from "@/app/(auth)/components/FormFieldInput";
-import { Button } from "@/components/ui/button";
-import { Form, FormDescription, FormLabel } from "@/components/ui/form";
+import { Button } from "@/app/components/ui/button";
+import { Form, FormDescription, FormLabel } from "@/app/components/ui/form";
 import { transferSchema, TransferSchemaType } from "@/schemas/transferSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -17,7 +17,7 @@ import { getBank, getBankByAccountId } from "@/services/actions/bank.actions";
 import { createTransfer } from "@/services/actions/dwolla.actions";
 import { createTransaction } from "@/services/actions/transactions.actions";
 import TextAreaInput from "./components/TextAreaInput";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/app/components/ui/separator";
 
 const PaymentTransferForm: React.FC<PaymentTransferFormProps> = ({ accounts }) => {
   const router = useRouter();

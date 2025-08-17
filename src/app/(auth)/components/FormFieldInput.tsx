@@ -5,8 +5,8 @@ import {
   FormLabel,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/app/components/ui/form";
+import { Input } from "@/app/components/ui/input";
 import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import { FormFieldProps } from "#/types";
 import { JSX } from "react";

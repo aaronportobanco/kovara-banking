@@ -3,10 +3,10 @@
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchemaType } from "@/schemas/loginSchema";
-import { Form } from "@/components/ui/form";
+import { Form } from "@/app/components/ui/form";
 import { useForm } from "react-hook-form";
 import FormFieldInput from "../components/FormFieldInput";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { signIn } from "@/services/actions/user.actions";
 import Link from "next/link";

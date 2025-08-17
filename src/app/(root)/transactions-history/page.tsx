@@ -1,5 +1,5 @@
 import React, { JSX } from "react";
-import HeaderBox from "../components/HeaderBox";
+import HeaderBox from "./components/HeaderBox";
 import { SearchParamProps } from "#/types";
 import { redirect } from "next/navigation";
 import { getAccount, getAccounts } from "@/services/actions/bank.actions";

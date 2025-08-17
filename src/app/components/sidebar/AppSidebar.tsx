@@ -12,13 +12,13 @@ import {
   SidebarMenuItem,
   SidebarFooter,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from "../ui/sidebar";
 import { items } from "../../../../constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavUser } from "./NavUser";
-import { Separator } from "@/components/ui/separator";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Separator } from "../ui/separator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import PlaidLink from "@/app/(auth)/plaid-link/PlaidLink";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { User } from "#/types";

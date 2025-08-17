@@ -1,10 +1,10 @@
 import React, { JSX } from "react";
-import HeaderBox from "../components/HeaderBox";
+import HeaderBox from "../transactions-history/components/HeaderBox";
 import { getLoggedInUser } from "@/services/actions/user.actions";
 import { redirect } from "next/navigation";
 import { getAccounts } from "@/services/actions/bank.actions";
 import { Account } from "#/types";
-import CardBanks from "../components/rightSidebar/CardBanks";
+import CardBanks from "../components/CardBanks";
 
 const MyBanksPage = async (): Promise<JSX.Element> => {
   const loggedIn = await getLoggedInUser();
