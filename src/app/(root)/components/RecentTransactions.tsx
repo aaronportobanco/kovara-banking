@@ -39,6 +39,25 @@ const RecentTransactions = ({
           <ChevronRight />
         </Button>
       </header>
+      {/* Debug siempre visible debajo del título */}
+      <div className="p-4 border-2 border-blue-500 bg-blue-50 text-blue-700 rounded-md my-4">
+        <strong>DEBUG INFO:</strong>
+        <div>
+          <b>accounts.length:</b> {accounts.length}
+        </div>
+        <div>
+          <b>accounts:</b> <code>{JSON.stringify(accounts)}</code>
+        </div>
+        <div>
+          <b>appwriteItemId:</b> <code>{String(appwriteItemId)}</code>
+        </div>
+        <div>
+          <b>tabValues:</b> <code>{JSON.stringify(tabValues)}</code>
+        </div>
+        <div>
+          <b>isValidTab:</b> <code>{String(isValidTab)}</code>
+        </div>
+      </div>
       {/* Fallback visual para debug */}
       {!accounts.length && (
         <div className="p-4 border-2 border-red-500 bg-red-50 text-red-700 rounded-md my-4">
