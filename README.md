@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="./public/logo/favicon-light.svg" alt="Kovara Banking Logo" width="120" />
+  <img src="./public/logo/favicon-light.svg" alt="Kovara Banking Logo" width="120" />
 </p>
 
 # Kovara Banking
@@ -8,140 +8,205 @@
 
 ---
 
-## 🚀 Descripción
+## Overview
+Kovara Banking is a modern online banking web app built with Next.js (App Router) and TypeScript. It lets users sign up, link bank accounts via Plaid (Sandbox), view balances and transactions, and simulate transfers with Dwolla (Sandbox). The UI is responsive and accessible using shadcn/ui and Tailwind CSS. Forms are validated with Zod and React Hook Form, and errors are monitored with Sentry.
 
-Kovara Banking es una aplicación web de banca en línea moderna, desarrollada con Next.js y TypeScript. Permite a los usuarios gestionar cuentas bancarias, visualizar transacciones y realizar transferencias, integrando servicios como Appwrite, Plaid y Dwolla (en modo Sandbox). La interfaz es responsiva y accesible, construida con shadcn/ui y Tailwind CSS, y cuenta con validación robusta de formularios y monitoreo de errores con Sentry.
+- Authentication and user profiles with Appwrite
+- Bank linking via Plaid (Sandbox)
+- Simulated transfers via Dwolla (Sandbox)
+- Bank, account, and transaction views
+- Modern, responsive UI (Tailwind + shadcn/ui)
+- Strong validation (Zod + React Hook Form)
+- Observability (Sentry)
 
-### ⚙️ Características principales
-
-- Autenticación y registro de usuarios
-- Vinculación de cuentas bancarias (Plaid Sandbox)
-- Transferencias simuladas (Dwolla Sandbox)
-- Visualización de bancos, cuentas y transacciones
-- Interfaz moderna y responsiva
-- Validación de formularios con Zod y React Hook Form
-- Monitoreo de errores con Sentry
-
-### 🏷️ Tecnologías clave
-
-`Next.js` `TypeScript` `Appwrite` `Plaid` `Dwolla` `shadcn/ui` `Tailwind CSS` `React Hook Form` `Zod` `Sentry`
+### Tech stack
+- Language: TypeScript
+- Framework: Next.js 15 (App Router) + React 19
+- UI: Tailwind CSS, shadcn/ui, Radix UI
+- Backend services: Appwrite (auth + DB), Plaid, Dwolla
+- Monitoring: Sentry
+- Tooling: ESLint, Prettier, Turbopack (dev)
+- Package manager: npm (package-lock.json present)
 
 ---
 
-## 🛠️ Instalación
+## Requirements
+- Node.js 18.18+ (recommended by Next.js 15)
+- npm 9+ (npm 10+ recommended)
+- Accounts/keys for:
+  - Appwrite project (endpoint, project ID, API key, DB and collection IDs)
+  - Plaid (client ID and secret; Sandbox recommended for local dev)
+  - Dwolla (key/secret; DWOLLA_ENV=sandbox for local dev)
 
-### Requisitos previos
+---
 
-- Node.js >= 18.x
-- npm >= 9.x
-
-### Pasos
+## Getting started
 
 ```bash
+# 1) Clone and install
 git clone https://github.com/aaronportobanco/kovara-banking.git
 cd kovara-banking
 npm install
+
+# 2) Create your environment file
+cp .env.local .env.local.backup  # keep your secrets safe; do NOT commit .env.local
+# Then edit .env.local and fill values (see template below)
+
+# 3) Run the dev server
 npm run dev
+# Visit http://localhost:3000
 ```
 
-### Variables de entorno
-
-Configura los siguientes valores en un archivo `.env.local`:
+### Environment variables (.env.local)
+These are read by the app. Never commit real secrets. Values below are placeholders.
 
 ```env
-APPWRITE_ENDPOINT=your_appwrite_endpoint
-APPWRITE_PROJECT_ID=your_appwrite_project_id
-PLAID_CLIENT_ID=your_plaid_client_id
-PLAID_SECRET=your_plaid_secret
-DWOLLA_KEY=your_dwolla_key
-DWOLLA_SECRET=your_dwolla_secret
+# Appwrite (public and server)
+NEXT_PUBLIC_APPWRITE_ENDPOINT=<https://cloud.appwrite.io/v1>
+NEXT_PUBLIC_APPWRITE_PROJECT=<your_appwrite_project_id>
+NEXT_APPWRITE_KEY=<your_appwrite_api_key>   # server-side use
+
+# Appwrite Database/Collections (server)
+APPWRITE_DATABASE_ID=<db_id>
+APPWRITE_USER_COLLECTION_ID=<collection_id_users>
+APPWRITE_BANK_COLLECTION_ID=<collection_id_banks>
+APPWRITE_TRANSACTION_COLLECTION_ID=<collection_id_transactions>
+
+# Plaid (Sandbox recommended for local dev)
+PLAID_CLIENT_ID=<your_plaid_client_id>
+PLAID_SECRET=<your_plaid_secret>
+
+# Dwolla
+DWOLLA_ENV=sandbox  # or production
+DWOLLA_KEY=<your_dwolla_key>
+DWOLLA_SECRET=<your_dwolla_secret>
+```
+
+Notes:
+- Sentry is configured via code (sentry.server.config.ts / sentry.edge.config.ts). Consider moving DSN to an env var in production. TODO
+- An example .env file is not provided to avoid leaking secrets. Use the template above.
+
+---
+
+## How to run
+- Development: `npm run dev` (Next.js with Turbopack)
+- Production build: `npm run build` then `npm start`
+
+### npm scripts
+- `dev`: Start the Next.js dev server (Turbopack)
+- `build`: Production build
+- `start`: Start production server
+- `lint`: Run ESLint (Next.js config)
+- `lint:fix`: Run ESLint with --fix
+- `format`: Prettier write
+- `format:check`: Prettier check
+
+---
+
+## Entry points and routes
+- App Router root layout: `src/app/layout.tsx`
+- Home dashboard: `src/app/(root)/page.tsx`
+- Auth pages:
+  - `src/app/(auth)/sign-in/page.tsx`
+  - `src/app/(auth)/sign-up/page.tsx`
+  - `src/app/(auth)/plaid-link/page.tsx`
+- Banking flows:
+  - `src/app/(root)/payment-transfer/page.tsx`
+  - `src/app/(root)/my-banks/page.tsx`
+  - `src/app/(root)/transactions-history/page.tsx`
+- Sentry/observability bootstrap: `src/instrumentation.ts`
+
+Server-side actions and integrations live under `src/services`:
+- `src/services/server/appwrite.ts` (Appwrite clients)
+- `src/services/server/plaid.ts` (Plaid client)
+- `src/services/actions/*.ts` (user, bank, transactions, dwolla)
+
+---
+
+## Project structure (high level)
+```
+.
+├─ LICENSE
+├─ README.md
+├─ components.json                 # shadcn/ui config
+├─ next.config.ts                  # Next.js + Sentry plugin
+├─ postcss.config.mjs
+├─ tailwind.config.ts
+├─ tsconfig.json
+├─ eslint.config.mjs
+├─ public/                         # static assets (logos, etc.)
+├─ src/
+│  ├─ app/
+│  │  ├─ (auth)/sign-in/page.tsx
+│  │  ├─ (auth)/sign-up/page.tsx
+│  │  ├─ (auth)/plaid-link/page.tsx
+│  │  ├─ (root)/page.tsx
+│  │  ├─ (root)/payment-transfer/page.tsx
+│  │  ├─ (root)/my-banks/page.tsx
+│  │  ├─ (root)/transactions-history/page.tsx
+│  │  ├─ components/ ...
+│  │  ├─ globals.css
+│  │  └─ layout.tsx
+│  ├─ services/
+│  │  ├─ server/ (appwrite, plaid)
+│  │  └─ actions/ (user, bank, transactions, dwolla)
+│  └─ types/ ...
+└─ ...
 ```
 
 ---
 
-## 📖 Uso
+## Testing
+No test framework is configured in this repository (no Jest/Vitest/Playwright dependencies found).
 
-1. Inicia el servidor de desarrollo:
-   ```bash
-   npm run dev
-   ```
-2. Accede a [http://localhost:3000](http://localhost:3000) en tu navegador.
-3. Regístrate y vincula una cuenta bancaria de prueba (Sandbox).
+- TODO: Add unit tests (e.g., Vitest + React Testing Library)
+- TODO: Add E2E tests (e.g., Playwright) for critical user flows
 
-#### Ejemplo de registro
-
-```tsx
-import { SignUpForm } from "@/app/(auth)/sign-up/SignUpForm";
-// ...
-<SignUpForm />;
-```
-
-#### Placeholder de screenshot
-
-![Demo UI](./docs/screenshot-placeholder.png)
-
-#### Flujo de trabajo típico
-
-- Registro → Vinculación bancaria (Plaid Sandbox) → Visualización de cuentas → Transferencias simuladas
-
-> **Nota:** Los servicios bancarios funcionan en modo Sandbox y no están listos para usuarios finales ni operaciones reales.
+To run tests (future):
+- TODO: Add `npm test` script once a test framework is added
 
 ---
 
-## ⚙️ Configuración
-
-- Archivos principales: `next.config.ts`, `tailwind.config.ts`, `src/app/layout.tsx`, `.env.local`
-- Personaliza los estilos en `src/app/globals.css` y componentes en `src/components/ui/`
-
----
-
-## 🤝 Contribución
-
-¡Las contribuciones son bienvenidas!
-
-1. Haz un fork del repositorio
-2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
-3. Realiza tus cambios siguiendo los estándares de código (Prettier, ESLint)
-4. Abre un Pull Request con una descripción clara
-
-### Estándares de código
-
-- Usa TypeScript y sigue las convenciones de Next.js
-- Ejecuta `npm run lint` y `npm run format` antes de enviar PRs
-
-### Sistema de issues
-
-- Usa las plantillas de issues para reportar bugs o sugerir mejoras
+## Configuration notes
+- Tailwind/shadcn: see `tailwind.config.ts`, `src/app/globals.css`, and `components.json`.
+- ESLint/Prettier: run `npm run lint` and `npm run format` before PRs.
+- Sentry: manual setup is enabled via `withSentryConfig` in `next.config.ts` and initialization files in the repo. Review sampling before production.
 
 ---
 
-## 🗺️ Roadmap
+## Contributing
+Contributions are welcome!
 
-- [x] Autenticación y registro
-- [x] Vinculación bancaria (Sandbox)
-- [x] Visualización de cuentas y transacciones
-- [ ] Transferencias reales
-- [ ] Integración con bancos adicionales
-- [ ] Mejoras de seguridad y auditoría
-- [ ] Internacionalización
+1. Fork the repo
+2. Create a branch (`git checkout -b feat/your-change`)
+3. Make changes following the coding standards (ESLint, Prettier)
+4. Open a Pull Request with a clear description
 
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia [MIT](./LICENSE).
+### Coding standards
+- Use TypeScript and Next.js conventions
+- Run `npm run lint` and `npm run format` before submitting PRs
 
 ---
 
-## 📬 Contacto
+## Roadmap
+- [x] Auth & registration
+- [x] Bank linking (Sandbox)
+- [x] Account and transaction views
+- [ ] Real transfers (Dwolla production)
+- [ ] Additional bank integrations
+- [ ] Security & audit improvements
+- [ ] Internationalization (i18n)
 
-| Mantenedor       | Email                     | GitHub                                                 |
-| ---------------- | ------------------------- | ------------------------------------------------------ |
+---
+
+## License
+This project is licensed under the [MIT License](./LICENSE).
+
+---
+
+## Contact
+| Maintainer | Email | GitHub |
+| ---------- | ------------------------- | ------------------------------------------------------ |
 | Aaron Portobanco | aaronportobanco@gmail.com | [@aaronportobanco](https://github.com/aaronportobanco) |
 
-Síguenos en [Twitter](https://twitter.com/kovara_banking) <!-- Placeholder -->
-
----
-
-> [!WARNING]
-> Esta app utiliza servicios bancarios en modo Sandbox y no está lista para usuarios finales ni operaciones reales.
+Note: Banking services run in Sandbox mode for development and are not intended for real users or real money movement.
