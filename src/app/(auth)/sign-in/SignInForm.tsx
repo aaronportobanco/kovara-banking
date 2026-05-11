@@ -61,6 +61,15 @@ const SignInForm: React.FC = () => {
           <p className="text-balance text-sm text-muted-foreground">
             Enter your email below to login to your account
           </p>
+          <div className="mt-2 rounded-md bg-muted p-3 text-sm text-left text-muted-foreground">
+            <p className="font-medium text-foreground mb-1">Demo Credentials:</p>
+            <p>
+              Email: <strong className="text-foreground">example@gmail.com</strong>
+            </p>
+            <p>
+              Password: <strong className="text-foreground">example123</strong>
+            </p>
+          </div>
         </div>
       </header>
       <div>
